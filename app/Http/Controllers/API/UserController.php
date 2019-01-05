@@ -3,15 +3,13 @@
 namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 
-class UserController extends Controller
+class UserController extends ApiController
 {
-
-    public $successStatus = 200;
 
     /**
      * login api
@@ -39,13 +37,14 @@ class UserController extends Controller
 
                 if($token){
                     $user->update();
-                    return response()->json(['error' => 0, 'payload' => ['token' => $token]], $this-> successStatus);
+                    return response()->json(['error' => 0, 'payload' => ['token' => $token]], parent::$successStatus);
                 }
             }
         }
 
-        return response()->json(['error'=>1, 'description' => 'Unauthorised', 'payload' => array('token' => '')], 401);
+        return response()->json(['error'=>1, 'description' => 'Unauthorised', 'payload' => array('token' => '')], parent::$errorStatus);
     }
+
     /**
      * Register api
      *
@@ -54,7 +53,7 @@ class UserController extends Controller
     public function register(Request $request)
     {
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
-            return response()->json(['error'=>2, 'description' => 'User is already exists', 'payload' => array('token' => '')], 401);
+            return response()->json(['error'=>2, 'description' => 'User is already exists', 'payload' => array('token' => '')], parent::$errorStatus);
         }
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -63,7 +62,7 @@ class UserController extends Controller
             'c_password' => 'required|same:password',
         ]);
         if ($validator->fails()) {
-            return response()->json(['error' => 2, 'description' => $validator->errors(), 'payload'=>['token' => '']], 401);
+            return response()->json(['error' => 2, 'description' => $validator->errors(), 'payload'=>['token' => '']], parent::$errorStatus);
         }
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
@@ -74,8 +73,9 @@ class UserController extends Controller
         $success['name'] =  $user->name;
         $success['activation_token_desctop'] =  $user->activation_token_desctop;
         $success['activation_token_mobile'] =  $user->activation_token_mobile;
-        return response()->json(['error' => 0, 'payload'=>$success], $this-> successStatus);
+        return response()->json(['error' => 0, 'payload'=>$success], parent::$successStatus);
     }
+
     /**
      * details api
      *
@@ -99,10 +99,26 @@ class UserController extends Controller
             }
 
             if($user){
-                return response()->json(['error'=> 0, 'description' => $user, 'payload' => array('check' => 'Ok')], $this-> successStatus);
+                return response()->json(['error'=> 0, 'description' => $user, 'payload' => array('check' => 'Ok')], parent::$successStatus);
             }
         }
 
-        return response()->json(['error'=> 1, 'description' => $input, 'payload' => array('check' => 'Error')], 401);
+        return response()->json(['error'=> 1, 'description' => $input, 'payload' => array('check' => 'Error')], parent::$errorStatus);
+    }
+
+    /**
+     * details api
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function verifyConn(Request $request)
+    {
+        $input = $request->all();
+
+        if(!empty($input)){
+            return parent::answer(parent::$success, '', json_encode($input), parent::$successCheck, parent::$successStatus);
+        }
+
+        return parent::answer(parent::$error, '', json_encode($input), parent::$errorCheck, parent::$errorStatus);
     }
 }

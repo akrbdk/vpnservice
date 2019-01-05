@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App;
 use Session;
 use Cookie;
+use Request;
+use Config;
 
 class Controller extends BaseController
 {
@@ -16,6 +18,13 @@ class Controller extends BaseController
 
     public function __construct()
     {
+        if(empty(Session::get('locale'))){
+            $browser_lang = substr(Request::server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+            $locale = (!empty($browser_lang) && in_array($browser_lang, Config::get('app.locales'))) ? $browser_lang : Config::get('app.locale');
+
+            session(['locale' => $locale]);
+        }
+
         App::setLocale(Session::get('locale'));
     }
 }

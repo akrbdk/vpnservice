@@ -36,10 +36,10 @@
         <div class="container">
             <nav id="visitor-lang">
 					<span class="lag-active">
-                         @if(Session::get('locale') == 'br')
-                            <img src="{{ asset('site/img/br.jpg') }}" alt="">Português (BR)
-                         @else
+                         @if(Session::get('locale') == 'en')
                             <img src="{{ asset('site/img/eua.jpg') }}" alt="">English (EN)
+                         @else
+                            <img src="{{ asset('site/img/br.jpg') }}" alt="">Português (BR)
                          @endif
 						<ul>
 							<li rel="portugues2">

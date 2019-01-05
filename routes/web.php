@@ -4,8 +4,7 @@ use App\Http\Controllers\PageController;
 
 Route::get('setlocale/{locale}', function ($locale) {
 
-    if (in_array($locale, ['en', 'br'])) {
-//        Session::put('locale', $locale);
+    if (in_array($locale, Config::get('app.locales'))) {
         session(['locale' => $locale]);
     }
     return redirect()->back();
