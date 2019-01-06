@@ -84,41 +84,11 @@ class UserController extends ApiController
     public function checkToken(Request $request)
     {
         $input = $request->all();
-        $user = false;
 
-        if(!empty($input['platform']) && !empty($input['token'])){
-            $input['platform'] = trim(htmlentities($input['platform']));
-
-            switch ($input['platform']) {
-                case "pc":
-                    $user = User::where('activation_token_desctop', $input['token'])->first();
-                    break;
-                case "mobile":
-                    $user = User::where('activation_token_mobile', $input['token'])->first();
-                    break;
-            }
-
-            if($user){
-                return response()->json(['error'=> 0, 'description' => $user, 'payload' => array('check' => 'Ok')], parent::$successStatus);
-            }
+        if($user = parent::checkUserPlatform($input)){
+            return response()->json(['error'=> 0, 'description' => $user, 'payload' => array('check' => 'Ok')], parent::$successStatus);
         }
 
         return response()->json(['error'=> 1, 'description' => $input, 'payload' => array('check' => 'Error')], parent::$errorStatus);
-    }
-
-    /**
-     * details api
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function verifyConn(Request $request)
-    {
-        $input = $request->all();
-
-        if(!empty($input)){
-            return parent::answer(parent::$success, '', json_encode($input), parent::$successCheck, parent::$successStatus);
-        }
-
-        return parent::answer(parent::$error, '', json_encode($input), parent::$errorCheck, parent::$errorStatus);
     }
 }

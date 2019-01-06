@@ -26,9 +26,6 @@ Route::get('v1/account/create', 'API\UserController@register');
 Route::post('v1/account/details', 'API\UserController@checkToken');
 Route::get('v1/account/details', 'API\UserController@checkToken');
 
-Route::post('v1/user/verify_conn', 'API\UserController@verifyConn');
-Route::get('v1/user/verify_conn', 'API\UserController@verifyConn');
-
 //Route::group(['middleware' => 'auth:api'], function(){
 //    Route::post('v1/account/details', 'API\UserController@checkToken');
 //    Route::get('v1/account/details', 'API\UserController@checkToken');
@@ -43,3 +40,8 @@ Route::get('v1/server/info', 'API\ServerController@info');
 Route::post('v1/server/connect', 'API\ServerController@connect');
 Route::get('v1/server/connect', 'API\ServerController@connect');
 
+Route::post('v1/server/list', 'API\ServerController@serverList');
+Route::get('v1/server/list', 'API\ServerController@serverList');
+
+Route::post('v1/user/verify_conn', 'API\ServerController@verifyConn');
+Route::get('v1/user/verify_conn', 'API\ServerController@verifyConn');

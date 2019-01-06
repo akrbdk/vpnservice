@@ -7,6 +7,9 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App;
+use DB;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use Session;
 use Cookie;
 use Request;
@@ -42,5 +45,37 @@ class ApiController extends BaseController
                 )
             ], $status
         );
+    }
+
+    protected static function checkUserPlatform($params, $checkTokenType = ''){
+
+        $user = false;
+
+        if(!empty($checkTokenType) && !empty($params['uuid']) && !empty($params['token'])){
+
+            $user = DB::table('users')
+                ->where('server_uuid', $params['uuid'])
+                ->where('activation_token_mobile', $params['token'])
+                ->orWhere(function($query) use ($params)
+                {
+                    $query->where('activation_token_desctop', $params['token'])
+                        ->where('server_uuid', $params['uuid']);
+                })
+                ->first();
+
+            return $user;
+        }
+        if(!empty($params['platform']) && !empty($params['token'])){
+            switch (trim(htmlentities($params['platform']))) {
+                case "pc":
+                    $user = DB::table('users')->where('activation_token_desctop', $params['token'])->first();
+                    break;
+                case "mobile":
+                    $user = DB::table('users')->where('activation_token_mobile', $params['token'])->first();
+                    break;
+            }
+        }
+
+        return $user;
     }
 }
