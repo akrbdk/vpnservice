@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->boolean('active')->default(false);
             $table->string('activation_token_desctop')->unique();
             $table->string('activation_token_mobile')->unique();
+            $table->string('secret_key')->unique();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

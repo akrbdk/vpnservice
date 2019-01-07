@@ -74,6 +74,34 @@
 </script>
 
 <script>
+    $('.btn-send').click(function(e){
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: '/plan',
+            data: "plan_id="+$(this).prop('id'),
+            success: function (data){
+                if(data.ret)
+                {
+                    alert('Successfull subscribed');
+                }
+                else
+                {
+                    alert('Error subscribe');
+                }
+            },
+            error: function() {
+                alert('Error subscribe');
+            }
+        });
+
+        return false;
+    });
+</script>
+
+
+<script>
     (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
         function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
         e=o.createElement(i);r=o.getElementsByTagName(i)[0];

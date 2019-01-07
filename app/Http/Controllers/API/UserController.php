@@ -36,7 +36,9 @@ class UserController extends ApiController
                 }
 
                 if($token){
+                    $user->secret_key = str_random(20);
                     $user->update();
+
                     return response()->json(['error' => 0, 'payload' => ['token' => $token]], parent::$successStatus);
                 }
             }

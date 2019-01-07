@@ -49,6 +49,14 @@ class ServerController extends ApiController
                     if (!empty($body = json_decode($response->getBody(), true)) && $content_length) {
 
                         if(!empty($body['payload']['token'])){
+
+                            $serverInfo = DB::table('server_info')->where('token', $body['payload']['token'])->first();
+                            if(empty($serverInfo)){
+                                DB::table('server_info')->insert(
+                                    array('token' => $body['payload']['token'])
+                                );
+                            }
+
                             DB::table('users')
                                 ->where('id', $user->id)
                                 ->update([
@@ -103,6 +111,10 @@ class ServerController extends ApiController
                             ->where('server_token', $user->server_token)
                             ->update($upd);
 
+                        DB::table('server_info')
+                            ->where('token', $user->server_token)
+                            ->update($upd);
+
                         return parent::answer(parent::$success, $body, '', parent::$successCheck, parent::$successStatus);
                     }
                 }
@@ -120,12 +132,19 @@ class ServerController extends ApiController
      */
     public function connect(Request $request){
 
+        if(!self::$apiAuthUser){
+            print_r($_SERVER);
+            die();
+        }
+
         $input = $request->all();
+        $server_info = DB::table('server_info')->where('server_uuid', $input['uuid'])->first();
+        $user = parent::checkUserPlatform($input, 'y');
 
-        if($user = parent::checkUserPlatform($input, 'y')){
-            $connectInfo = self::serverConnects($user);
+        if($user && !empty($server_info->token)){
+            $connectInfo = self::serverConnects($user->secret_key, $server_info->token);
 
-            if(!empty($connectInfo)){
+            if(!empty($connectInfo['user_info']['payload'])){
                 return response()->json(['error'=> 0, 'secret_key' => $user->secret_key, 'certs' => $connectInfo['user_info']['payload'], 'payload' => array('check' => 'Ok')], parent::$successStatus);
             }
         }
@@ -140,7 +159,32 @@ class ServerController extends ApiController
      * @return \Illuminate\Http\Response
      */
     public function serverList(Request $request){
+        $input = $request->all();
 
+        $user = DB::table('users')
+            ->where('activation_token_mobile', $input['token'])
+            ->orWhere(function($query) use ($input)
+            {
+                $query->where('activation_token_desctop', $input['token']);
+            })
+            ->first();
+
+        if(!empty($user)){
+
+            $serverArr = [];
+            $serverList = DB::table('server_info')->get();
+            if(!empty($serverList)){
+                foreach ($serverList as $server){
+                    $serverArr[] = json_decode($server->info, true);
+                }
+            }
+
+            if(!empty($serverArr)){
+                return response()->json(['error'=> 0, 'payload' => array('servers' => $serverArr)], parent::$successStatus);
+            }
+        }
+
+        return parent::answer(parent::$error, '','Unauthorized', parent::$errorCheck, parent::$errorStatus);
     }
 
     /**
@@ -167,27 +211,27 @@ class ServerController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    protected static function serverConnects($params = ''){
+    protected static function serverConnects($secret_key = '', $server_token=''){
 
         $answerInfo = [];
 
-        if(!empty($params)){
+        if(!empty($secret_key) && !empty($server_token)){
             $client = new Client([
-                'headers' => ['Content-Type' => 'application/json', 'Authorization' => $params->server_token],
+                'headers' => ['Content-Type' => 'application/json', 'Authorization' => $server_token],
                 'http_errors' => false
             ]);
 
             $answerInfo['disconnect'] = $client->request(
                 'POST',
                 self::$apiServer . self::$disconnectPath,
-                ['body' => json_encode(['user_key' => $params->secret_key])]
+                ['body' => json_encode(['user_key' => $secret_key])]
             );
             $answerInfo['disconnect'] = json_decode($answerInfo['disconnect']->getBody(), true);
 
             $answerInfo['user_info'] = $client->request(
                 'POST',
                 self::$apiServer . self::$userInfoPath,
-                ['body' => json_encode(['user_key' => $params->secret_key])]
+                ['body' => json_encode(['user_key' => $secret_key])]
             );
             $answerInfo['user_info'] = json_decode($answerInfo['user_info']->getBody(), true);
         }

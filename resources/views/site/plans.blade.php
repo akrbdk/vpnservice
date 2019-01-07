@@ -36,7 +36,7 @@
 							</ul>
 
 							<span class="trial">3 days free</span>
-							<a href="{{ url('/download') }}" class="btn-orange">test 3 days free</a>
+							<a href="{{ url('/login') }}" class="btn-orange">test 3 days free</a>
 						</li>
 						<li class="plan-basic most-pop">
 							<div class="title">Basic</div>

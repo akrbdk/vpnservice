@@ -20,7 +20,9 @@ class ApiController extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected static $successStatus = 200;
-    protected static $errorStatus = 400;
+    protected static $errorStatus = 200;
+
+    protected static $apiAuthUser = true;
 
     protected static $success = 0;
     protected static $error = 1;
@@ -28,8 +30,18 @@ class ApiController extends BaseController
     protected static $successCheck = 'Ok';
     protected static $errorCheck = 'Error';
 
-    public function __construct()
+    public function __construct(Request $request)
     {
+
+        $input = array();
+        $input['token'] = $request->header('Authorization');
+
+        if(!empty($headerAuth)){
+            $user = self::checkUserPlatform($input, 'y');
+            if(empty($user)){
+                self::$apiAuthUser = false;
+            }
+        }
 
     }
 
@@ -47,19 +59,17 @@ class ApiController extends BaseController
         );
     }
 
-    protected static function checkUserPlatform($params, $checkTokenType = ''){
+    protected static function checkUserPlatform($params=array(), $checkTokenType = ''){
 
         $user = false;
 
-        if(!empty($checkTokenType) && !empty($params['uuid']) && !empty($params['token'])){
+        if(!empty($checkTokenType) && !empty($params['token'])){
 
             $user = DB::table('users')
-                ->where('server_uuid', $params['uuid'])
-                ->where('activation_token_mobile', $params['token'])
+                ->where('activation_token_desctop', $params['token'])
                 ->orWhere(function($query) use ($params)
                 {
-                    $query->where('activation_token_desctop', $params['token'])
-                        ->where('server_uuid', $params['uuid']);
+                    $query->where('activation_token_mobile', $params['token']);
                 })
                 ->first();
 

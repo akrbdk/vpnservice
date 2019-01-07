@@ -29,9 +29,11 @@ Route::namespace('Site')->group(function(){
     Route::get('/order-details', 'OrderDetailsController@index');
     Route::get('/payment-history', 'PaymentHistoryController@index');
 
-    //Ajax маршруты
-    Route::post('/sendmail', 'Ajax\AjaxController@send');
 });
+
+//Ajax маршруты
+Route::post('/sendmail', 'Ajax\ContactController@send');
+Route::post('/plan', 'Ajax\PlansController@planOrder');
 
 // Маршруты аутентификации и регистрации
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

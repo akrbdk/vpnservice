@@ -14,9 +14,7 @@ class ServerInfoTable extends Migration
     public function up()
     {
         Schema::create('server_info', function (Blueprint $table) {
-            $table->increments('id');
             $table->string('server_uuid')->primary();
-            $table->string('token')->unique();
             $table->string('info');
             $table->timestamps();
         });
