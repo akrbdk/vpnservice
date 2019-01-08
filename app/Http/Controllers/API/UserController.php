@@ -17,10 +17,11 @@ class UserController extends ApiController
      * @return \Illuminate\Http\Response
      */
     public function login(Request $request){
+        $input = $request->all();
+
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
 
             $user = Auth::user();
-            $input = $request->all();
             $token = false;
 
             if(!empty($input['platform'])){
@@ -36,15 +37,15 @@ class UserController extends ApiController
                 }
 
                 if($token){
-                    $user->secret_key = str_random(20);
                     $user->update();
 
                     return response()->json(['error' => 0, 'payload' => ['token' => $token]], parent::$successStatus);
                 }
             }
+
         }
 
-        return response()->json(['error'=>1, 'description' => 'Unauthorised', 'payload' => array('token' => '')], parent::$errorStatus);
+        return response()->json(['error'=>1, 'details' => '', 'description' => 'Unauthorised', 'payload' => array('token' => '')], parent::$errorStatus);
     }
 
     /**

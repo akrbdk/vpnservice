@@ -94,7 +94,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'activation_token_desctop' => str_random(60),
-            'activation_token_mobile' => str_random(50)
+            'activation_token_mobile' => str_random(50),
+            'secret_key' => str_random(20)
         ]);
     }
 }

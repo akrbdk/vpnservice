@@ -30,7 +30,7 @@ class ServerController extends ApiController
 
         $input = $request->all();
 
-        if($user = parent::checkUserPlatform($input)){
+        if($user = parent::checkUserPlatform($input, 'y')){
 
             $client = new Client([
                 'headers' => ['Content-Type' => 'application/json'],
@@ -71,7 +71,7 @@ class ServerController extends ApiController
             }
         }
 
-        return parent::answer(parent::$error, '', 'Invalid Request', parent::$errorCheck, parent::$errorStatus);
+        return parent::answer(parent::$error, $response, 'Invalid Request', parent::$errorCheck, parent::$errorStatus);
     }
 
     /**
@@ -83,7 +83,7 @@ class ServerController extends ApiController
 
         $input = $request->all();
 
-        if($user = parent::checkUserPlatform($input)){
+        if($user = parent::checkUserPlatform($input, 'y')){
             if(empty($user->server_token)){
                 return parent::answer(parent::$error, '', 'You don\'t registered', parent::$errorCheck, parent::$errorStatus);
             }
@@ -132,11 +132,6 @@ class ServerController extends ApiController
      */
     public function connect(Request $request){
 
-        if(!self::$apiAuthUser){
-            print_r($_SERVER);
-            die();
-        }
-
         $input = $request->all();
         $server_info = DB::table('server_info')->where('server_uuid', $input['uuid'])->first();
         $user = parent::checkUserPlatform($input, 'y');
@@ -145,11 +140,11 @@ class ServerController extends ApiController
             $connectInfo = self::serverConnects($user->secret_key, $server_info->token);
 
             if(!empty($connectInfo['user_info']['payload'])){
-                return response()->json(['error'=> 0, 'secret_key' => $user->secret_key, 'certs' => $connectInfo['user_info']['payload'], 'payload' => array('check' => 'Ok')], parent::$successStatus);
+                return response()->json(['error'=> 0, 'payload' => array('secret_key' => $user->secret_key, 'certs' => $connectInfo['user_info']['payload'])], parent::$successStatus);
             }
         }
 
-        return parent::answer(parent::$error, '','Unauthorized', parent::$errorCheck, parent::$errorStatus);
+        return parent::answer(parent::$error, $server_info,'Unauthorized', parent::$errorCheck, parent::$errorStatus);
 
     }
 
@@ -159,18 +154,11 @@ class ServerController extends ApiController
      * @return \Illuminate\Http\Response
      */
     public function serverList(Request $request){
-        $input = $request->all();
 
-        $user = DB::table('users')
-            ->where('activation_token_mobile', $input['token'])
-            ->orWhere(function($query) use ($input)
-            {
-                $query->where('activation_token_desctop', $input['token']);
-            })
-            ->first();
+        $input = $request->all();
+        $user = parent::checkUserPlatform($input, 'y');
 
         if(!empty($user)){
-
             $serverArr = [];
             $serverList = DB::table('server_info')->get();
             if(!empty($serverList)){
