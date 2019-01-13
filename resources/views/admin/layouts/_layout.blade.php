@@ -18,18 +18,18 @@
     <meta name="keywords" content="{{ (isset($keywords)) ? $keywords : ''}}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    @include('site.layouts.styles')
+    @include('admin.layouts.styles')
 
 </head>
 <body>
 
-    @include('site.layouts.header')
+    @include('admin.layouts.header')
 
     @yield('content')
 
-    @include('site.layouts.footer')
+    @include('admin.layouts.footer')
 
-    @include('site.layouts.scripts')
+    @include('admin.layouts.scripts')
     
 </body>
 </html>

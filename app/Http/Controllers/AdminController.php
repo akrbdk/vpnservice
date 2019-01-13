@@ -2,7 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App;
+use Session;
+use Cookie;
+use Request;
+use Config;
 
 class AdminController extends BaseController
 {
@@ -14,23 +22,5 @@ class AdminController extends BaseController
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-
-        $data = [
-            'title' => 'Speed VPN | Admin Panel',
-            'description' => 'Speed VPN | Admin Panel',
-            'keywords' => 'Speed VPN | Admin Panel'
-        ];
-
-        return view('admin.index', $data);
-
     }
 }

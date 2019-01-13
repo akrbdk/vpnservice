@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Site;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminController;
 
-class PaymentHistoryController extends Controller
+class PaymentHistoryController extends AdminController
 {
     public function index()
     {
@@ -16,6 +16,6 @@ class PaymentHistoryController extends Controller
             'keywords' => 'Speed VPN | PaymentHistory'
         ];
 
-        return view('site.payment-history', $data);
+        return view('admin.payment-history', $data);
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Site;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminController;
 
-class OrderDetailsController extends Controller
+class OrderDetailsController extends AdminController
 {
     public function index()
     {
@@ -16,6 +16,6 @@ class OrderDetailsController extends Controller
             'keywords' => 'Speed VPN | OrderDetails'
         ];
 
-        return view('site.order-details', $data);
+        return view('admin.order-details', $data);
     }
 }

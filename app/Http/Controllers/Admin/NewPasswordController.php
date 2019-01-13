@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Site;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminController;
 
-class NewPasswordController extends Controller
+class NewPasswordController extends AdminController
 {
     public function index()
     {
@@ -16,6 +16,6 @@ class NewPasswordController extends Controller
             'keywords' => 'Speed VPN | NewPassword'
         ];
 
-        return view('site.new-password', $data);
+        return view('admin.new-password', $data);
     }
 }

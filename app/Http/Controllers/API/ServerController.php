@@ -134,6 +134,9 @@ class ServerController extends ApiController
 
         $input = $request->all();
         $server_info = DB::table('server_info')->where('server_uuid', $input['uuid'])->first();
+        if(empty($server_info)){
+            return parent::answer(parent::$invalidArgument, $server_info,'invalidArgument', parent::$errorCheck, parent::$errorStatus);
+        }
         $user = parent::checkUserPlatform($input, 'y');
 
         if($user && !empty($server_info->token)){

@@ -50,8 +50,8 @@
                 <li>You are: <span>Unprotected</span></li>
             </ul>
 
-            @if(Auth::check())
-                <a href="{{ url('logout') }}" id="client-login">Logout_</a>
+            @if(Auth::user())
+                <a href="{{ url('logout') }}" id="client-login">Logout</a>
             @else
                 <a href="{{ route('login') }}" id="client-login">Customer's area</a>
             @endif

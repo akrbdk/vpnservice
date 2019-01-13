@@ -10,10 +10,18 @@
 
 <div class="modal-content recovery-pw">
     <h2>{{ trans('auth.forgotten_pass') }}</h2>
-    <form class="clearfix" action="">
+    <form class="clearfix" method="POST" action="">
+        @csrf
+
         <div class="clearfix">
             <label for="email">{{ trans('auth.email') }}</label>
-            <input type="email" name="email" class="email" placeholder="{{ trans('auth.email_inform') }}">
+            <input type="email" class="email" placeholder="{{ trans('auth.email_inform') }}" name="email" value="{{ old('email') }}" required autofocus>
+
+            @if ($errors->has('email'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('email') }}</strong>
+                </span>
+            @endif
         </div>
         <input type="submit" class="btn-orange" value="{{ trans('auth.submit_email') }}">
     </form>

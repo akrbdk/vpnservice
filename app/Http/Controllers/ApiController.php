@@ -26,6 +26,7 @@ class ApiController extends BaseController
 
     protected static $success = 0;
     protected static $error = 1;
+    protected static $invalidArgument = 2;
 
     protected static $successCheck = 'Ok';
     protected static $errorCheck = 'Error';
