@@ -7,8 +7,36 @@
         $(".modal, .modal-content").show();
     }
 
-    $(".modal").click( function(){
+    // $(".modal").click( function(){
+    //     $(".modal, .modal-content").hide();
+    // });
+
+    $('#reset_email_submit').on('submit', function(e){
+        e.preventDefault();
+
         $(".modal, .modal-content").hide();
+
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     }
+        // });
+
+        $.ajax({
+            url: "password/email",
+            data: {
+                _token: document.querySelector('input[name="_token"]').value,
+                email: document.querySelector('input[name="email"]').value
+            },
+            type: "POST",
+            success: function() {
+                alert("Successful : link send");
+            },
+            error: function(e) {
+                alert("Faild: link not send");
+            }
+        });
+
     });
 </script>
 

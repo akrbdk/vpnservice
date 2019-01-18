@@ -10,10 +10,10 @@
 
 <div class="modal-content recovery-pw">
     <h2>{{ trans('auth.forgotten_pass') }}</h2>
-    <form class="clearfix" method="POST" action="">
-        @csrf
+    <form id="reset_email_submit" class="clearfix" method="POST" action="">
+        {{ csrf_field() }}
 
-        <div class="clearfix">
+        <div class="clearfix reset_email">
             <label for="email">{{ trans('auth.email') }}</label>
             <input type="email" class="email" placeholder="{{ trans('auth.email_inform') }}" name="email" value="{{ old('email') }}" required autofocus>
 
