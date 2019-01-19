@@ -30,10 +30,10 @@
             },
             type: "POST",
             success: function() {
-                alert("Successful : link send");
+                console.log("Successful : link send");
             },
             error: function(e) {
-                alert("Faild: link not send");
+                console.log("Faild: link not send");
             }
         });
 

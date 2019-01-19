@@ -23,14 +23,14 @@ class AdminControllerMain extends AdminController
      */
     public function index()
     {
+        parent::__construct();
 
         $data = [
-            'title' => 'Speed VPN | Admin Panel',
-            'description' => 'Speed VPN | Admin Panel',
-            'keywords' => 'Speed VPN | Admin Panel'
+            'title' => 'Speed VPN | CustomerArea',
+            'description' => 'Speed VPN | CustomerArea',
+            'keywords' => 'Speed VPN | CustomerArea'
         ];
 
-        return view('admin.index', $data);
-
+        return view('admin.customer-area', $data);
     }
 }

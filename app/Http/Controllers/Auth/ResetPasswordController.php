@@ -26,7 +26,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-//    protected $redirectTo = '/login';
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -38,16 +38,4 @@ class ResetPasswordController extends Controller
         $this->middleware('guest');
     }
 
-    public function showResetForm(Request $request, $token = null){
-        $request = $request->all();
-        return view('admin.change-password')->with(
-            [
-                'title' => 'Speed VPN | ChangePassword',
-                'description' => 'Speed VPN | ChangePassword',
-                'keywords' => 'Speed VPN | ChangePassword',
-                'token' => $token,
-                'email' => $request
-            ]
-        );
-    }
 }

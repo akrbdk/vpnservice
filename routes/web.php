@@ -35,18 +35,28 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 Route::post('register', 'Auth\RegisterController@register');
 
 //Роуты админки
-Route::middleware('auth')->namespace('Admin')->prefix('/admin')->group(function(){
-    Route::get('/', 'AdminControllerMain@index');
+Route::middleware('auth')->prefix('/admin')->group(function(){
+    //main user info
+    Route::get('/', 'Admin\AdminControllerMain@index');
 
+    //logout
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::post('/logout', 'Auth\LoginController@logout');
 
-    Route::get('/customer-area', 'CustomerAreaController@index');
-    Route::get('/change-password', 'ChangePasswordController@index');
-    Route::get('/new-password', 'NewPasswordController@index');
-    Route::get('/order-details', 'OrderDetailsController@index');
-    Route::get('/payment-history', 'PaymentHistoryController@index');
-    Route::get('/invites', 'InvitesController@index');
+    //admin buy plan
+    Route::get('/customer-area', 'Admin\CustomerAreaController@index');
+
+    // change user password
+    Route::get('/change-password', 'Admin\ChangePasswordController@index');
+
+    //plan details
+    Route::get('/order-details', 'Admin\OrderDetailsController@index');
+
+    //history payments
+    Route::get('/payment-history', 'Admin\PaymentHistoryController@index');
+
+    //invite your friend
+    Route::get('/invites', 'Admin\InvitesController@index');
 
     Route::prefix('/articles')->group(function(){
         Route::get('/', 'BlogController@all');
@@ -57,7 +67,7 @@ Route::middleware('auth')->namespace('Admin')->prefix('/admin')->group(function(
 //POST запрос для отправки email письма пользователю для сброса пароля
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 //ссылка для сброса пароля (можно размещать в письме)
-Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::get('password/reset', 'Auth\ResetPasswordController@showLinkRequestForm')->name('password.request');
 //страница с формой для сброса пароля
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 //POST запрос для сброса старого и установки нового пароля

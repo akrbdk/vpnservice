@@ -66,7 +66,7 @@
             </ul>
 
             @if(Auth::check() && Request::path() == 'admin')
-                <a href="{{ url('logout') }}" id="client-login">Logout</a>
+                <a href="{{ url('admin/logout') }}" id="client-login">Logout</a>
             @endif
             @if(Request::path() != 'admin')
                 <a href="{{ route('login') }}" id="client-login">{{ trans('home.enter_button') }}</a>

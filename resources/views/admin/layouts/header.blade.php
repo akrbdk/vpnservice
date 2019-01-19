@@ -51,7 +51,7 @@
             </ul>
 
             @if(Auth::user())
-                <a href="{{ url('logout') }}" id="client-login">Logout</a>
+                <a href="{{ url('admin/logout') }}" id="client-login">Logout</a>
             @else
                 <a href="{{ route('login') }}" id="client-login">Customer's area</a>
             @endif
