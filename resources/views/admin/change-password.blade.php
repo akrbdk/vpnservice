@@ -2,96 +2,68 @@
 
 @section('content')
 
-	<main class="main-painel client-area">
-		<div class="container">
-			<h2>Customer's Area</h2>
+    <main class="main-painel contato">
+        <div class="container">
+            <h2>{{ __('Forgotten your password?') }}</h2>
 
-			<div class="table-base clearfix">
-				<div class="cover">
-					<img src="{{ asset('site/img/escudo.jpg') }}" alt="">
-				</div>
+            <div class="table-base clearfix">
 
-				<div class="content clearfix">
-					<span class="title">Your subscription</span>
-					<div class="left">
-						YOUR PLAN
-						<span>6 months</span>
-					</div>
+                <form method="POST" action="{{ url('/admin/new-password') }}">
+                    @csrf
 
-					<div class="right">
-						EXPIRES ON
-						<span>11/04/2017</span>
-					</div>
+                    <input type="hidden" name="email" value="{{ Auth::user()->email }}">
 
-					<br style="clear:both;">
+                    <div class="password-label">
+                        <label for="password">{{ __('Current password') }}</label>
+                        @if ($errors->has('current_password'))
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('current_password') }}</strong>
+                                    </span>
+                        @endif
+                        <input type="password"
+                               name="current_password"
+                               id="password"
+                               class="password form-control{{ $errors->has('current_password') ? ' is-invalid' : '' }}"
+                               placeholder="Insert your current password"
+                               required>
+                    </div>
 
-					<a href="{{ url('/payment-history') }}" class="btn-blue">Payments history</a>
-				</div>
+                    <div class="password-label">
+                        <label for="password">{{ __('New password') }}</label>
+                        @if ($errors->has('password'))
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                        @endif
+                        <input type="password"
+                               name="password"
+                               id="password"
+                               class="password form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                               placeholder="Insert your new password"
+                               required>
+                    </div>
 
-				<div class="btn-section">
-					<a href="{{ url('/plans') }}" class="btn-green">UPGRADE</a>
-				</div>
-			</div>
+                    <div class="password-label">
+                        <label for="password2">{{ __('Confirm your new password') }}</label>
+                        @if ($errors->has('password_confirmation'))
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                    </span>
+                        @endif
+                        <input type="password"
+                               id="password-confirm"
+                               name="password_confirmation"
+                               class="password form-control"
+                               placeholder="Confirm your new password"
+                               required>
+                    </div>
 
-			<div class="table-base clearfix">
-				<div class="cover">
-					<img src="{{ asset('site/img/login.jpg') }}" alt="">
-				</div>
+                    <br style="clear:both;">
+                    <input type="submit" class="btn-orange" value="Confirm your new password">
 
-				<form action="">
-					<div class="content clearfix">
-						<div class="left">
-							<span class="title">Current password</span>
-
-							<input type="password" name="password" class="password">
-						</div>
-						<div class="right">
-							<span class="title">New password</span>
-
-							<input type="password" name="password" class="password">
-						</div>
-					</div>
-
-					<div class="btn-section">
-						<a href="#" class="btn-orange">Confirm</a>
-					</div>
-			</div>
-			</form>
-
-			<div class="table-base clearfix">
-				<div class="cover">
-					<img src="{{ asset('site/img/cloud.jpg') }}" alt="">
-				</div>
-
-				<div class="content clearfix">
-					<span class="title">Apps</span>
-
-					<p>Download the latest version<br />SpeedVPN Version: 1.0</p>
-				</div>
-
-				<div class="btn-section">
-					<a href="{{ url('/download') }}" class="btn-orange">download</a>
-				</div>
-			</div>
-
-			<div class="table-base clearfix">
-				<div class="cover">
-					<img src="{{ asset('site/img/heart.jpg') }}" alt="">
-				</div>
-
-				<div class="content clearfix">
-					<span class="title">Invite a friend</span>
-
-					<p>You and your friend gets one month <br />free if your friend register :D</p>
-				</div>
-
-				<div class="btn-section">
-					<a href="{{ url('/invites') }}" class="btn-orange">Invite</a>
-				</div>
-			</div>
-
-			<img class="bg-bl" src="{{ asset('site/img/bg-bl.png') }}" alt="">
-		</div>
-	</main>
+                </form>
+            </div>
+        </div>
+    </main>
 
 @stop

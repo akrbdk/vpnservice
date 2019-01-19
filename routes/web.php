@@ -49,6 +49,9 @@ Route::middleware('auth')->prefix('/admin')->group(function(){
     // change user password
     Route::get('/change-password', 'Admin\ChangePasswordController@index');
 
+    // change user password
+    Route::post('/new-password', 'Admin\ChangePasswordController@updatePassword');
+
     //plan details
     Route::get('/order-details', 'Admin\OrderDetailsController@index');
 

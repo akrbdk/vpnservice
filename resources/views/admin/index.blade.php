@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="btn-section">
-                    <a href="{{ url('admin/customer-area') }}" class="btn-green">UPGRADE</a>
+                    <a href="{{ url('/admin/customer-area') }}" class="btn-green">UPGRADE</a>
                 </div>
             </div>
 
@@ -41,7 +41,7 @@
                 <div class="content clearfix">
                     <span class="title">Your login</span>
 
-                    <input type="email" name="email" class="email" value="nome@email.com.br" readonly>
+                    <input type="email" name="email" class="email" value="{{ Auth::user()->email }}" readonly>
                 </div>
 
                 <div class="btn-section">
