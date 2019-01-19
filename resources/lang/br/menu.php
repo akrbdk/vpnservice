@@ -20,4 +20,7 @@ return [
     'payments_methods' => 'Métodos de pagamento',
     'social' => 'social',
 
+    'logout' => 'Cerrar sesión',
+    'admin_panel' => 'Panel de administrador',
+
 ];

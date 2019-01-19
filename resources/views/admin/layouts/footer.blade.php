@@ -11,23 +11,23 @@
                     <li>
                         <span>speedVPN</span>
                         <ul>
-                            <li><a href="{{ url('/how-it-works') }}">How it works</a></li>
-                            <li><a href="{{ url('/plans') }}">Plans</a></li>
-                            <li><a href="{{ url('/download') }}">Download</a></li>
-                            <li><a href="{{ url('/login') }}">Customer's area</a></li>
+                            <li><a href="{{ url('/how-it-works') }}">{{ trans('menu.how') }}</a></li>
+                            <li><a href="{{ url('/plans') }}">{{ trans('menu.plans') }}</a></li>
+                            <li><a href="{{ url('/download') }}">{{ trans('menu.download') }}</a></li>
+                            <li><a href="{{ url('/login') }}">{{ trans('menu.login') }}</a></li>
                         </ul>
                     </li>
                     <li>
-                        <span>About</span>
+                        <span>{{ trans('menu.about') }}</span>
                         <ul>
-                            <li><a href="{{ url('/contact-us') }}">Contact us</a></li>
-                            <li><a href="{{ url('#') }}">Terms of use</a></li>
-                            <li><a href="{{ url('#') }}">Privacy policy</a></li>
-                            <li><a href="{{ url('#') }}">FAQ</a></li>
+                            <li><a href="{{ url('/contact-us') }}">{{ trans('menu.contact') }}</a></li>
+                            <li><a href="{{ url('#') }}">{{ trans('menu.terms') }}</a></li>
+                            <li><a href="{{ url('#') }}">{{ trans('menu.privacy') }}</a></li>
+                            <li><a href="{{ url('#') }}">{{ trans('menu.faq') }}</a></li>
                         </ul>
                     </li>
                     <li>
-                        <span>social</span>
+                        <span>{{ trans('menu.social') }}</span>
                         <ul>
                             <li>
                                 <a href="http://www.facebook.com">
@@ -41,7 +41,7 @@
         </div>
 
         <div class="payments-base">
-            <span>Payments methods</span>
+            <span>{{ trans('menu.payments_methods') }}</span>
             <img src="{{ asset('site/img/payments.png') }}" alt="">
         </div>
     </div>

@@ -4,7 +4,7 @@
 
     <main class="main-painel client-area">
         <div class="container">
-            <h2>Customer's area</h2>
+            <h2>{{ trans('user_admin.header') }}</h2>
 
             <div class="table-base clearfix">
                 <div class="cover">
@@ -12,24 +12,24 @@
                 </div>
 
                 <div class="content clearfix">
-                    <span class="title">Your subscription</span>
+                    <span class="title">{{ trans('user_admin.subscription') }}</span>
                     <div class="left">
-                        YOUR PLAN
+                        {{ trans('user_admin.plan_header') }}
                         <span>6 Months</span>
                     </div>
 
                     <div class="right">
-                        EXPIRES ON
+                        {{ trans('user_admin.expires_on') }}
                         <span>04/11/2017</span>
                     </div>
 
                     <br style="clear:both;">
 
-                    <a href="{{ url('/admin/payment-history') }}" class="btn-blue">Payments history</a>
+                    <a href="{{ url('/admin/payment-history') }}" class="btn-blue">{{ trans('user_admin.pay_history') }}</a>
                 </div>
 
                 <div class="btn-section">
-                    <a href="{{ url('/admin/customer-area') }}" class="btn-green">UPGRADE</a>
+                    <a href="{{ url('/admin/customer-area') }}" class="btn-green">{{ trans('user_admin.upgrade_plan') }}</a>
                 </div>
             </div>
 
@@ -39,13 +39,13 @@
                 </div>
 
                 <div class="content clearfix">
-                    <span class="title">Your login</span>
+                    <span class="title">{{ trans('user_admin.email') }}</span>
 
                     <input type="email" name="email" class="email" value="{{ Auth::user()->email }}" readonly>
                 </div>
 
                 <div class="btn-section">
-                    <a href="{{ url('/admin/change-password') }}" class="btn-orange">CHANGE PASSWORD</a>
+                    <a href="{{ url('/admin/change-password') }}" class="btn-orange">{{ trans('user_admin.pwd_change') }}</a>
                 </div>
             </div>
 
@@ -55,13 +55,13 @@
                 </div>
 
                 <div class="content clearfix">
-                    <span class="title">Apps</span>
+                    <span class="title">{{ trans('user_admin.apps') }}</span>
 
-                    <p>Download the latest version<br />SpeedVPN Version: 1.0</p>
+                    <p>{!! trans('user_admin.download_info') !!}</p>
                 </div>
 
                 <div class="btn-section">
-                    <a href="{{ url('/download') }}" class="btn-orange">download</a>
+                    <a href="{{ url('/download') }}" class="btn-orange">{{ trans('user_admin.download') }}</a>
                 </div>
             </div>
 
@@ -71,13 +71,11 @@
                 </div>
 
                 <div class="content clearfix">
-                    <span class="title">Invite a friend</span>
-
-                    <p>You and your friend gets one month<br />free if your friend register :D</p>
+                    {!! trans('user_admin.invite_friend') !!}
                 </div>
 
                 <div class="btn-section">
-                    <a href="{{ url('/admin/invites') }}" class="btn-orange">Invite</a>
+                    <a href="{{ url('/admin/invites') }}" class="btn-orange">{{ trans('user_admin.invite_button') }}</a>
                 </div>
             </div>
 

@@ -19,5 +19,6 @@ return [
     'payments_methods' => 'Payments methods',
     'social' => 'social',
 
-
+    'logout' => 'Logout',
+    'admin_panel' => 'Admin Panel',
 ];

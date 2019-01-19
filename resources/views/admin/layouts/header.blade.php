@@ -15,47 +15,59 @@
         <nav id="menu">
             <ul class="menu-header">
                 <li>
-                    <a href="{{ url('/') }}">Home</a>
+                    <a href="{{ url('admin') }}" >{{ trans('menu.admin_panel') }}</a>
                 </li>
                 <li>
-                    <a href="{{ url('/how-it-works') }}">How it works</a>
+                    <a href="{{ url('/') }}">{{ trans('menu.home') }}</a>
                 </li>
                 <li>
-                    <a href="{{ url('/plans') }}">Plans</a>
+                    <a href="{{ url('/how-it-works') }}">{{ trans('menu.how') }}</a>
                 </li>
                 <li>
-                    <a href="{{ url('/download') }}">Download</a>
+                    <a href="{{ url('/plans') }}">{{ trans('menu.plans') }}</a>
+                </li>
+                <li>
+                    <a href="{{ url('/download') }}">{{ trans('menu.download') }}</a>
                 </li>
                 <li class="free-test">
-                    <a href="{{ url('/plans') }}">Test it free</a>
+                    <a href="{{ url('/plans') }}">{{ trans('menu.testIt') }}</a>
                 </li>
             </ul>
         </nav>
     </div>
+
     <div class="visitor">
         <div class="container">
             <nav id="visitor-lang">
-					<span class="lag-active">
+                <span class="lag-active">
+                     @if(Session::get('locale') == 'en')
+                        <img src="{{ asset('site/img/eua.jpg') }}" alt="">English (EN)
+                    @else
                         <img src="{{ asset('site/img/br.jpg') }}" alt="">Português (BR)
-						<ul>
-							<li rel="portugues2"><img src="{{ asset('site/img/br.jpg') }}" alt="">Português (BR)</li>
-							<li rel="portugues3"><img src="{{ asset('site/img/eua.jpg') }}" alt="">English (EN)</li>
-						</ul>
-					</span>
+                    @endif
+                    <ul>
+                        <li rel="portugues2">
+                            <a href="<?= route('setlocale', ['lang' => 'br']) ?>">
+                                <img src="{{ asset('site/img/br.jpg') }}" alt="">Português (BR)
+                            </a>
+                        </li>
+                        <li rel="portugues3">
+                            <a href="<?= route('setlocale', ['lang' => 'en']) ?>">
+                                <img src="{{ asset('site/img/eua.jpg') }}" alt="">English (EN)
+                            </a>
+                        </li>
+                    </ul>
+                </span>
             </nav>
 
             <ul id="visitor-info">
-                <li>Your IP: 168.192.0.1</li>
-                <li>Location: Blumenau, Brazil</li>
-                <li>You are: <span>Unprotected</span></li>
+                <li>{{ trans('home.ip_info') }}: 168.192.0.1 </li>
+                <li>{{ trans('home.location') }}</li>
+                <li>{{ trans('home.status') }} <span>{{ trans('home.status_part2') }}</span></li>
             </ul>
 
-            @if(Auth::user())
-                <a href="{{ url('admin/logout') }}" id="client-login">Logout</a>
-            @else
-                <a href="{{ route('login') }}" id="client-login">Customer's area</a>
-            @endif
-
+            <a href="{{ url('admin/logout') }}" id="client-login">{{ trans('menu.logout') }}</a>
         </div>
     </div>
+
 </header>
