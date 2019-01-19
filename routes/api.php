@@ -17,6 +17,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::group(['middleware' => ['verifyAccount']], function () {
+    //////////// Here all your routes
+
+    ////// Example:
+    Route::get('myProtectedRoute', array('uses' => 'MyController@MyControllerFunction'))->name('myActionName');
+});
+
+
 Route::post('v1/account/login', 'API\UserController@login');
 Route::get('v1/account/login', 'API\UserController@login');
 

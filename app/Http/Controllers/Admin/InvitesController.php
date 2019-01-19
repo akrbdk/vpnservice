@@ -13,6 +13,8 @@ class InvitesController extends AdminController
 
     public function index()
     {
+        parent::__construct();
+
         $data = [
             'title' => 'Speed VPN | Invites',
             'description' => 'Speed VPN | Invites',

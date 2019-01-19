@@ -22,5 +22,14 @@ class AdminController extends BaseController
     public function __construct()
     {
         $this->middleware('auth');
+
+        if(empty(Session::get('locale'))){
+            $browser_lang = substr(Request::server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+            $locale = (!empty($browser_lang) && in_array($browser_lang, Config::get('app.locales'))) ? $browser_lang : Config::get('app.locale');
+
+            session(['locale' => $locale]);
+        }
+
+        App::setLocale(Session::get('locale'));
     }
 }
