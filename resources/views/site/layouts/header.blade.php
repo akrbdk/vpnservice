@@ -62,9 +62,15 @@
             </nav>
 
             <ul id="visitor-info">
-                <li>{{ trans('home.ip_info') }}: 168.192.0.1 </li>
-                <li>{{ trans('home.location') }}</li>
-                <li>{{ trans('home.status') }} <span>{{ trans('home.status_part2') }}</span></li>
+                <li>{{ trans('home.ip_info') }}: {{ $user_ip }} </li>
+                <li>{{ trans('home.location') }} {{ $user_loc['city'] }}, {{ $user_loc['country'] }}</li>
+                <li>{{ trans('home.status') }}
+                    @if($protect_status)
+                            <span style="color: #00ca6d">{{ trans('home.status_part3') }}</span>
+                    @else
+                            <span>{{ trans('home.status_part2') }}</span>
+                    @endif
+                </li>
             </ul>
 
             @if(Auth::check())

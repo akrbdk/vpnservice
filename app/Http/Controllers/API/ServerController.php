@@ -50,9 +50,9 @@ class ServerController extends ApiController
 
                         if(!empty($body['payload']['token'])){
 
-                            $serverInfo = DB::table('server_info')->where('token', $body['payload']['token'])->first();
+                            $serverInfo = DB::table('server_infos')->where('token', $body['payload']['token'])->first();
                             if(empty($serverInfo)){
-                                DB::table('server_info')->insert(
+                                DB::table('server_infos')->insert(
                                     array('token' => $body['payload']['token'])
                                 );
                             }
@@ -111,9 +111,13 @@ class ServerController extends ApiController
                             ->where('server_token', $user->server_token)
                             ->update($upd);
 
-                        DB::table('server_info')
+                        DB::table('server_infos')
                             ->where('token', $user->server_token)
-                            ->update($upd);
+                            ->update([
+                                'info' => json_encode($body['payload']),
+                                'ip' => !empty($body['payload']['ip']) ? $body['payload']['ip'] : '',
+                                'server_uuid' => !empty($body['payload']['uuid']) ? $body['payload']['uuid'] : ''
+                            ]);
 
                         return parent::answer(parent::$success, $body, '', parent::$successCheck, parent::$successStatus);
                     }
@@ -133,7 +137,7 @@ class ServerController extends ApiController
     public function connect(Request $request){
 
         $input = $request->all();
-        $server_info = DB::table('server_info')->where('server_uuid', $input['uuid'])->first();
+        $server_info = DB::table('server_infos')->where('server_uuid', $input['uuid'])->first();
         if(empty($server_info)){
             return parent::answer(parent::$invalidArgument, $server_info,'invalidArgument', parent::$errorCheck, parent::$errorStatus);
         }
@@ -163,7 +167,7 @@ class ServerController extends ApiController
 
         if(!empty($user)){
             $serverArr = [];
-            $serverList = DB::table('server_info')->get();
+            $serverList = DB::table('server_infos')->get();
             if(!empty($serverList)){
                 foreach ($serverList as $server){
                     $serverArr[] = json_decode($server->info, true);

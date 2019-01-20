@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ServerInfoTable extends Migration
+class ServerInfosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class ServerInfoTable extends Migration
      */
     public function up()
     {
-        Schema::create('server_info', function (Blueprint $table) {
+        Schema::create('server_infos', function (Blueprint $table) {
             $table->string('server_uuid')->primary();
             $table->string('info');
+            $table->string('ip');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class ServerInfoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('server_info');
+        Schema::dropIfExists('server_infos');
     }
 }

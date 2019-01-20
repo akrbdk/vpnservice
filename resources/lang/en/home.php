@@ -17,9 +17,10 @@ return [
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
     'ip_info' => 'Your IP',
-    'location' => 'Location: Blumenau, Brazil',
+    'location' => 'Location:',
     'status' => 'You are:',
     'status_part2' => 'Unprotected',
+    'status_part3' => 'Protected',
     'enter_button' => 'Customer\'s area',
 
     'header_text' => 'Fast and secure',

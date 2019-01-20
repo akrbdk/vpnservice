@@ -25,7 +25,7 @@
 							<img src="{{ asset('site/img/chat_icon.jpg') }}" alt="">
 						</div>
 						<div class="touch">
-							<a href="{{ url('/chat-online') }}" class="btn-blue">Chat Online</a>
+							<a href="javascript:void(Tawk_API.toggle())" class="btn-blue">Chat Online</a>
 							<p>Usually, we reply within: a few minutes.</p>
 
 							<p class="chat-status online">online</p>

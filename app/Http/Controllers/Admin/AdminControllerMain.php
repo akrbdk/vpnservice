@@ -4,15 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminController;
 
+
 class AdminControllerMain extends AdminController
 {
+
     /**
      * Create a new controller instance.
+     *
      *
      * @return void
      */
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('auth');
     }
 
@@ -23,8 +27,6 @@ class AdminControllerMain extends AdminController
      */
     public function index()
     {
-        parent::__construct();
-
         $data = [
             'title' => 'Speed VPN | Admin Panel',
             'description' => 'Speed VPN | Admin Panel',
@@ -32,6 +34,5 @@ class AdminControllerMain extends AdminController
         ];
 
         return view('admin.index', $data);
-
     }
 }
