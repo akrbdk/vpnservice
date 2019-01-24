@@ -23,10 +23,12 @@
 		<section class="download-nav">
 			<div class="container">
 				<ul class="list">
-					<li class="active"><a href="">Windows</a></li>
-					<li><a href="">MAC</a></li>
-					<li><a href="">Android</a></li>
-					<li><a href="">iOS</a></li>
+					<li class="active">
+                        <a href="{{ url('/download/windows/') }}">Windows</a>
+                    </li>
+					<li><a href="{{ url('/download/mac/') }}">MAC</a></li>
+					<li><a href="{{ url('/download/android/') }}">Android</a></li>
+					<li><a href="{{ url('/download/ios/') }}">iOS</a></li>
 				</ul>
 			</div>
 		</section>

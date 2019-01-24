@@ -15,5 +15,6 @@ Route::group([
     $router->resource('site_users', SiteUsersController::class);
     $router->resource('server_infos', ServerInfosController::class);
     $router->resource('contacts_info', ContactUSController::class);
+    $router->resource('apps_info', AppsInfoController::class);
 
 });
