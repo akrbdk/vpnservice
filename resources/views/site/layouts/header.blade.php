@@ -120,15 +120,15 @@
         Tawk_API.onStatusChange = function (status){
             if(status === 'online')
             {
-                document.getElementById('status').innerHTML = 'online';
+                document.getElementById('status').innerHTML = '<p class="chat-status online">online</p>';
             }
             else if(status === 'away')
             {
-                document.getElementById('status').innerHTML = 'We are currently away';
+                document.getElementById('status').innerHTML = '<p class="chat-status offline">We are currently away</p>';
             }
             else if(status === 'offline')
             {
-                document.getElementById('status').innerHTML = 'offline';
+                document.getElementById('status').innerHTML = '<p class="chat-status offline">offline</p>';
             }
         };
     </script>

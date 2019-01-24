@@ -27,7 +27,7 @@
 						<div class="touch">
 							<a href="javascript:void(Tawk_API.toggle())" class="btn-blue">Chat Online</a>
 							<p>Usually, we reply within: a few minutes.</p>
-							<p id="status" class="chat-status alexoff online"></p>
+                            <span id="status"></span>
 						</div>
 					</div>
 
