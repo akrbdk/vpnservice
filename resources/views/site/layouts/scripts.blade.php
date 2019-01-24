@@ -46,13 +46,36 @@
 @endif
 
 <script>
-    $('#contactform').on('submit', function(e){
+    $('#contactform').submit(function(e){
         e.preventDefault();
+
+        // var file_data = $('#contactform').prop('file')[0];
+        // var form_data = new FormData();
+        // form_data.append('file', file_data);
+        // var formData = new FormData($(this)[0]);
+        //
+        // console.log('fghjj]');
+        // console.log(formData);
+
+        var formData = new FormData(this);
+        console.log(formData);
 
         $.ajax({
             type: 'POST',
             url: '/sendmail',
-            data: $('#contactform').serialize(),
+            data: formData,
+            cache:false,
+            contentType: false,
+            processData: false,
+            // data: $('#contactform').serialize(),
+            // data: {
+            //     "_method": 'POST',
+            //     "_token": $('input[name=_token]').val(),
+            //     "message": $('textarea[name=message]').val(),
+            //     "email": $('input[name=email]').val(),
+            //     "file": $('input[name=file]').val()
+            //
+            // },
             success: function(data){
                 if(data.result)
                 {

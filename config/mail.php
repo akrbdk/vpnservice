@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+    'driver' => env('MAIL_DRIVER', 'mailgun'),
 
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.yandex.ru'),
+    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,9 +56,11 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'alexander.karabudka@kelnik.ru'),
-        'name' => env('MAIL_FROM_NAME', 'sanyakarabudka'),
+        'address' => env('MAIL_FROM_ADDRESS', 'noreply@speedvpn.online'),
+        'name' => env('MAIL_FROM_NAME', 'speedvpn.online'),
     ],
+
+    'admin_email' => env('MAIL_ADMIN_EMAIL'),
 
     /*
     |--------------------------------------------------------------------------

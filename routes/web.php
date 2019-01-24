@@ -25,7 +25,7 @@ Route::namespace('Site')->group(function(){
 });
 
 //Ajax маршруты
-Route::post('/sendmail', 'Ajax\ContactController@send');
+Route::post('/sendmail', ['as'=>'contactus.store','uses'=>'Ajax\ContactController@send']);
 Route::post('/plan', 'Ajax\PlansController@planOrder');
 
 // Маршруты аутентификации и регистрации
@@ -75,4 +75,13 @@ Route::get('password/reset', 'Auth\ResetPasswordController@showLinkRequestForm')
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 //POST запрос для сброса старого и установки нового пароля
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+//внедрил роут для быстрой чистки кэша приложения
+Route::get('/clear', function() {
+    Artisan::call('cache:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+    return "Кэш очищен.";
+});
 

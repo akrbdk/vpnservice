@@ -112,4 +112,26 @@
         })();
     </script>
     <!--End of Tawk.to Script-->
+
+    <!--Start of tawk.to Status Code-->
+
+    <script type="text/javascript">
+        Tawk_API = Tawk_API || {};
+        Tawk_API.onStatusChange = function (status){
+            if(status === 'online')
+            {
+                document.getElementById('status').innerHTML = 'online';
+            }
+            else if(status === 'away')
+            {
+                document.getElementById('status').innerHTML = 'We are currently away';
+            }
+            else if(status === 'offline')
+            {
+                document.getElementById('status').innerHTML = 'offline';
+            }
+        };
+    </script>
+
+    <!--End of tawk.to Status Code -->
 </header>
