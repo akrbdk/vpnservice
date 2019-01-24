@@ -61,6 +61,8 @@ return [
     ],
 
     'admin_email' => env('MAIL_ADMIN_EMAIL'),
+    'admin_email2' => env('MAIL_ADMIN_EMAIL2'),
+    'admin_email_from' => env('MAIL_FROM'),
 
     /*
     |--------------------------------------------------------------------------

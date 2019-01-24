@@ -36,9 +36,9 @@
 
 					<div class="clearfix">
 						<div class="g-recaptcha" data-sitekey="6LfKh4IUAAAAAGA3yo7qkblWIFXg3_WUGXJTuovW" data-callback="someFunctionName"></div>
-						{{--<script>function someFunctionName(){--}}
-                                {{--$('#button1').removeAttr('disabled');--}}
-                            {{--}</script>--}}
+						<script>function someFunctionName(){
+                                $('#button1').removeAttr('disabled');
+                            }</script>
 					</div>
 					<span style="margin-bottom: 20px" class="container"></span>
 					<input disabled="disabled" type="submit" id="button1" class="btn-orange" value="SEND">

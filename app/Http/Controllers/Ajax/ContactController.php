@@ -26,8 +26,6 @@ class ContactController extends Controller
                 'message' => 'nullable'
             ]);
 
-            ContactUS::create($request->all());
-
             \Mail::send('emails.contactus',
                 array(
                     'email' => $request->get('email'),
@@ -35,9 +33,11 @@ class ContactController extends Controller
                     'user_message' => $request->get('message')
                 ), function($message) use ($request)
                 {
-                    $message->from('noreply@speedvpn.online');
-                    $message->to('speedvpnonline@gmail.com', 'Speedvpn Support')->subject('Contact Us');
+                    $message->from(config('mail.admin_email_from'));
+                    $message->to(config('mail.admin_email'), 'Speedvpn Support')->subject('Contact Us');
                 });
+
+            ContactUS::create(array('email' => $request->get('email'), 'file' => $filePath ? $filePath : '', 'message' => $request->get('message')));
 
             $result = true;
         }

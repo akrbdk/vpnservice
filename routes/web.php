@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\PageController;
-
 Route::get('setlocale/{locale}', function ($locale) {
 
     if (in_array($locale, Config::get('app.locales'))) {
@@ -83,5 +81,21 @@ Route::get('/clear', function() {
     Artisan::call('view:clear');
     Artisan::call('route:clear');
     return "Кэш очищен.";
+});
+
+
+//роут для доступа к приватным файлам по прямой ссылке
+Route::get('storage/upload/{filename}', function ($filename)
+{
+    $path = storage_path('upload/' . $filename);
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    return $response;
 });
 
