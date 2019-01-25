@@ -86,6 +86,12 @@ class PlansTableController extends Controller
         $grid->plan_alias('Plan alias');
         $grid->created_at('Created at');
         $grid->updated_at('Updated at');
+        $grid->server_access('Server access');
+        $grid->speed_limit('Speed limit');
+        $grid->months_limit('Months limit');
+        $grid->price('Price');
+        $grid->advantages('Advantages');
+        $grid->more_advantages('More advantages');
 
         return $grid;
     }
@@ -105,6 +111,12 @@ class PlansTableController extends Controller
         $show->plan_alias('Plan alias');
         $show->created_at('Created at');
         $show->updated_at('Updated at');
+        $show->server_access('Server access');
+        $show->speed_limit('Speed limit');
+        $show->months_limit('Months limit');
+        $show->price('Price');
+        $show->advantages('Advantages');
+        $show->more_advantages('More advantages');
 
         return $show;
     }
@@ -120,6 +132,12 @@ class PlansTableController extends Controller
 
         $form->text('plan_name', 'Plan name');
         $form->text('plan_alias', 'Plan alias');
+        $form->text('server_access', 'Server access')->default('basic');
+        $form->text('speed_limit', 'Speed limit');
+        $form->text('months_limit', 'Months limit');
+        $form->text('price', 'Price');
+        $form->textarea('advantages', 'Advantages');
+        $form->textarea('more_advantages', 'More advantages');
 
         return $form;
     }

@@ -18,6 +18,8 @@ class CreateAppsInfosTable extends Migration
             $table->string('header')->default('download');
             $table->string('content')->nullable();
             $table->string('client')->nullable();
+            $table->string('link')->nullable();
+            $table->string('link_text')->nullable();
             $table->string('version')->default('1.0.0');
             $table->string('link_install')->nullable();
             $table->string('link_update')->nullable();

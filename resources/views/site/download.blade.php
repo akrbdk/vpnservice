@@ -6,16 +6,10 @@
 		<div class="download-banner">
 			<div class="container">
 				<div class="right">
-					<h2>Download</h2>
-					<span>SpeedVPN for Windows</span>
-
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-						eiusmod tempor incididunt ut labore et dolore magna aliqua.
-					</p>
-					<p>SpeedVPN Version: 1.0</p>
-
-					<a href="{{ url('/download') }}" class="btn-green">Download</a>
+					<h2>{{ $tabInfo->header }}</h2>
+                    {!! $tabInfo->content !!}
+					<p>SpeedVPN Version: {{ $tabInfo->version }}</p>
+					<a href="{{ $tabInfo->link_install }}" class="btn-green">{{ $tabInfo->button_text }}</a>
 				</div>
 			</div>
 		</div>
@@ -23,12 +17,11 @@
 		<section class="download-nav">
 			<div class="container">
 				<ul class="list">
-					<li class="active">
-                        <a href="{{ url('/download/windows/') }}">Windows</a>
-                    </li>
-					<li><a href="{{ url('/download/mac/') }}">MAC</a></li>
-					<li><a href="{{ url('/download/android/') }}">Android</a></li>
-					<li><a href="{{ url('/download/ios/') }}">iOS</a></li>
+                    @foreach ($allTabs as $tab)
+                        <li class="@if ($tabInfo->link == $tab->link) active @endif">
+                            <a href="/download/{{ $tab->link }}/">{{ $tab->link_text }}</a>
+                        </li>
+                    @endforeach
 				</ul>
 			</div>
 		</section>

@@ -16,7 +16,10 @@ Route::namespace('Site')->group(function(){
     Route::get('/cancel', 'CancelController@index');
     Route::get('/contact-us', 'ContactsController@index');
     Route::get('/plans', 'PlansController@index');
-    Route::get('/download', function () {return redirect('download/windows');});
+    Route::get('/download', function () {
+        $model = App\AppsInfo::firstOrFail();
+        return redirect('download/' . $model->link);
+    });
     Route::get('/download/{alias}', 'AppsInfoController@index');
     Route::get('/send-us-an-email', 'SendUsEmailController@index');
     Route::get('/how-it-works', 'HowItWorksController@index');

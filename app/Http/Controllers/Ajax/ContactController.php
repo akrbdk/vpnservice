@@ -49,7 +49,7 @@ class ContactController extends Controller
     {
         if (is_null($file)) return false;
         if ($file->isValid()) {
-            $fileName = (new \DateTime())->format('d.m.Y-hsi').'.'.$file->guessExtension();
+            $fileName = str_random(20) . '.' . $file->guessExtension();
             $file->move(storage_path() . '/upload', $fileName);
             return config('app.url') . '/storage/upload/' . $fileName;
         } else {

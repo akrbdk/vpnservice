@@ -85,6 +85,8 @@ class AppsInfoController extends Controller
         $grid->header('Header');
         $grid->content('Content');
         $grid->client('Client');
+        $grid->link('Link');
+        $grid->link_text('Link text');
         $grid->version('Version');
         $grid->link_install('Link install');
         $grid->link_update('Link update');
@@ -109,6 +111,8 @@ class AppsInfoController extends Controller
         $show->header('Header');
         $show->content('Content');
         $show->client('Client');
+        $show->link('Link');
+        $show->link_text('Link text');
         $show->version('Version');
         $show->link_install('Link install');
         $show->link_update('Link update');
@@ -131,6 +135,8 @@ class AppsInfoController extends Controller
         $form->text('header', 'Header')->default('download');
         $form->textarea('content', 'Content');
         $form->text('client', 'Client');
+        $form->text('link', 'Link');
+        $form->text('link_text', 'Link text');
         $form->text('version', 'Version')->default('1.0.0');
         $form->text('link_install', 'Link install');
         $form->text('link_update', 'Link update');

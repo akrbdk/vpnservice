@@ -79,76 +79,7 @@
     <section id="choose-plan">
         <div class="container">
             {!! trans('main.plans_head') !!}
-            <ul id="plan-list">
-                <li class="plan-free">
-                    <div class="title">Free</div>
-                    <div class="price">
-                        <span class="currency">$</span>
-                        <span class="coin">0</span>
-                        <span class="cents">.00</span>
-                    </div>
-                    <div class="plan-type">
-                        Per month
-                    </div>
-
-                    <ul class="feature-list">
-                        {!! trans('main.plan1') !!}
-                    </ul>
-
-                    <span class="trial">3 days free</span>
-                    <a href="{{ url('/plans') }}" class="btn-orange">test 3 days free</a>
-                </li>
-
-                <li class="plan-basic">
-                    <div class="title">Basic</div>
-                    <div class="price">
-                        <span class="currency">$</span>
-                        <span class="coin">4</span>
-                        <span class="cents">.90</span>
-                    </div>
-                    <div class="plan-type">
-                        Per month
-                    </div>
-
-                    <ul class="feature-list">
-                        {!! trans('main.plan2') !!}
-                    </ul>
-
-                    <select name="plan-period" id="plan-period">
-                        <option value="anual">Anual - 51% of discount</option>
-                        <option value="anual">Anual - 51% of discount</option>
-                        <option value="anual">Anual - 51% of discount</option>
-                    </select>
-
-                    <a href="{{ url('/plans') }}" class="btn-green">Subscribe now</a>
-                </li>
-                <li class="most-pop">
-                    <div class="title">
-                        <span>The most popular</span>
-                        Prime
-                    </div>
-                    <div class="price">
-                        <span class="currency">$</span>
-                        <span class="coin">6</span>
-                        <span class="cents">.90</span>
-                    </div>
-                    <div class="plan-type">
-                        Per month
-                    </div>
-
-                    <ul class="feature-list">
-                        {!! trans('main.plan3') !!}
-                    </ul>
-
-                    <select name="plan-period" id="plan-period">
-                        <option value="anual">Anual - 54% of discount</option>
-                        <option value="anual">Anual - 54% of discount</option>
-                        <option value="anual">Anual - 54% of discount</option>
-                    </select>
-
-                    <a href="{{ url('/plans') }}" class="btn-green">Subscribe now</a>
-                </li>
-            </ul>
+            @include('site.planslist', ['plans' => App\PlansTable::all()])
         </div>
     </section>
 
