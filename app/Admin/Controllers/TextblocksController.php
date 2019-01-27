@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\PlansTable;
+use App\Textblocks;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -10,7 +10,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 
-class PlansTableController extends Controller
+class TextblocksController extends Controller
 {
     use HasResourceActions;
 
@@ -79,22 +79,15 @@ class PlansTableController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new PlansTable);
+        $grid = new Grid(new Textblocks);
 
         $grid->id('Id');
-        $grid->plan_name('Plan name');
-        $grid->plan_alias('Plan alias');
+        $grid->name('Name');
+        $grid->code('Code');
+        $grid->text_en('Text en');
+        $grid->text_br('Text br');
         $grid->created_at('Created at');
         $grid->updated_at('Updated at');
-        $grid->server_access('Server access');
-        $grid->speed_limit('Speed limit');
-        $grid->months_limit('Months limit');
-        $grid->price('Price');
-        $grid->cents('Cents');
-        $grid->button_text('Button text');
-        $grid->button_color('Button color');
-        $grid->advantages('Advantages');
-        $grid->more_advantages('More advantages');
 
         return $grid;
     }
@@ -107,22 +100,15 @@ class PlansTableController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(PlansTable::findOrFail($id));
+        $show = new Show(Textblocks::findOrFail($id));
 
         $show->id('Id');
-        $show->plan_name('Plan name');
-        $show->plan_alias('Plan alias');
+        $show->name('Name');
+        $show->code('Code');
+        $show->text_en('Text en');
+        $show->text_br('Text br');
         $show->created_at('Created at');
         $show->updated_at('Updated at');
-        $show->server_access('Server access');
-        $show->speed_limit('Speed limit');
-        $show->months_limit('Months limit');
-        $show->price('Price');
-        $show->cents('Cents');
-        $show->button_text('Button text');
-        $show->button_color('Button color');
-        $show->advantages('Advantages');
-        $show->more_advantages('More advantages');
 
         return $show;
     }
@@ -134,19 +120,12 @@ class PlansTableController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new PlansTable);
+        $form = new Form(new Textblocks);
 
-        $form->text('plan_name', 'Plan name');
-        $form->text('plan_alias', 'Plan alias');
-        $form->text('server_access', 'Server access')->default('basic');
-        $form->text('speed_limit', 'Speed limit');
-        $form->text('months_limit', 'Months limit');
-        $form->text('price', 'Price');
-        $form->text('cents', 'Cents')->default('00');
-        $form->text('button_text', 'Button text')->default('subscribe');
-        $form->text('button_color', 'Button color')->default('green');
-        $form->textarea('advantages', 'Advantages');
-        $form->textarea('more_advantages', 'More advantages');
+        $form->text('name', 'Name');
+        $form->text('code', 'Code');
+        $form->textarea('text_en', 'Text en');
+        $form->textarea('text_br', 'Text br');
 
         return $form;
     }

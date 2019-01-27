@@ -25,6 +25,33 @@
             $(this).addClass('active');
         });
     </script>
+
+    <script>
+        $('.btn-send').click(function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: '/plan',
+                data: "plan_id="+$(this).prop('id'),
+                success: function (data){
+                    if(data.ret)
+                    {
+                        alert('Successfull subscribed');
+                    }
+                    else
+                    {
+                        alert('Error subscribe');
+                    }
+                },
+                error: function() {
+                    alert('Error subscribe');
+                }
+            });
+
+            return false;
+        });
+    </script>
 @endif
 
 @if(Request::path() == 'send-us-an-email' || Request::path() == 'invites' || Request::path() == 'new-password')
@@ -49,14 +76,6 @@
     $('#contactform').submit(function(e){
         e.preventDefault();
 
-        // var file_data = $('#contactform').prop('file')[0];
-        // var form_data = new FormData();
-        // form_data.append('file', file_data);
-        // var formData = new FormData($(this)[0]);
-        //
-        // console.log('fghjj]');
-        // console.log(formData);
-
         var formData = new FormData(this);
         console.log(formData);
 
@@ -67,15 +86,6 @@
             cache:false,
             contentType: false,
             processData: false,
-            // data: $('#contactform').serialize(),
-            // data: {
-            //     "_method": 'POST',
-            //     "_token": $('input[name=_token]').val(),
-            //     "message": $('textarea[name=message]').val(),
-            //     "email": $('input[name=email]').val(),
-            //     "file": $('input[name=file]').val()
-            //
-            // },
             success: function(data){
                 if(data.result)
                 {
@@ -95,34 +105,6 @@
         });
     });
 </script>
-
-<script>
-    $('.btn-send').click(function(e){
-        e.preventDefault();
-
-        $.ajax({
-            type: 'POST',
-            url: '/plan',
-            data: "plan_id="+$(this).prop('id'),
-            success: function (data){
-                if(data.ret)
-                {
-                    alert('Successfull subscribed');
-                }
-                else
-                {
-                    alert('Error subscribe');
-                }
-            },
-            error: function() {
-                alert('Error subscribe');
-            }
-        });
-
-        return false;
-    });
-</script>
-
 
 <script>
     (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=

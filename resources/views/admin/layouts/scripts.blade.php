@@ -3,6 +3,47 @@
 <script src="{{ asset('site/js/vendor.min.js') }}"></script>
 <script src="{{ asset('site/js/main.min.js') }}"></script>
 
+@if(Request::path() == 'customer-area')
+    <script>
+        $('.checkout .payment-item').click( function(){
+            $('.checkout .payment-item').removeClass('active');
+            $(this).addClass('active');
+        });
+
+        $('.cupom').click( function(){
+            $('.cupom').removeClass('active');
+            $(this).addClass('active');
+        });
+    </script>
+
+    <script>
+        $('.btn-send').click(function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: '/plan',
+                data: "plan_id="+$(this).prop('id'),
+                success: function (data){
+                    if(data.ret)
+                    {
+                        alert('Successfull subscribed');
+                    }
+                    else
+                    {
+                        alert('Error subscribe');
+                    }
+                },
+                error: function() {
+                    alert('Error subscribe');
+                }
+            });
+
+            return false;
+        });
+    </script>
+@endif
+
 <script>
     (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
         function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;

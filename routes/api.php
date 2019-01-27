@@ -57,3 +57,6 @@ Route::get('v1/user/verify_conn', 'API\ServerController@verifyConn');
 
 Route::post('v1/plan/current', 'API\PlansController@getUserPlan');
 Route::get('v1/plan/current', 'API\PlansController@getUserPlan');
+
+Route::post('v1/app/list', 'API\AppInfoController@getAppInfoList');
+Route::get('v1/app/list', 'API\AppInfoController@getAppInfoList');

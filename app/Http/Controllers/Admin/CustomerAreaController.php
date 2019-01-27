@@ -13,12 +13,12 @@ class CustomerAreaController extends AdminController
      */
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('auth');
     }
 
     public function index()
     {
-        parent::__construct();
 
         $data = [
             'title' => 'Speed VPN | CustomerArea',

@@ -10,10 +10,19 @@ use App\User;
 
 class ChangePasswordController extends AdminController
 {
-    public function index()
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
         parent::__construct();
+        $this->middleware('auth');
+    }
 
+    public function index()
+    {
         $data = [
             'title' => 'Speed VPN | ChangePassword',
             'description' => 'Speed VPN | ChangePassword',

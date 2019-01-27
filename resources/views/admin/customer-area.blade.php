@@ -25,25 +25,11 @@
                     @include('site.planslist', ['plans' => App\PlansTable::all()])
                 </div>
 
-                <div class="warn-section clearfix">
-                    <div class="icon"></div>
-                    <p>We would like to remind you that the annual option will save you even more.</p>
-                </div>
+                <?/* plans alert */?>
+                @include('site.textblocks', ['textblock' => App\Http\Controllers\Site\TextblocksController::getTextBlock('plans_attention')])
 
-                <div class="advantages">
-                    <h3>More advantages of the basic plan</h3>
-
-                    <ul class="list">
-                        <li>Support 24 hours a day <br />7 days a week..</li>
-                        <li>Windows application <br />Soon:</li>
-                        <li>The best in security and <br />encryption. </li>
-                        <li>Unlmited traffic and servers <br />exchanges.</li>
-                        <li>Automatic Kill Switch.</li>
-                        <li>Don't save your logs.</li>
-                        <li>Ultra fast in more <br />than x countries.</li>
-                        <li>Guaranteed refund<br />(7 days).</li>
-                    </ul>
-                </div>
+                <?/* plans advantage text */?>
+                @include('site.textblocks', ['textblock' => App\Http\Controllers\Site\TextblocksController::getTextBlock('plans_advantage')])
             </section>
 
             <div class="title-c clearfix">
