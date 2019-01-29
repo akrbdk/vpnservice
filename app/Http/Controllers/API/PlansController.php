@@ -33,13 +33,14 @@ class PlansController extends ApiController
                 })
                 ->first();
 
+            //TODO: Fix types in database
             if(!empty($userPlan)){
                 return response()->json([
                     'error'=> 0,
                     'payload' => array(
                         'id' => (int)$userPlan['plan_id'],
                         'name' => $userPlan['plan_name'],
-                        'months' => $userPlan['months_limit'],
+                        'months' => (int)$userPlan['months_limit'],
                         'expiry_at' => $userPlan['expiry_at']
                     )], parent::$successStatus);
             } else {
