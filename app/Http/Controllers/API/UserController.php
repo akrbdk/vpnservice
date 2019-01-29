@@ -21,9 +21,8 @@ class UserController extends ApiController
 
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
-            // FIXME: Maybe unused
-            if (parent::checkPlanExpired($user))  {
-                // return response()->json(['error' => 1, 'description' => 'Plan expired'], parent::$errorStatus);
+            if (parent::checkPlanExpired($user['id']))  {
+                return response()->json(['error' => parent::$planExpired, 'description' => 'Plan expired'], parent::$errorStatus);
             }
 
             $token = false;
@@ -43,13 +42,13 @@ class UserController extends ApiController
                 if($token){
                     $user->update();
 
-                    return response()->json(['error' => 0, 'payload' => ['token' => $token]], parent::$successStatus);
+                    return response()->json(['error' => parent::$invalidArgument, 'payload' => ['token' => $token]], parent::$successStatus);
                 }
             }
 
         }
 
-        return response()->json(['error'=>1, 'details' => '', 'description' => 'Unauthorized'], parent::$errorStatus);
+        return response()->json(['error'=>1, 'description' => 'Invalid login or password'], parent::$errorStatus);
     }
 
     /**
@@ -92,10 +91,17 @@ class UserController extends ApiController
     {
         $input = $request->all();
 
-        if($user = parent::checkUserPlatform($input)){
-            return response()->json(['error'=> 0, 'description' => $user, 'payload' => array('check' => 'Ok')], parent::$successStatus);
+        $user = parent::checkUserPlatform($input);
+        if (count($user) !== 1) {
+            return response()->json(['error' => 1, 'description' => 'Invalid token'], parent::$errorStatus);
         }
 
-        return response()->json(['error'=> 1, 'description' => $input, 'payload' => array('check' => 'Error')], parent::$errorStatus);
+        info('Total users: '.count($user));
+        info('User id'.$user->id);
+        if (parent::checkPlanExpired($user->id))  {
+            return response()->json(['error' => parent::$planExpired, 'description' => 'Plan expired'], parent::$errorStatus);
+        }
+
+        return response()->json(['error'=> 0, 'description' => $input, 'payload' => []], parent::$successStatus);
     }
 }

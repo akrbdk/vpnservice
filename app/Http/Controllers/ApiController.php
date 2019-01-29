@@ -24,9 +24,14 @@ class ApiController extends BaseController
 
 //    protected static $apiAuthUser = true;
 
+    // System errors starts from 0
     protected static $success = 0;
     protected static $error = 1;
     protected static $invalidArgument = 2;
+    protected static $unknownError = 3;
+
+    // Custom errors starts from 10
+    protected static $planExpired = 10; 
 
     protected static $successCheck = 'Ok';
     protected static $errorCheck = 'Error';
@@ -60,8 +65,8 @@ class ApiController extends BaseController
         );
     }
 
-    protected static function checkPlanExpired($user) {
-        $result = DB::select('SELECT expiry_at FROM users_plans WHERE user_id = ? LIMIT 1', [$user['id']]);
+    protected static function checkPlanExpired($user_id) {
+        $result = DB::select('SELECT expiry_at FROM users_plans WHERE user_id = ? LIMIT 1', [$user_id]);
         if (count($result) === 0) return false;
 
         // info("Expiry: ".$result[0]->expiry_at." Time: ".time());
