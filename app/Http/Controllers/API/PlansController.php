@@ -34,7 +34,14 @@ class PlansController extends ApiController
                 ->first();
 
             if(!empty($userPlan)){
-                return response()->json(['error'=> 0, 'payload' => array('id' => (int)$userPlan['plan_id'], 'name' => $userPlan['plan_name'], 'expiry_at' => $userPlan['expiry_at'])], parent::$successStatus);
+                return response()->json([
+                    'error'=> 0,
+                    'payload' => array(
+                        'id' => (int)$userPlan['plan_id'],
+                        'name' => $userPlan['plan_name'],
+                        'months' => $userPlan['months_limit'],
+                        'expiry_at' => $userPlan['expiry_at']
+                    )], parent::$successStatus);
             } else {
                 return response()->json(['error'=> 0, 'payload' => array('id' => 1, 'name' => 'Basic', 'expiry_at' => time() + 350)], parent::$successStatus);
             }

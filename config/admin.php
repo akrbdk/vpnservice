@@ -312,6 +312,18 @@ return [
     |
     */
     'extensions' => [
-
+        'media-manager' => [
+//            'disk' => 'public'   // Points to the disk set in config/filesystem.php
+            'disk' => 'local'   // Points to the disk set in config/filesystem.php
+        ],
+        'json-editor' => [
+            // set to false if you want to disable this extension
+            'enable' => true,
+            'config' =>
+                [
+                    'mode' => 'tree',
+                    'modes' => ['code', 'form', 'text', 'tree', 'view'], // allowed modes
+                ],
+        ]
     ],
 ];

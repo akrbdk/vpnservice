@@ -124,6 +124,7 @@ class TextblocksController extends Controller
 
         $form->text('name', 'Name');
         $form->text('code', 'Code');
+        $form->json('{}', 'Text json');
         $form->textarea('text_en', 'Text en');
         $form->textarea('text_br', 'Text br');
 

@@ -21,7 +21,7 @@ class AppInfoController extends ApiController
      */
     public function getAppInfoList(){
 
-        $allPlans = AppsInfo::all()->toArray();
+        $allPlans = DB::table('apps_infos')->select('version', 'client', 'link_update')->get()->toArray();
 
         if(!empty($allPlans)){
             return response()->json(['error'=> 0, 'payload' => array('apps' => $allPlans)], parent::$successStatus);
