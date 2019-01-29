@@ -27,7 +27,7 @@ class PlansController extends Controller
                 $planInfoArr = [
                     'user_id' => $user_id,
                     'plan_id' => $plan_params->id,
-                    'expiry_at' => time() + 350
+                    'expiry_at' => time() + (int)$plan_params->months_limit
                 ];
 
                 if(!empty($user_plan)){
