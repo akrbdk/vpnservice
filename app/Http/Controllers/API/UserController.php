@@ -42,7 +42,7 @@ class UserController extends ApiController
                 if($token){
                     $user->update();
 
-                    return response()->json(['error' => parent::$invalidArgument, 'payload' => ['token' => $token]], parent::$successStatus);
+                    return response()->json(['error' => parent::$success, 'payload' => ['token' => $token]], parent::$successStatus);
                 }
             }
 
@@ -96,12 +96,10 @@ class UserController extends ApiController
             return response()->json(['error' => 1, 'description' => 'Invalid token'], parent::$errorStatus);
         }
 
-        info('Total users: '.count($user));
-        info('User id'.$user->id);
         if (parent::checkPlanExpired($user->id))  {
             return response()->json(['error' => parent::$planExpired, 'description' => 'Plan expired'], parent::$errorStatus);
         }
 
-        return response()->json(['error'=> 0, 'description' => $input, 'payload' => []], parent::$successStatus);
+        return response()->json(['error'=> 0], parent::$successStatus);
     }
 }
