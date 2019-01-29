@@ -20,8 +20,12 @@ class UserController extends ApiController
         $input = $request->all();
 
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
-
             $user = Auth::user();
+            // FIXME: Maybe unused
+            if (parent::checkPlanExpired($user))  {
+                // return response()->json(['error' => 1, 'description' => 'Plan expired'], parent::$errorStatus);
+            }
+
             $token = false;
 
             if(!empty($input['platform'])){
@@ -45,7 +49,7 @@ class UserController extends ApiController
 
         }
 
-        return response()->json(['error'=>1, 'details' => '', 'description' => 'Unauthorised', 'payload' => array('token' => '')], parent::$errorStatus);
+        return response()->json(['error'=>1, 'details' => '', 'description' => 'Unauthorized'], parent::$errorStatus);
     }
 
     /**
