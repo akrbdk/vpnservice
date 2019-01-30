@@ -13,7 +13,7 @@
     </script>
 @endif
 
-@if(Request::path() == 'plans')
+@if(Request::path() == 'plans' || Request::path() == '/')
     <script>
         $('.checkout .payment-item').click( function(){
             $('.checkout .payment-item').removeClass('active');
