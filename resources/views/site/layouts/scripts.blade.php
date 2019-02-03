@@ -106,10 +106,12 @@
     });
 </script>
 
+@if(Request::path() == 'how-it-works')
 <script>
   var resol = screen.width+'x'+screen.height;
   $('#screen_res').text(resol).removeAttr('id');
 </script>
+@endif
 
 <script>
     (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
