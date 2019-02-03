@@ -33,7 +33,6 @@ class PlansController extends ApiController
                 })
                 ->first();
 
-            //TODO: Fix types in database
             if(!empty($userPlan)){
                 return response()->json([
                     'error'=> 0,

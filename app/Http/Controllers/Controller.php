@@ -6,6 +6,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Http\Controllers\IpInfo as IpInfo;
 use GuzzleHttp\Client;
 use App;
 use DB;
@@ -18,8 +19,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public $user_loc;
-    public $user_ip;
+    public $ip_info;
     public $protect_status;
     public $protect_status1;
 
@@ -34,26 +34,17 @@ class Controller extends BaseController
         App::setLocale(Session::get('locale'));
 
         $this->middleware(function ($request, $next) {
-            $this->user_ip = Request::ip();
-            $this->user_loc = self::ip_info($this->user_ip);
 
-            $serverInfo = DB::table('server_infos')->where('ip', trim($this->user_ip))->first();
+            $ip_info = IpInfo::ip_info();
+
+            $serverInfo = DB::table('server_infos')->where('ip', trim($ip_info['ip']))->first();
 
             $this->protect_status = !empty($serverInfo) ? true : false;
 
             view()->share('protect_status', $this->protect_status);
-            view()->share('user_ip', $this->user_ip);
-            view()->share('user_loc', $this->user_loc);
+            view()->share('ip_info', $ip_info);
 
             return $next($request);
         });
-    }
-
-    public static function ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) {
-        $remote = sprintf("https://www.iplocate.io/api/lookup/%s", $ip);
-
-        $client = new Client();
-        $response = $client->request('GET', $remote);
-        return json_decode($response->getBody(), true);
     }
 }

@@ -102,4 +102,3 @@ Route::get('storage/upload/{filename}', function ($filename)
     $response->header("Content-Type", $type);
     return $response;
 });
-

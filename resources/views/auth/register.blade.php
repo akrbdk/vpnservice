@@ -68,6 +68,7 @@
                 </div>
 
                 <input disabled="disabled" type="submit" id="button1" class="btn-orange" value="{{ trans('auth.register') }}">
+                
                 <p></p>
             </form>
 

@@ -3,7 +3,7 @@
 @section('content')
 
 	<main id="main" class="como-funciona">
-		<section class="pro-con">
+	<section class="pro-con">
 			<div class="container">
 				<h2>How it works</h2>
 
@@ -147,13 +147,13 @@
 				<p>Some of your informations that is exposed</p>
 
 				<ul class="list">
-					<li>Your IP: <span>168.192.100.255</span></li>
-					<li>Your ISP provider: <span>NET Virtua</span></li>
-					<li>Location: <span>Blumenau</span></li>
-					<li>Country: <span>Brazil</span></li>
-					<li>Operational system: <span>Windows 10</span></li>
-					<li>Screen resolution: <span>1920x1080</span></li>
-					<li>Browser: <span>Firefox</span></li>
+					<li>Your IP: <span>{{ $ip_info['ip'] }}</span></li>
+					<li>Your ISP provider: <span>{{ $ip_info['org'] }}</span></li>
+					<li>Location: <span>{{ $ip_info['city'] }}</span></li>
+					<li>Country: <span>{{ $ip_info['country'] }}</span></li>
+					<li>Operational system: <span>{{ $ip_info['os'] }}</span></li>
+					<li>Screen resolution: <span id='screen_res'></span></li>
+					<li>Browser: <span>{{ $ip_info['browser'] }}</span></li>
 				</ul>
 			</section>
 

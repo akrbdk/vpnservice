@@ -17,6 +17,6 @@ class IndexController extends Controller
             'keywords' => 'Speed VPN - самая лучшая компания в своём роде'
         ];
 
-        return view('site.index', $data);
+        return view('site/index', $data);
     }
 }
