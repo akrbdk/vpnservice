@@ -61,8 +61,8 @@
             </nav>
 
             <ul id="visitor-info">
-                <li>{{ trans('home.ip_info') }}: {{ $user_ip }} </li>
-                <li>{{ trans('home.location') }} {{ $user_loc['city'] }}, {{ $user_loc['country'] }}</li>
+                <li>{{ trans('home.ip_info') }}: {{ $ip_info['ip'] }} </li>
+                <li>{{ trans('home.location') }} {{ $ip_info['city'] }}, {{ $ip_info['country'] }}</li>
                 <li>{{ trans('home.status') }}
                     @if($protect_status)
                         <span style="color: #00ca6d">{{ trans('home.status_part3') }}</span>
