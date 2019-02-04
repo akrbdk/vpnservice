@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Ajax;
+namespace App\Http\Controllers\Plans;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -9,13 +9,13 @@ use DB;
 use App\User;
 use Validator;
 
-class PlansController extends Controller
+class planOrder extends Controller
 {
     public function planOrder(Request $request)
     {
         $request = $request->all();
 
-        $data['ret'] = 0;
+        $data['ret'] = 'Subscibtion Error';
 
         if (Auth::check() && !empty($request['plan_id']))
         {
@@ -30,13 +30,15 @@ class PlansController extends Controller
                     'expiry_at' => time() + (int)$plan_params->months_limit
                 ];
 
+                $planName = $plan_params->plan_name;
+
                 if(!empty($user_plan)){
                     DB::table('users_plans')->where('id', $user_plan->id)->update($planInfoArr);
                 } else {
                     DB::table('users_plans')->insert($planInfoArr);
                 }
 
-                $data['ret'] = 1;
+                $data['ret'] = 'Subscibtion to '.$planName.' plan Success';
             }
         }
 

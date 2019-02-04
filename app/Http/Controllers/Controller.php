@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Http\Controllers\IpInfo as IpInfo;
+use App\Http\Controllers\Plans\PlanController as Plan;
 use GuzzleHttp\Client;
 use App;
 use DB;
@@ -35,6 +36,7 @@ class Controller extends BaseController
 
         $this->middleware(function ($request, $next) {
 
+            $Plan = new Plan;
             $ip_info = IpInfo::ip_info();
 
             $serverInfo = DB::table('server_infos')->where('ip', trim($ip_info['ip']))->first();
@@ -42,6 +44,7 @@ class Controller extends BaseController
             $this->protect_status = !empty($serverInfo) ? true : false;
 
             view()->share('protect_status', $this->protect_status);
+            view()->share('TrialHide', $Plan->TrialHide());
             view()->share('ip_info', $ip_info);
 
             return $next($request);

@@ -35,14 +35,7 @@
                 url: '/plan',
                 data: "plan_id="+$(this).prop('id'),
                 success: function (data){
-                    if(data.ret)
-                    {
-                        alert('Successfull subscribed');
-                    }
-                    else
-                    {
-                        alert('Error subscribe');
-                    }
+                        alert(data.ret);
                 },
                 error: function() {
                     alert('Error subscribe');

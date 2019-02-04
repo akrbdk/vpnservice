@@ -23,12 +23,11 @@ Route::namespace('Site')->group(function(){
     Route::get('/download/{alias}', 'AppsInfoController@index');
     Route::get('/send-us-an-email', 'SendUsEmailController@index');
     Route::get('/how-it-works', 'HowItWorksController@index');
-
 });
 
 //Ajax маршруты
 Route::post('/sendmail', ['as'=>'contactus.store','uses'=>'Ajax\ContactController@send']);
-Route::post('/plan', 'Ajax\PlansController@planOrder');
+Route::post('/plan', 'Plans\PlanOrder@planOrder');
 
 // Маршруты аутентификации и регистрации
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

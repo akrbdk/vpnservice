@@ -26,8 +26,13 @@
                 href="{{ url('admin/customer-area') }}"
                 class="btn-{{ $plan->button_color }}"
             @endguest
-                id="{{ $plan->plan_alias }}">
-                {{ $plan->button_text }}
+                id="{{ $plan->plan_alias }}"
+            @if ($plan->plan_name == "Basic")
+            {{ $TrialHide }}
+            @endif
+            >
+            {{ $plan->button_text }}
+
             </a>
         </li>
     @endforeach
