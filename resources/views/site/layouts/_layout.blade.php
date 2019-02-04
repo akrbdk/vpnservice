@@ -20,19 +20,19 @@
 
     {{--recaptcha--}}
     <script src='https://www.google.com/recaptcha/api.js'></script>
-    
+
     @include('site.layouts.styles')
 
 </head>
 <body>
 
-    @include('site.layouts.header')
+@include('site.layouts.header')
 
-    @yield('content')
+@yield('content')
 
-    @include('site.layouts.footer')
+@include('site.layouts.footer')
 
-    @include('site.layouts.scripts')
-    
+@include('site.layouts.scripts')
+
 </body>
 </html>

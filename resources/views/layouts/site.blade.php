@@ -134,7 +134,8 @@
     @if(Route::currentRouteName() == 'home' || Route::currentRouteName() == '/')
 
         <div id="banner">
-            <div class="banner-slide" style="background: url(./img/banner-home.png) no-repeat center top; background-size: cover;">
+            <div class="banner-slide"
+                 style="background: url(./img/banner-home.png) no-repeat center top; background-size: cover;">
                 <div class="container">
                     <div class="content">
                         <h3 style="color: #004f8f">Fast and secure</h3>
@@ -148,189 +149,6 @@
     @endif
 </header>
 
-<?/* content
-<section id="features">
-    <div class="container">
-        <ul id="features-list">
-            <li>
-                <img src="./img/privacity.png" alt="Privacidade online">
-                <span class="title">Online privacy</span>
-                <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </li>
-            <li>
-                <img src="./img/restriction.png" alt="Navegue sem restrições">
-                <span class="title">Browse freely</span>
-                <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </li>
-            <li>
-                <img src="./img/security.png" alt="proteção na internet">
-                <span class="title">Internet protection</span>
-                <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </li>
-        </ul>
-    </div>
-</section>
-<section id="best-service">
-    <div class="container">
-        <h3 class="title">THE BEST VPN SERVICE</h3>
-        <span class="subtitle">Some of the advantages for using the fastest and the most secure VPN</span>
-
-        <ul id="service-list">
-            <li><img src="./img/support.png" alt=""> <p>Support 24 hours a day <br />7 days a week.</p></li>
-            <li><img src="./img/server.png" alt=""> <p>Ultra fast in more than x countries.</p></li>
-            <li><img src="./img/apps.png" alt=""> <p>Windows application <br />Soon: <img width="13" src="./img/apple.png" alt=""> <img width="14" src="./img/android.png" alt=""></p></li>
-            <li><img src="./img/security-cripto.png" alt=""> <p>The best in security and encryption.</p></li>
-            <li><img src="./img/transfer-unlimited.png" alt=""> <p>Unlmited traffic and servers exchanges.</p></li>
-            <li><img src="./img/money-back.png" alt=""> <p>Guaranteed refund <br />(7 days).</p></li>
-            <li><img src="./img/automated-switch.png" alt=""> <p>Automatic Kill Switch.</p></li>
-            <li><img src="./img/no-logs.png" alt=""> <p>Don't save your logs.</p></li>
-        </ul>
-
-        <img class="bg-bl" src="./img/bg-bl.png" alt="">
-    </div>
-</section>
-<section id="choose-plan">
-    <div class="container">
-        <h2>Choose your plan</h2>
-
-        <ul id="plan-list">
-            <li class="plan-free">
-                <div class="title">Free</div>
-                <div class="price">
-                    <span class="currency">$</span>
-                    <span class="coin">0</span>
-                    <span class="cents">.00</span>
-                </div>
-                <div class="plan-type">
-                    Per month
-                </div>
-
-                <ul class="feature-list">
-                    <li>Without credit card</li>
-                    <li>Without any disconnects every minute</li>
-                    <li>Normal speed</li>
-                </ul>
-
-                <span class="trial">3 days free</span>
-                <a href="/plans" class="btn-orange">test 3 days free</a>
-            </li>
-            <li class="plan-basic">
-                <div class="title">Basic</div>
-                <div class="price">
-                    <span class="currency">$</span>
-                    <span class="coin">4</span>
-                    <span class="cents">.90</span>
-                </div>
-                <div class="plan-type">
-                    Per month
-                </div>
-
-                <ul class="feature-list">
-                    <li>50 servers</li>
-                    <li>Basic support</li>
-                    <li>Normal speed</li>
-                </ul>
-
-                <select name="plan-period" id="plan-period">
-                    <option value="anual">Anual - 51% of discount</option>
-                    <option value="anual">Anual - 51% of discount</option>
-                    <option value="anual">Anual - 51% of discount</option>
-                </select>
-
-                <a href="/plans" class="btn-green">Subscribe now</a>
-            </li>
-            <li class="most-pop">
-                <div class="title">
-                    <span>The most popular</span>
-                    Prime
-                </div>
-                <div class="price">
-                    <span class="currency">$</span>
-                    <span class="coin">6</span>
-                    <span class="cents">.90</span>
-                </div>
-                <div class="plan-type">
-                    Per month
-                </div>
-
-                <ul class="feature-list">
-                    <li>More than 100 server</li>
-                    <li>High speed connection</li>
-                    <li>Premium support</li>
-                </ul>
-
-                <select name="plan-period" id="plan-period">
-                    <option value="anual">Anual - 54% of discount</option>
-                    <option value="anual">Anual - 54% of discount</option>
-                    <option value="anual">Anual - 54% of discount</option>
-                </select>
-
-                <a href="/plans" class="btn-green">Subscribe now</a>
-            </li>
-        </ul>
-    </div>
-</section>
-<section id="country">
-    <div class="container">
-        <h2>More than 40 countries, more than 100 servers</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-
-        <span class="title">Number of servers per country:</span>
-
-        <ul id="country-list">
-            <li>
-                <img src="./img/flag-1.png" alt="">
-                <span>3</span>
-
-                <div class="cities">
-                    <p>São Paulo - SP</p>
-                    <p>Rio de Janeiro - RJ</p>
-                    <p>Porto Alegre - RS</p>
-                </div>
-            </li>
-            <li><img src="./img/flag-2.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-3.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-4.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-5.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-6.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-7.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-8.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-9.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-10.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-11.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-12.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-13.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-14.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-15.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-16.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-17.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-18.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-19.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-20.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-21.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-22.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-23.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-24.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-25.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-26.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-27.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-28.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-29.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-30.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-31.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-32.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-33.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-34.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-35.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-36.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-37.png" alt=""><span>3</span></li>
-            <li><img src="./img/flag-38.png" alt=""><span>3</span></li>
-            <li>and counting...</li>
-        </ul>
-    </div>
-</section>
-*/?>
-
 <?/* footer */?>
 @yield('footer')
 
@@ -339,12 +157,20 @@
 <script src="./js/main.min.js"></script>
 
 <script>
-    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-        e.src='http://www.google-analytics.com/analytics.js';
-        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-    ga('create','UA-XXXXX-X');ga('send','pageview');
+    (function (b, o, i, l, e, r) {
+        b.GoogleAnalyticsObject = l;
+        b[l] || (b[l] =
+            function () {
+                (b[l].q = b[l].q || []).push(arguments)
+            });
+        b[l].l = +new Date;
+        e = o.createElement(i);
+        r = o.getElementsByTagName(i)[0];
+        e.src = 'http://www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e, r)
+    }(window, document, 'script', 'ga'));
+    ga('create', 'UA-XXXXX-X');
+    ga('send', 'pageview');
 </script>
 </body>
 </html>

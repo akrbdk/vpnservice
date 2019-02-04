@@ -7,7 +7,6 @@ use App\Textblocks;
 use Session;
 use Config;
 
-
 class TextblocksController extends Controller
 {
 

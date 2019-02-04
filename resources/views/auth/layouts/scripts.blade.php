@@ -7,21 +7,9 @@
         $(".modal, .modal-content").show();
     }
 
-    // $(".modal").click( function(){
-    //     $(".modal, .modal-content").hide();
-    // });
-
     $('#reset_email_submit').on('submit', function(e){
         e.preventDefault();
-
         $(".modal, .modal-content").hide();
-
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //     }
-        // });
-
         $.ajax({
             url: "password/email",
             data: {

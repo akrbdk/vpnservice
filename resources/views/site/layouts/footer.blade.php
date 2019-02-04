@@ -4,7 +4,6 @@
             <h3 class="logo"><a href="{{ url('/') }}">SpeedVPN</a></h3>
             <span>Copyright © 2018 SpeedVPN</span>
         </div>
-
         <div class="menu-base">
             <nav id="menu-footer">
                 <ul>

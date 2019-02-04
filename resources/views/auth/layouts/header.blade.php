@@ -1,4 +1,3 @@
-
 <!--[if lt IE 7]>
 <p class="browsehappy">
     Você está usando um navegador
@@ -15,7 +14,8 @@
 
         <div class="clearfix reset_email">
             <label for="email">{{ trans('auth.email') }}</label>
-            <input type="email" class="email" placeholder="{{ trans('auth.email_inform') }}" name="email" value="{{ old('email') }}" required autofocus>
+            <input type="email" class="email" placeholder="{{ trans('auth.email_inform') }}" name="email"
+                   value="{{ old('email') }}" required autofocus>
 
             @if ($errors->has('email'))
                 <span class="invalid-feedback" role="alert">

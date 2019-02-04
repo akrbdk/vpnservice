@@ -7,20 +7,7 @@
 			<h2>Send an email to us</h2>
 			<div class="table-base clearfix">
 				<form id="contactform" method="POST" class="clearfix validateform" action="" enctype="multipart/form-data">
-
 					{{ csrf_field() }}
-
-					<div id="sendmessage" style="display: none" class="clearfix">
-						Ваше сообщение отправлено!
-					</div>
-					<div id="senderror" style="display: none" class="clearfix">
-						Ваше сообщение отправлено!
-					</div>
-					<?/*<div id="senderror" style="display: none" class="clearfix">
-						При отправке сообщения произошла ошибка. Продублируйте его, пожалуйста, на почту администратора <span>{{ env('MAIL_ADMIN_EMAIL') }}</span>
-					</div>*/?>
-
-
 					<div class="email-label">
 						<label for="email">Email</label>
 						<input type="email" name="email" class="email" placeholder="We will answer to this email" required>

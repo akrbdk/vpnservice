@@ -1,12 +1,8 @@
 <?php
 
 Route::get('setlocale/{locale}', function ($locale) {
-
-    if (in_array($locale, Config::get('app.locales'))) {
-        session(['locale' => $locale]);
-    }
+    if (in_array($locale, Config::get('app.locales'))) session(['locale' => $locale]);
     return redirect()->back();
-
 })->name('setlocale');
 
 //Роуты витрины сайта
@@ -62,11 +58,6 @@ Route::middleware('auth')->prefix('/admin')->group(function(){
 
     //invite your friend
     Route::get('/invites', 'Admin\InvitesController@index');
-
-    Route::prefix('/articles')->group(function(){
-        Route::get('/', 'BlogController@all');
-        Route::get('/create', 'BlogController@create');
-    });
 });
 
 //POST запрос для отправки email письма пользователю для сброса пароля
@@ -89,8 +80,7 @@ Route::get('/clear', function() {
 
 
 //роут для доступа к приватным файлам по прямой ссылке
-Route::get('storage/upload/{filename}', function ($filename)
-{
+Route::get('storage/upload/{filename}', function ($filename){
     $path = storage_path('upload/' . $filename);
 
     if (!File::exists($path)) {
