@@ -23,13 +23,7 @@ class ChangePasswordController extends AdminController
 
     public function index()
     {
-        $data = [
-            'title' => 'Speed VPN | ChangePassword',
-            'description' => 'Speed VPN | ChangePassword',
-            'keywords' => 'Speed VPN | ChangePassword'
-        ];
-
-        return view('admin.change-password', $data);
+        return view('admin.change-password', ['page_key' => 'change_pwd_']);
     }
 
     public function updatePassword(Request $request)

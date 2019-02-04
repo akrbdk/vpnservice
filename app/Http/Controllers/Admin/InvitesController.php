@@ -19,12 +19,6 @@ class InvitesController extends AdminController
 
     public function index()
     {
-        $data = [
-            'title' => 'Speed VPN | Invites',
-            'description' => 'Speed VPN | Invites',
-            'keywords' => 'Speed VPN | Invites'
-        ];
-
-        return view('admin.invites', $data);
+        return view('admin.invites', ['page_key' => 'invites_']);
     }
 }

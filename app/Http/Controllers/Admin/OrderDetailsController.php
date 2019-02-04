@@ -19,13 +19,6 @@ class OrderDetailsController extends AdminController
 
     public function index()
     {
-
-        $data = [
-            'title' => 'Speed VPN | OrderDetails',
-            'description' => 'Speed VPN | OrderDetails',
-            'keywords' => 'Speed VPN | OrderDetails'
-        ];
-
-        return view('admin.order-details', $data);
+        return view('admin.order-details', ['page_key' => 'order_']);
     }
 }

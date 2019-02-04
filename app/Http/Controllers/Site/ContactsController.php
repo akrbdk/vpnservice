@@ -10,12 +10,6 @@ class ContactsController extends Controller
     {
         parent::__construct();
 
-        $data = [
-            'title' => 'Speed VPN | Contacts',
-            'description' => 'Speed VPN | Contacts',
-            'keywords' => 'Speed VPN | Contacts'
-        ];
-
-        return view('site.contact-us', $data);
+        return view('site.contact-us', ['page_key' => 'contacts_']);
     }
 }

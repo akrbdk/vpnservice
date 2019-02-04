@@ -19,13 +19,6 @@ class CustomerAreaController extends AdminController
 
     public function index()
     {
-
-        $data = [
-            'title' => 'Speed VPN | CustomerArea',
-            'description' => 'Speed VPN | CustomerArea',
-            'keywords' => 'Speed VPN | CustomerArea'
-        ];
-
-        return view('admin.customer-area', $data);
+        return view('admin.customer-area', ['page_key' => 'customer_area_']);
     }
 }

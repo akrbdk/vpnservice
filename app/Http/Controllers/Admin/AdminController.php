@@ -24,14 +24,7 @@ class AdminControllerMain extends AdminController
      */
     public function index()
     {
-
-        $data = [
-            'title' => 'Speed VPN | Admin Panel',
-            'description' => 'Speed VPN | Admin Panel',
-            'keywords' => 'Speed VPN | Admin Panel'
-        ];
-
-        return view('admin.index', $data);
+        return view('admin.index', ['page_key' => 'admin_index_']);
 
     }
 }
