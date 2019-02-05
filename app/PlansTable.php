@@ -22,7 +22,7 @@ class PlansTable extends Model
 
       if(!empty($userId)){
         $planid = $plan->user_plan->plan_id;
-        if($planid !== 1 || !$plan->isExpired()){
+        if($planid != 1 || $plan->isExpired()){
           $data = 'hidden';
         }
       }
