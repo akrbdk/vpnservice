@@ -82,14 +82,13 @@ Route::get('/clear', function() {
 //роут для доступа к приватным файлам по прямой ссылке
 Route::get('storage/upload/{filename}', function ($filename){
     $path = storage_path('upload/' . $filename);
-
-    if (!File::exists($path)) {
-        abort(404);
+    if(Admin::user() && File::exists($path)){
+        $file = File::get($path);
+        $type = File::mimeType($path);
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+        return $response;
     }
-    $file = File::get($path);
-    $type = File::mimeType($path);
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-    return $response;
+    abort(404);
 });
 
