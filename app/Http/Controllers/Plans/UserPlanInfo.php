@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 
-class UserPlanInfo extends Controller
+class UserPlanInfo
 {
 
     public $user_plan;
@@ -28,11 +28,6 @@ class UserPlanInfo extends Controller
 
       $plan = $this->user_plan;
 
-      if($plan->expiry_at <= time()){
-        return 0;
-      }
-      else {
-        return 1;
-      }
+      return $plan->expiry_at <= time();
     }
 }
