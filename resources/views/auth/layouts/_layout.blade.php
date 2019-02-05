@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html prefix="og: http://ogp.me/ns#" itemscope itemtype="http://schema.org/Article">
-<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
-<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]-->
-<!--[if IE 8]><html class="no-js lt-ie9"><![endif]-->
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"><![endif]-->
 <!--[if gt IE 8]><!-->
 <html class="no-js" lang="" prefix="og: http://ogp.me/ns#" itemscope itemtype="http://schema.org/Article">
 <!--<![endif]-->
@@ -21,13 +24,13 @@
 </head>
 <body>
 
-    @include('auth.layouts.header')
+@include('auth.layouts.header')
 
-    @yield('content')
+@yield('content')
 
-    @include('auth.layouts.footer')
+@include('auth.layouts.footer')
 
-    @include('auth.layouts.scripts')
+@include('auth.layouts.scripts')
 
 </body>
 </html>

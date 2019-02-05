@@ -9,13 +9,6 @@ class DownloadController extends Controller
     public function index()
     {
         parent::__construct();
-
-        $data = [
-            'title' => 'Speed VPN | Download',
-            'description' => 'Speed VPN | Download',
-            'keywords' => 'Speed VPN | Download'
-        ];
-
-        return view('site.download', $data);
+        return view('site.download', ['page_key' => 'download_']);
     }
 }

@@ -9,13 +9,6 @@ class HowItWorksController extends Controller
     public function index()
     {
         parent::__construct();
-
-        $data = [
-            'title' => 'Speed VPN | HowItWorks',
-            'description' => 'Speed VPN | HowItWorks',
-            'keywords' => 'Speed VPN | HowItWorks'
-        ];
-
-        return view('site.how-it-works', $data);
+        return view('site.how-it-works', ['page_key' => 'about_']);
     }
 }

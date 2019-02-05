@@ -1,4 +1,0 @@
- - Views traduzidas
- - Criado page controller
- - Criadas rotas no web.php
-

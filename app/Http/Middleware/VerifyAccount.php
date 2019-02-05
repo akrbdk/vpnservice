@@ -12,7 +12,6 @@ class VerifyAccount{
             return $next($request);
         } else {
             return response('Unauthorized.', 401);
-            //////////// return redirect()->route('checkpoint');
         }
 
     }

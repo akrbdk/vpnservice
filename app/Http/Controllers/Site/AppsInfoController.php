@@ -15,9 +15,7 @@ class AppsInfoController extends Controller
 
         return view('site.download',
             [
-                'title' => 'Speed VPN | Download',
-                'description' => 'Speed VPN | Download',
-                'keywords' => 'Speed VPN | Download',
+                'page_key' => 'apps_info_',
                 'tabInfo' => $tabInfo,
                 'allTabs' => $allTabs,
             ]);

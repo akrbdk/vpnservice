@@ -17,12 +17,12 @@
 
             {!! $plan->more_advantages !!}
             <a
-            @auth
+                @auth
                 href="javascript:void(0);"
                 class="btn-{{ $plan->button_color }} btn-send"
-            @endauth
+                @endauth
 
-            @guest
+                @guest
                 href="{{ url('admin/customer-area') }}"
                 class="btn-{{ $plan->button_color }}"
             @endguest
