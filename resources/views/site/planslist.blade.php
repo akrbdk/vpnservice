@@ -28,7 +28,7 @@
             @endguest
                 id="{{ $plan->plan_alias }}"
             @if ($plan->plan_name == "Basic")
-            {{ $TrialHide }}
+            {{ $isHidden }}
             @endif
             >
             {{ $plan->button_text }}

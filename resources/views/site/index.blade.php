@@ -79,7 +79,7 @@
     <section id="choose-plan">
         <div class="container">
             {!! trans('main.plans_head') !!}
-            @include('site.planslist', ['plans' => App\PlansTable::all()])
+            @include('site.planslist', ['plans' => App\PlansTable::all(), 'isHidden' => App\PlansTable::isHidden()])
         </div>
     </section>
 
