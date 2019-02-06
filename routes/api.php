@@ -7,9 +7,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['verifyAccount']], function () {
-    Route::get('myProtectedRoute', array('uses' => 'MyController@MyControllerFunction'))->name('myActionName');
-});
 
+//    Route::post('v1/account/login', 'API\UserController@login');
+//    Route::get('v1/account/login', 'API\UserController@login');
+//
+//    Route::post('v1/account/create', 'API\UserController@register');
+//    Route::get('v1/account/create', 'API\UserController@register');
+//
+//    Route::post('v1/account/details', 'API\UserController@checkToken');
+//    Route::get('v1/account/details', 'API\UserController@checkToken');
+
+});
 
 Route::post('v1/account/login', 'API\UserController@login');
 Route::get('v1/account/login', 'API\UserController@login');

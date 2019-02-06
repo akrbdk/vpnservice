@@ -14,6 +14,18 @@ class UserController extends ApiController
     /**
      * login api
      *
+     * type: POST
+     *
+     * request body:
+     * string $email - User Email
+     * string $password - User password
+     * string $platform - Device platform
+     *
+     * headers body
+     * Content-Type - application/json
+     * token - User token
+     *
+     *
      * @return \Illuminate\Http\Response
      */
     public function login(Request $request){
@@ -21,15 +33,15 @@ class UserController extends ApiController
 
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
-            if (parent::checkPlanExpired($user['id']))  {
-                return response()->json(['error' => parent::$planExpired, 'description' => 'Plan expired'], parent::$errorStatus);
+
+            //if plan expired
+            if (parent::checkPlanExpired($user['id'])){
+                return parent::retAnswer(parent::$planExpired, 'Plan expired', false, parent::$errorStatus);
             }
 
-            $token = false;
-
+            //update platform token
             if(!empty($input['platform'])){
                 $input['platform'] = trim(htmlentities($input['platform']));
-
                 switch ($input['platform']) {
                     case "pc":
                         $token = $user->activation_token_desctop = str_random(60);
@@ -37,22 +49,33 @@ class UserController extends ApiController
                     case "mobile":
                         $token = $user->activation_token_mobile = str_random(59);
                         break;
+                    default:
+                        $token = false;
                 }
 
                 if($token){
                     $user->update();
-
-                    return response()->json(['error' => parent::$success, 'payload' => ['token' => $token]], parent::$successStatus);
+                    return parent::retAnswer(parent::$success, false, ['token' => $token], parent::$successStatus);
                 }
             }
 
         }
 
-        return response()->json(['error'=>1, 'description' => 'Invalid login or password'], parent::$errorStatus);
+        return parent::retAnswer(parent::$error, 'Invalid login or password', false, parent::$errorStatus);
     }
 
     /**
      * Register api
+     *
+     * * type: POST
+     *
+     * request body:
+     * string $token - User token
+     * string $platform - Device platform
+     *
+     * headers body
+     * Content-Type - application/json
+     * token - User token
      *
      * @return \Illuminate\Http\Response
      */
@@ -92,14 +115,16 @@ class UserController extends ApiController
         $input = $request->all();
 
         $user = parent::checkUserPlatform($input);
-        if (count($user) !== 1) {
-            return response()->json(['error' => 1, 'description' => 'Invalid token'], parent::$errorStatus);
+        if (!$user) {
+            return parent::retAnswer(parent::$error, 'Invalid token', false, parent::$errorStatus);
         }
 
-        if (parent::checkPlanExpired($user->id))  {
-            return response()->json(['error' => parent::$planExpired, 'description' => 'Plan expired'], parent::$errorStatus);
+        //check active plan
+        if (parent::checkPlanExpired($user->id)){
+            return parent::retAnswer(parent::$planExpired, 'Plan expired', false, parent::$errorStatus);
         }
 
-        return response()->json(['error'=> 0], parent::$successStatus);
+        return parent::retAnswer(parent::$success, false, false, parent::$successStatus);
+
     }
 }
