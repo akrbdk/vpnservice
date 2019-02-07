@@ -16,24 +16,19 @@
             </ul>
 
             {!! $plan->more_advantages !!}
-            <a
-                @auth
-                href="javascript:void(0);"
-                class="btn-{{ $plan->button_color }} btn-send"
-                @endauth
-
-                @guest
-                href="{{ url('admin/customer-area') }}"
-                class="btn-{{ $plan->button_color }}"
-            @endguest
-                id="{{ $plan->plan_alias }}"
-            @if ($plan->plan_name == "Basic")
-            {{ $isHidden }}
+            @if (Request::path() === 'plans')
+              <input required type="radio" name="pick-plan" id="{{ $plan->plan_alias }}" class="hidden radio-label" value="{{ $plan->plan_alias }}">
+              <label for="{{ $plan->plan_alias }}" class="btn-{{ $plan->button_color }} button-label"
+                @if ($plan->plan_name === "Basic")
+                {{ $isHidden }}
+                @endif
+              >
+              <h1>{{ $plan->button_text }}</h1>
+              </label>
             @endif
-            >
-            {{ $plan->button_text }}
-
-            </a>
+            @if (Request::path() === '/')
+              <a href="{{ url('plans') }}" class="btn-{{ $plan->button_color }}"> {{ $plan->button_text }} </a>
+            @endif
         </li>
     @endforeach
 

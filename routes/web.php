@@ -90,3 +90,9 @@ Route::get('storage/upload/{filename}', function ($filename){
     }
     abort(404);
 });
+
+//route for payments
+// route for processing payment
+Route::post('/payWithpaypal', 'Payments\PayPalController@payWithpaypal');
+// route for check status of the payment
+Route::get('/paypalstatus', 'Payments\PayPalStatus@getPaymentStatus');

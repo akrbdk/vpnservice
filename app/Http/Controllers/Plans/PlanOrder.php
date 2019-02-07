@@ -3,45 +3,27 @@
 namespace App\Http\Controllers\Plans;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Auth;
 use DB;
-use App\User;
-use Validator;
 
-class planOrder extends Controller
+class planOrder
 {
-    public function planOrder(Request $request)
+    public static function planOrder($plan_id, $months_limit)
     {
-        $request = $request->all();
+        $user_id = Auth::id();
 
-        $data['ret'] = 'Subscibtion Error';
-
-        if (Auth::check() && !empty($request['plan_id']))
+        if (!empty($user_id) && !empty($plan_id))
         {
-            $user_id = Auth::id();
-            $user_plan = DB::table('users_plans')->where('user_id', $user_id)->first();
-            $plan_params = DB::table('plans_table')->where('plan_alias', $request['plan_id'])->first();
-
-            if(!empty($plan_params)){
-                $planInfoArr = [
-                    'user_id' => $user_id,
-                    'plan_id' => $plan_params->id,
-                    'expiry_at' => time() + (int)$plan_params->months_limit
-                ];
-
-                $planName = $plan_params->plan_name;
-
-                if(!empty($user_plan)){
-                    DB::table('users_plans')->where('id', $user_plan->id)->update($planInfoArr);
-                } else {
-                    DB::table('users_plans')->insert($planInfoArr);
-                }
-
-                $data['ret'] = 'Subscibtion to '.$planName.' plan Success';
-            }
+            $planInfoArr = [
+                'user_id' => $user_id,
+                'plan_id' => $plan_id,
+                'expiry_at' => time() + (int)$months_limit
+            ];
+            return DB::table('users_plans')->where('user_id', $user_id)->update($planInfoArr);
+        }
+        else {
+          return "Exeption";
         }
 
-        return $data;
     }
 }

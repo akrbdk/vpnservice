@@ -1,13 +1,38 @@
 @extends('site.layouts._layout')
 
 @section('content')
+@php
+$tab=1;
+@endphp
 
     <div class="bg-gray"></div>
 
     <main class="main-painel finish-plan">
         <div class="container">
+          @if (session('alert'))
+              <div class="alert alert-success">
+                  {{ session('alert') }}
+              </div>
+          @endif
+            @if ($message = Session::get('success'))
+            <div class="w3-panel w3-green w3-display-container">
+                <span onclick="this.parentElement.style.display='none'"
+                class="w3-button w3-green w3-large w3-display-topright">&times;</span>
+                <p>{!! $message !!}</p>
+            </div>
+            <?php Session::forget('success');?>
+            @endif
+
+            @if ($message = Session::get('error'))
+            <div class="w3-panel w3-red w3-display-container">
+                <span onclick="this.parentElement.style.display='none'"
+                class="w3-button w3-red w3-large w3-display-topright">&times;</span>
+                <p>{!! $message !!}</p>
+            </div>
+            <?php Session::forget('error');?>
+            @endif
             <div class="title-c clearfix">
-                <span class="number">1</span>
+                <span class="number">@php echo $tab; $tab+=1;@endphp</span>
 
                 <div class="title-desc">
                     <h2>CHOOSE YOUR PLAN</h2>
@@ -17,6 +42,9 @@
 
             <section id="choose-plan">
                 <div class="container">
+                  <form method="POST" action="{!! URL::to('/payWithpaypal') !!}">
+                    {{ csrf_field() }}
+
                     @include('site.planslist', ['plans' => App\PlansTable::all(), 'isHidden' => App\PlansTable::isHidden()])
                 </div>
 
@@ -29,16 +57,17 @@
 
             </section>
 
-            <div class="title-c clearfix">
-                <span class="number">2</span>
+            @guest
+              <section class="identificacao">
+                <div class="title-c clearfix">
+                    <span class="number">@php echo $tab; $tab+=1;@endphp</span>
 
-                <div class="title-desc">
-                    <h2>IDENTIFICATION</h2>
-                    <p>We are not going to share any of your information with any third-party.</p>
+                    <div class="title-desc">
+                        <h2>IDENTIFICATION</h2>
+                        <p>We are not going to share any of your information with any third-party.</p>
+                    </div>
                 </div>
-            </div>
 
-            <form class="clearfix identificacao" action="">
                 <div class="clearfix">
                     <label for="email">E-MAIL</label>
                     <input type="email" name="email" class="email" placeholder="Type your friend's email">
@@ -49,10 +78,11 @@
                     <input type="password" class="password" name="password">
                     <a href="javascript:void(0);" onclick="modal();">Forgotten your password?</a>
                 </div>
-            </form>
+              </section>
+            @endguest
 
             <div class="title-c clearfix">
-                <span class="number">2</span>
+                <span class="number">@php echo $tab; $tab+=1;@endphp</span>
 
                 <div class="title-desc">
                     <h2>Payment</h2>
@@ -124,7 +154,8 @@
                         <div class="total">
                             total: <span>$ 47.40</span>
                         </div>
-                        <a href="{{ url('#') }}" class="btn-green">Pay now</a>
+                          <button class="btn-green">Pay now</button></p>
+                        </form>
 
                         <br style="clear:both;">
                         <p class="termos-servico">By proceeding you agree to the <span> terms of service</span>.</p>

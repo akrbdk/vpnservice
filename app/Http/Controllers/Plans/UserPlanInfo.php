@@ -15,13 +15,13 @@ class UserPlanInfo
         $this -> user_plan = DB::table('users_plans')->where('user_id', $userId)->first();
     }
 
-    public function getPlan(){
-        if(!empty($user_plan)){
-          return $this->user_plan;
-        }
-        else {
-          return 'No plan';
-        }
+    public function getPlanInfo(){
+      if(!empty($this->plan_info)){
+        return $this->plan_info;
+      }
+      else {
+        return 'No plan';
+      }
     }
 
     public function isExpired(){

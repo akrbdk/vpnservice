@@ -3919,6 +3919,32 @@ ul {
 	box-sizing: border-box
 }
 
+#choose-plan #plan-list h1{
+	font-size: 14px !important;
+	margin: 0 !important;
+}
+
+#choose-plan #plan-list label{
+	cursor: pointer;
+}
+
+#plan-list input[type="radio"]{display: none;}
+
+#plan1:checked + .button-label {
+  background-color: #fff;
+  color: #ff9000 !important;
+}
+
+#plan2:checked + .button-label {
+  background-color: #fff;
+  color: #25c7a2 !important;
+}
+
+#plan3:checked + .button-label {
+  background-color: #fff;
+  color: #25c7a2 !important;
+}
+
 .btn-orange {
 	border: 2px solid #ff9000 !important;
 	background-color: #ff9000;
