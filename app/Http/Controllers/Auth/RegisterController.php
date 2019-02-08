@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Notifications\SignupActivate;
+use DB;
 
 class RegisterController extends Controller
 {
@@ -89,7 +90,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $newUser = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
@@ -97,5 +98,16 @@ class RegisterController extends Controller
             'activation_token_mobile' => str_random(50),
             'secret_key' => str_random(20)
         ]);
+
+        $user = DB::table('users')->get()->last();
+        $plan = DB::table('plans_table')->first();
+        $planInfoArr = [
+            'user_id' => $user->id,
+            'plan_id' => $plan->id,
+            'expiry_at' => time() + (int)$plan->months_limit
+        ];
+        DB::table('users_plans')->insert($planInfoArr);
+
+        return $newUser;
     }
 }
