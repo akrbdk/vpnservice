@@ -4,8 +4,7 @@
             <div class="title">{{ $plan->plan_name }}</div>
             <div class="price">
                 <span class="currency">$</span>
-                <span class="coin">{{ $plan->price }}</span>
-                <span class="cents">.{{ $plan->cents }}</span>
+                <span class="coin"><?= number_format($plan->price, 2, '<span class="cents">.', '') ?></span></span>
             </div>
             <div class="plan-type">
                 Per month
@@ -28,7 +27,8 @@
             @endguest
                 id="{{ $plan->plan_alias }}"
             @if ($plan->plan_name == "Basic")
-            {{ $isHidden }}
+                <?/* отваливается страница, если вывод этого параметра незакомменчен. ХЗ может ты не всё что нужно на сервер задеплоил. */?>
+            <? /*{{ $isHidden }} */?>
             @endif
             >
             {{ $plan->button_text }}
