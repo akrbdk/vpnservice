@@ -52,78 +52,38 @@ class UserController extends ApiController
                     default:
                         $token = false;
                 }
-
                 if($token){
                     $user->update();
                     return parent::retAnswer(parent::$success, false, ['token' => $token], parent::$successStatus);
                 }
             }
-
         }
-
         return parent::retAnswer(parent::$error, 'Invalid login or password', false, parent::$errorStatus);
     }
 
     /**
-     * Register api
+     * * details api
      *
      * * type: POST
      *
-     * request body:
-     * string $token - User token
-     * string $platform - Device platform
-     *
-     * headers body
+     * * headers body
      * Content-Type - application/json
      * token - User token
      *
-     * @return \Illuminate\Http\Response
-     */
-    public function register(Request $request)
-    {
-        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
-            return response()->json(['error'=>2, 'description' => 'User is already exists', 'payload' => array('token' => '')], parent::$errorStatus);
-        }
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-            'c_password' => 'required|same:password',
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['error' => 2, 'description' => $validator->errors(), 'payload'=>['token' => '']], parent::$errorStatus);
-        }
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $input['activation_token_desctop'] = str_random(60);
-        $input['activation_token_mobile'] = str_random(59);
-        $user = User::create($input);
-        $success['token'] =  $user->createToken('MyAppAuth')-> accessToken;
-        $success['name'] =  $user->name;
-        $success['activation_token_desctop'] =  $user->activation_token_desctop;
-        $success['activation_token_mobile'] =  $user->activation_token_mobile;
-        return response()->json(['error' => 0, 'payload'=>$success], parent::$successStatus);
-    }
-
-    /**
-     * details api
+     * * OR *
+     *
+     * * request body:
+     * string $token - User token
+     * string $platform - Device platform
      *
      * @return \Illuminate\Http\Response
      */
     public function checkToken(Request $request)
     {
-        $input = $request->all();
-
-        $user = parent::checkUserPlatform($input);
-        if (!$user) {
-            return parent::retAnswer(parent::$error, 'Invalid token', false, parent::$errorStatus);
-        }
-
         //check active plan
-        if (parent::checkPlanExpired($user->id)){
+        if (parent::checkPlanExpired($request->get('user_id'))){
             return parent::retAnswer(parent::$planExpired, 'Plan expired', false, parent::$errorStatus);
         }
-
         return parent::retAnswer(parent::$success, false, false, parent::$successStatus);
 
     }

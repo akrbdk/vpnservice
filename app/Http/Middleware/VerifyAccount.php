@@ -14,18 +14,20 @@ class VerifyAccount{
         header('Access-Control-Allow-Headers: Origin, Content-Type, Token, Accept, Authorization, X-Request-With');
         header('Access-Control-Allow-Credentials: true');
 
-        $checkParams = [
-            'token' => $request->header('token'),
-//            'platform' => $request->header('platform'),
-        ];
+        $input = $request->all();
+        $checkParams = ['token' => $request->header('token')];
 
-        if(!empty($checkParams['token'])){
+        if(!empty($checkParams['token']) || (!empty($input['platform']) && !empty($input['token']))){
             $check = ApiController::checkUserPlatform($checkParams, 'y');
-            if (!$check) {
+            $user = !empty($check) ? $check : ApiController::checkUserPlatform($input);
+            if (!$user) {
                 return ApiController::retAnswer(ApiController::$error, 'Invalid token', false, ApiController::$errorStatus);
             }
+
+            $request->merge(['user_id' => $user->id, 'user_info' => $user]);
             return $next($request);
         }
-        return $next($request);
+
+        return ApiController::retAnswer(ApiController::$error, 'Invalid token', false, ApiController::$errorStatus);
     }
 }

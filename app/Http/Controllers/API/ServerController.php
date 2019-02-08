@@ -24,181 +24,180 @@ class ServerController extends ApiController
     /**
      * create api
      *
+     * * headers body
+     * Content-Type - application/json
+     * token - User token
+     *
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request){
 
-        $input = $request->all();
+        $client = new Client([
+            'headers' => ['Content-Type' => 'application/json'],
+            'http_errors' => false
+        ]);
+        $response = $client->request(
+            'POST',
+            self::$apiServer . self::$createPath,
+            ['body' => json_encode(['secret_key' => self::$serverAccessKey])]
+        );
+        if ($response->getStatusCode() == 200) {
+            if ($response->hasHeader('Content-Length')) {
+                $content_length = current($response->getHeader('Content-Length'));
+                if (!empty($body = json_decode($response->getBody(), true)) && $content_length) {
+                    if(!empty($body['payload']['token'])){
 
-        if($user = parent::checkUserPlatform($input, 'y')){
-
-            $client = new Client([
-                'headers' => ['Content-Type' => 'application/json'],
-                'http_errors' => false
-            ]);
-
-            $response = $client->request(
-                'POST',
-                self::$apiServer . self::$createPath,
-                ['body' => json_encode(['secret_key' => self::$serverAccessKey])]
-            );
-
-            if ($response->getStatusCode() == 200) {
-                if ($response->hasHeader('Content-Length')) {
-                    $content_length = current($response->getHeader('Content-Length'));
-                    if (!empty($body = json_decode($response->getBody(), true)) && $content_length) {
-
-                        if(!empty($body['payload']['token'])){
-
-                            $serverInfo = DB::table('server_infos')->where('token', $body['payload']['token'])->first();
-                            if(empty($serverInfo)){
-                                DB::table('server_infos')->insert(
-                                    array('token' => $body['payload']['token'])
-                                );
-                            }
-
-                            DB::table('users')
-                                ->where('id', $user->id)
-                                ->update([
-                                    'server_token' => $body['payload']['token'],
-                                    'secret_key' => str_random(20)
-                                ]);
-
-                            return parent::answer(parent::$success, $body, 'Success', parent::$successCheck, parent::$successStatus);
+                        $serverInfo = DB::table('server_infos')->where('token', $body['payload']['token'])->first();
+                        if(empty($serverInfo)){
+                            DB::table('server_infos')->insert(
+                                array('token' => $body['payload']['token'])
+                            );
                         }
+                        DB::table('users')
+                            ->where('id', $request->get('user_id'))
+                            ->update([
+                                'server_token' => $body['payload']['token'],
+                                'secret_key' => str_random(20)
+                            ]);
+                        return parent::retAnswer(parent::$success, false, ['check' => parent::$successCheck], parent::$successStatus);
                     }
                 }
             }
         }
-
-        return parent::answer(parent::$error, $response, 'Invalid Request', parent::$errorCheck, parent::$errorStatus);
     }
 
     /**
      * info api
      *
+     * * headers body
+     * Content-Type - application/json
+     * token - User token
+     *
      * @return \Illuminate\Http\Response
      */
     public function info(Request $request){
 
-        $input = $request->all();
+        $serverInfo = DB::table('server_infos')->get()->last();
+        $client = new Client([
+            'headers' => ['Content-Type' => 'application/json', 'Authorization' => $serverInfo->token],
+            'http_errors' => false
+        ]);
+        $response = $client->request(
+            'GET',
+            self::$apiServer . self::$infoPath,
+            ['body' => json_encode(['token' => $serverInfo->token])]
+        );
 
-        if($user = parent::checkUserPlatform($input, 'y')){
-            if(empty($user->server_token)){
-                return parent::answer(parent::$error, '', 'You don\'t registered', parent::$errorCheck, parent::$errorStatus);
-            }
+        if ($response->getStatusCode() == 200) {
+            if (!empty($body = json_decode($response->getBody(), true))) {
+                if(!$body['status'] && !empty($body['payload'])){
 
-            $client = new Client([
-                'headers' => ['Content-Type' => 'application/json', 'Authorization' => $user->server_token],
-                'http_errors' => false
-            ]);
+                    $upd = [
+                        'info' => json_encode($body['payload']),
+                        'server_uuid' => !empty($body['payload']['uuid']) ? $body['payload']['uuid'] : ''
+                    ];
 
-            $response = $client->request(
-                'GET',
-                self::$apiServer . self::$infoPath,
-                ['body' => json_encode(['token' => $user->server_token])]
-            );
+                    DB::table('users')
+                        ->where('id', $request->get('user_id'))
+                        ->update($upd);
 
-            if ($response->getStatusCode() == 200) {
-                if (!empty($body = json_decode($response->getBody(), true))) {
-                    if(!$body['status'] && !empty($body['payload'])){
-                        $upd = [
+                    DB::table('server_infos')
+                        ->where('token', $serverInfo->token)
+                        ->update([
                             'info' => json_encode($body['payload']),
+                            'ip' => !empty($body['payload']['ip']) ? $body['payload']['ip'] : '',
                             'server_uuid' => !empty($body['payload']['uuid']) ? $body['payload']['uuid'] : ''
-                        ];
+                        ]);
 
-                        DB::table('users')
-                            ->where('server_token', $user->server_token)
-                            ->update($upd);
-
-                        DB::table('server_infos')
-                            ->where('token', $user->server_token)
-                            ->update([
-                                'info' => json_encode($body['payload']),
-                                'ip' => !empty($body['payload']['ip']) ? $body['payload']['ip'] : '',
-                                'server_uuid' => !empty($body['payload']['uuid']) ? $body['payload']['uuid'] : ''
-                            ]);
-
-                        return parent::answer(parent::$success, $body, '', parent::$successCheck, parent::$successStatus);
-                    }
+                    return parent::retAnswer(parent::$success, false, ['check' => parent::$successCheck], parent::$successStatus);
                 }
-
             }
         }
-
-        return parent::answer(parent::$error, '','', parent::$errorCheck, parent::$errorStatus);
     }
 
     /**
      * connect api
+     *
+     * * request body
+     * uuid - VPN server uuid
+     *
+     * * headers body
+     * Content-Type - application/json
+     * token - User token
      *
      * @return \Illuminate\Http\Response
      */
     public function connect(Request $request){
 
         $input = $request->all();
-        $server_info = DB::table('server_infos')->where('server_uuid', $input['uuid'])->first();
-        if(empty($server_info)){
-            return parent::answer(parent::$invalidArgument, $server_info,'invalidArgument', parent::$errorCheck, parent::$errorStatus);
-        }
-        $user = parent::checkUserPlatform($input, 'y');
 
-        if($user && !empty($server_info->token)){
-            $connectInfo = self::serverConnects($user->secret_key, $server_info->token);
+        if(!empty($input['uuid'])){
 
-            if(!empty($connectInfo['user_info']['payload'])){
-                return response()->json(['error'=> 0, 'payload' => array('secret_key' => $user->secret_key, 'certs' => $connectInfo['user_info']['payload'])], parent::$successStatus);
+            $user = $request->get('user_info');
+            $server_info = DB::table('server_infos')->where('server_uuid', $input['uuid'])->first();
+
+            if(empty($server_info)){
+                return parent::retAnswer(parent::$invalidArgument, 'invalidArgument', ['check' => parent::$errorCheck], parent::$errorStatus);
+            }
+
+            if(!empty($server_info->token)){
+                $connectInfo = self::serverConnects($user->secret_key, $server_info->token);
+                if(!empty($connectInfo['user_info']['payload'])){
+                    return response()->json(['error'=> 0, 'payload' => array('secret_key' => $user->secret_key, 'certs' => $connectInfo['user_info']['payload'])], parent::$successStatus);
+                }
             }
         }
 
-        return parent::answer(parent::$error, $server_info,'Unauthorized', parent::$errorCheck, parent::$errorStatus);
-
+        return parent::retAnswer(parent::$error, 'Unauthorized', ['check' => parent::$errorCheck], parent::$errorStatus);
     }
 
     /**
      * serverList api
      *
+     * * headers body
+     * Content-Type - application/json
+     * token - User token
+     *
      * @return \Illuminate\Http\Response
      */
     public function serverList(Request $request){
 
-        $input = $request->all();
-        $user = parent::checkUserPlatform($input, 'y');
-
-        if(!empty($user)){
-            $serverArr = [];
-            $serverList = DB::table('server_infos')->get();
-            if(!empty($serverList)){
-                foreach ($serverList as $server){
-                    $serverArr[] = json_decode($server->info, true);
-                }
-            }
-
-            if(!empty($serverArr)){
-                return response()->json(['error'=> 0, 'payload' => array('servers' => $serverArr)], parent::$successStatus);
+        $serverArr = [];
+        $serverList = DB::table('server_infos')->get();
+        if(!empty($serverList)){
+            foreach ($serverList as $server){
+                $serverArr[] = json_decode($server->info, true);
             }
         }
-
-        return parent::answer(parent::$error, '','Unauthorized', parent::$errorCheck, parent::$errorStatus);
+        if(!empty($serverArr)){
+            return parent::retAnswer(parent::$success, false, ['servers' => $serverArr], parent::$successStatus);
+        }
+        return parent::retAnswer(parent::$error, 'The server list is empty', ['check' => parent::$errorCheck], parent::$errorStatus);
     }
 
     /**
      * verifyConn api
+     *
+     * * request body
+     * secret_key - User secret key
+     * uuid - Server uuid
+     *
+     * * headers body
+     * Content-Type - application/json
+     * token - User token
      *
      * @return \Illuminate\Http\Response
      */
     public function verifyConn(Request $request)
     {
         $input = $request->all();
-
         if(!empty($input['secret_key'])){
             $user = DB::table('users')->where('secret_key', $input['secret_key'])->where('server_uuid', $input['uuid'])->first();
             if(!empty($user)){
-                return parent::answer(parent::$success, '', '', parent::$successCheck, parent::$successStatus);
+                return parent::retAnswer(parent::$success, false, ['check' => parent::$successCheck], parent::$successStatus);
             }
         }
-
-        return parent::answer(parent::$error, '','Unauthorized', parent::$errorCheck, parent::$errorStatus);
+        return parent::retAnswer(parent::$error, 'The user does not exist', ['check' => parent::$errorCheck], parent::$errorStatus);
     }
 
     /**

@@ -28,6 +28,6 @@ class AppInfoController extends ApiController
 
         }
 
-        return parent::answer(parent::$error, '', 'Empty plans table', parent::$errorCheck, parent::$errorStatus);
+        return parent::retAnswer(parent::$error, 'Empty plans table', ['check' => parent::$errorCheck], parent::$errorStatus);
     }
 }

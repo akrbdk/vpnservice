@@ -34,19 +34,6 @@ class ApiController extends BaseController
     public static $successCheck = 'Ok';
     public static $errorCheck = 'Error';
 
-    public static function answer($error, $details, $description, $check, $status){
-
-        return response()->json(
-            [
-                'error'=> $error,
-                'details' => $details,
-                'description' => $description,
-                'payload' => array(
-                    'check' => $check
-                )
-            ], $status
-        );
-    }
 
     public static function retAnswer($error, $description=false, $payload=false, $status){
 
@@ -63,7 +50,6 @@ class ApiController extends BaseController
         }
         return response()->json($answer, $status);
     }
-
 
     protected static function checkPlanExpired($user_id) {
         $result = DB::select('SELECT expiry_at FROM users_plans WHERE user_id = ? LIMIT 1', [$user_id]);
