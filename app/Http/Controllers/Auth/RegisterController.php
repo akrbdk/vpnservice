@@ -104,7 +104,7 @@ class RegisterController extends Controller
         $planInfoArr = [
             'user_id' => $user->id,
             'plan_id' => $plan->id,
-            'expiry_at' => time() + (int)$plan->months_limit
+            'expiry_at' => time()
         ];
         DB::table('users_plans')->insert($planInfoArr);
 
