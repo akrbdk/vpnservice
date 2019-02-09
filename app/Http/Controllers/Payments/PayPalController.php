@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Payments;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\RegisterController;
+
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
 use PayPal\Api\Item;
@@ -17,6 +19,7 @@ use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
+
 use Redirect;
 use Session;
 use URL;
@@ -43,10 +46,27 @@ class PayPalController extends Controller
 
     public function payWithpaypal(Request $request)
     {
+        $email = '';
+        // register
+        if(isset($_POST['password'])){
+          $email = $_POST['email'];
+          $pass = $_POST['password'];
+
+          $register = array(
+            'name' => 'Not Set',
+            'email' => $email,
+            'password' => $pass
+          );
+
+          RegisterController::create($register);
+        }
+
+        // Get POST data
         $plan_id = $_POST['plan_id'];
 
         $plan = DB::table('plans_table')->where('id', $plan_id)->first();
 
+        Session::put('email', $email);
         Session::put('plan_id', $plan_id);
         Session::put('months_limit', $plan->months_limit);
 

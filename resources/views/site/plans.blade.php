@@ -73,12 +73,12 @@ $tab=1;
 
                   <div class="clearfix">
                       <label for="email">E-MAIL</label>
-                      <input type="email" name="email" class="email" placeholder="Type your friend's email">
+                      <input type="email" name="email" class="email" placeholder="Type your friend's email" required>
                   </div>
 
                   <div class="clearfix">
                       <label for="password">PASSWORD</label>
-                      <input type="password" class="password" name="password">
+                      <input type="password" class="password" name="password" required>
                       <a href="javascript:void(0);" onclick="modal();">Forgotten your password?</a>
                   </div>
                 </section>

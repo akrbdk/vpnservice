@@ -37,8 +37,11 @@ class PayPalStatus extends Controller
     {
         /** Get the payment ID before session clear **/
         $payment_id = Session::get('paypal_payment_id');
-        $plan_id = Session::get('plan_id');
-        $months_limit = Session::get('months_limit');
+        $Order = array(
+          'plan_id' => Session::get('plan_id'),
+          'months_limit' => Session::get('months_limit'),
+          'email' => Session::get('email')
+        );
 
         /** clear the session payment ID **/
         Session::forget('paypal_payment_id');
@@ -53,7 +56,7 @@ class PayPalStatus extends Controller
         /**Execute the payment **/
         $result = $payment->execute($execution, $this->_api_context);
         if ($result->getState() == 'approved') {
-            PlanOrder::planOrder($plan_id,$months_limit);
+            PlanOrder::planOrder($Order);
             return Redirect::to('/plans')->with('alert', 'success: Subscribtion success!');
         }
         return Redirect::to('/plans')->with('alert', 'error: Payment failed!');

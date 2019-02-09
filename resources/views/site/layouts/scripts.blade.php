@@ -14,9 +14,15 @@
 
 @if(Request::path() == 'plans')
     <script>
+    $('.btn-orange').click(function(){
+        $('.checkout').hide();
+    });
+    </script>
+
+    <script>
         $('.checkout .payment-item').click(function () {
-            var action = 'http://vpn/payWith' + $(this).find('.submit').val();
-            $('#payment-form').attr('action', action);
+          var action = '<?php echo url('/');?>/payWith' + $(this).find('.submit').val();
+          $('#payment-form').attr('action', action);
             $('.checkout .payment-item').removeClass('active');
             $('.checkout .payment-item').find('input').removeAttr('required');
             $(this).addClass('active');
@@ -33,18 +39,22 @@
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
     <script>
+
     Stripe.setPublishableKey('pk_test_fKqH3Umcg7ShY0jgF6qYaOYY');
 
     $(function() {
       var $form = $('#payment-form');
-      $form.submit(function(event) {
-        $form.find('.submit').prop('disabled', true);
+        $form.submit(function(event) {
+          if ($form.attr('action') === '<?php echo url('/');?>/payWithstripe') {
+            $form.find('.submit').prop('disabled', true);
 
-        Stripe.card.createToken($form, stripeResponseHandler);
-
-
-        return false;
-      });
+             Stripe.card.createToken($form, stripeResponseHandler);
+          }
+          else {
+            $form.get(0).submit();
+          }
+          return false;
+        });
     });
 
     function stripeResponseHandler(status, response) {

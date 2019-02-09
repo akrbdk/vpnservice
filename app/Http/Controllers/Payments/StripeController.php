@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Payments;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Plans\PlanOrder;
+use App\Http\Controllers\Auth\RegisterController;
 use Redirect;
 use Stripe\Stripe;
 use Stripe\Customer;
@@ -18,10 +19,28 @@ class StripeController
 
       $plan_id = $_POST['plan_id'];
 
+      $email = '';
+
+      if(isset($_POST['password'])){
+        $email = $_POST['email'];
+        $pass = $_POST['password'];
+
+        $register = array(
+          'name' => 'Not Set',
+          'email' => $email,
+          'password' => $pass
+        );
+
+        RegisterController::create($register);
+      }
+
       $plan = DB::table('plans_table')->where('id', $plan_id)->first();
 
-      $months_limit = $plan->months_limit;
-      $plan_price = $plan->price;
+      $Order = array(
+        'plan_id' => $plan_id,
+        'months_limit' => $plan->months_limit,
+        'email' => $email
+      );
 
       $token = $_POST['stripeToken'];
 
@@ -30,13 +49,13 @@ class StripeController
       ));
 
       $charge = Charge::create(array(
-        "amount" => $plan_price*100,
+        "amount" => $plan->price*100,
         "currency" => "usd",
         "description" => 'some desc',
         "customer" => $customer->id
       ));
 
-      PlanOrder::planOrder($plan_id,$months_limit);
+      PlanOrder::planOrder($Order);
       return Redirect::to('/plans')->with('alert', 'success: Subscribtion success!');
     }
 }

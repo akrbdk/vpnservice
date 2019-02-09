@@ -8,9 +8,16 @@ use DB;
 
 class planOrder
 {
-    public static function planOrder($plan_id, $months_limit)
+    public static function planOrder($data)
     {
-        $user_id = Auth::id();
+        if(!empty($data['email'])){
+          $user_id = DB::table('users')->where('email', $data['email'])->value('id');
+        }
+        else {
+          $user_id = Auth::id();
+        }
+          $plan_id = $data['plan_id'];
+          $months_limit = $data['months_limit'];
 
         if (!empty($user_id) && !empty($plan_id))
         {
@@ -19,11 +26,16 @@ class planOrder
                 'plan_id' => $plan_id,
                 'expiry_at' => time() + (int)$months_limit
             ];
-            return DB::table('users_plans')->where('user_id', $user_id)->update($planInfoArr);
+            if(!empty($data['email'])){
+              return DB::table('users_plans')->insert($planInfoArr);
+            }
+            else {
+              return DB::table('users_plans')->where('user_id', $user_id)->update($planInfoArr);
+            }
+
         }
         else {
           return "Exeption";
         }
-
     }
 }
