@@ -92,7 +92,11 @@ Route::get('storage/upload/{filename}', function ($filename){
 });
 
 //route for payments
+//PayPal
 // route for processing payment
 Route::post('/payWithpaypal', 'Payments\PayPalController@payWithpaypal');
 // route for check status of the payment
 Route::get('/paypalstatus', 'Payments\PayPalStatus@getPaymentStatus');
+
+//Stripe Cards
+Route::post('/payWithstripe', 'Payments\StripeController@payWithstripe');

@@ -12,12 +12,17 @@
     </script>
 @endif
 
-@if(Request::path() == 'plans' || Request::path() == '/')
+@if(Request::path() == 'plans')
     <script>
         $('.checkout .payment-item').click(function () {
+            var action = 'http://vpn/payWith' + $(this).find('.submit').val();
+            $('#payment-form').attr('action', action);
             $('.checkout .payment-item').removeClass('active');
+            $('.checkout .payment-item').find('input').removeAttr('required');
             $(this).addClass('active');
+            $(this).find('input').prop('required',true);
         });
+
 
         $('.cupom').click(function () {
             $('.cupom').removeClass('active');
@@ -25,24 +30,43 @@
         });
     </script>
 
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
     <script>
-        $('.btn-send').click(function (e) {
-            e.preventDefault();
+    Stripe.setPublishableKey('pk_test_fKqH3Umcg7ShY0jgF6qYaOYY');
 
-            $.ajax({
-                type: 'POST',
-                url: '/plan',
-                data: "plan_id="+$(this).prop('id'),
-                success: function (data){
-                        alert(data.ret);
-                },
-                error: function () {
-                    alert('Error subscribe');
-                }
-            });
+    $(function() {
+      var $form = $('#payment-form');
+      $form.submit(function(event) {
+        $form.find('.submit').prop('disabled', true);
 
-            return false;
-        });
+        Stripe.card.createToken($form, stripeResponseHandler);
+
+
+        return false;
+      });
+    });
+
+    function stripeResponseHandler(status, response) {
+
+      var $form = $('#payment-form');
+
+      if (response.error) {
+
+        $form.find('.payment-errors').text(response.error.message);
+        $form.find('.submit').removeAttr('disabled');
+
+      } else {
+
+        var token = response.id;
+
+        $form.append($('<input type="hidden" name="stripeToken">').val(token));
+
+        $form.find('.submit').removeAttr('disabled');
+
+        $form.get(0).submit();
+      }
+    };
     </script>
 @endif
 

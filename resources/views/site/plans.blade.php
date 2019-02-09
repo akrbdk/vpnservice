@@ -40,157 +40,163 @@ $tab=1;
                 </div>
             </div>
 
-            <section id="choose-plan">
-                <div class="container">
-                  <form method="POST" action="{!! URL::to('/payWithpaypal') !!}">
-                    {{ csrf_field() }}
+            <form method="POST" id="payment-form">
+              {{ csrf_field() }}
 
-                    @include('site.planslist', ['plans' => App\PlansTable::all(), 'isHidden' => App\PlansTable::isHidden()])
-                </div>
+              <section id="choose-plan">
+                  <div class="container">
 
 
-                <?/* plans alert */?>
-                @include('site.textblocks', ['textblock' => App\Http\Controllers\Site\TextblocksController::getTextBlock('plans_attention')])
 
-                <?/* plans advantage text */?>
-                @include('site.textblocks', ['textblock' => App\Http\Controllers\Site\TextblocksController::getTextBlock('plans_advantage')])
+                      @include('site.planslist', ['plans' => App\PlansTable::all(), 'isHidden' => App\PlansTable::isHidden()])
+                  </div>
 
-            </section>
 
-            @guest
-              <section class="identificacao">
-                <div class="title-c clearfix">
-                    <span class="number">@php echo $tab; $tab+=1;@endphp</span>
+                  <?/* plans alert */?>
+                  @include('site.textblocks', ['textblock' => App\Http\Controllers\Site\TextblocksController::getTextBlock('plans_attention')])
 
-                    <div class="title-desc">
-                        <h2>IDENTIFICATION</h2>
-                        <p>We are not going to share any of your information with any third-party.</p>
-                    </div>
-                </div>
+                  <?/* plans advantage text */?>
+                  @include('site.textblocks', ['textblock' => App\Http\Controllers\Site\TextblocksController::getTextBlock('plans_advantage')])
 
-                <div class="clearfix">
-                    <label for="email">E-MAIL</label>
-                    <input type="email" name="email" class="email" placeholder="Type your friend's email">
-                </div>
-
-                <div class="clearfix">
-                    <label for="password">PASSWORD</label>
-                    <input type="password" class="password" name="password">
-                    <a href="javascript:void(0);" onclick="modal();">Forgotten your password?</a>
-                </div>
               </section>
-            @endguest
 
-            <div class="title-c clearfix">
-                <span class="number">@php echo $tab; $tab+=1;@endphp</span>
+              @guest
+                <section class="identificacao">
+                  <div class="title-c clearfix">
+                      <span class="number">@php echo $tab; $tab+=1;@endphp</span>
 
-                <div class="title-desc">
-                    <h2>Payment</h2>
-                    <p>Choose the best payment method for you.</p>
-                </div>
-            </div>
+                      <div class="title-desc">
+                          <h2>IDENTIFICATION</h2>
+                          <p>We are not going to share any of your information with any third-party.</p>
+                      </div>
+                  </div>
 
-            <div class="checkout">
-                <div class="cartao-credito payment-item">
-                    <span><img src="{{ asset('site/img/planos.jpg') }}" alt="">  credit/debit card</span>
+                  <div class="clearfix">
+                      <label for="email">E-MAIL</label>
+                      <input type="email" name="email" class="email" placeholder="Type your friend's email">
+                  </div>
 
-                    <div class="content">
-                        <div class="cover">
-                            <img src="{{ asset('site/img/cc.jpg') }}" alt="">
-                        </div>
+                  <div class="clearfix">
+                      <label for="password">PASSWORD</label>
+                      <input type="password" class="password" name="password">
+                      <a href="javascript:void(0);" onclick="modal();">Forgotten your password?</a>
+                  </div>
+                </section>
+              @endguest
 
-                        <input type="text" name="nome" class="nome" placeholder="Nome do títular">
-                        <input type="text" name="ncartao" class="ncartao" placeholder="Número do cartão">
+              <div class="title-c clearfix">
+                  <span class="number">@php echo $tab; $tab+=1;@endphp</span>
 
-                        <input type="text" name="mes" class="mes" placeholder="Mês (mm)">
-                        <input type="text" name="ano" class="ano" placeholder="Ano (yy)">
-                        <input type="text" name="ccv" class="ccv" placeholder="CCV">
+                  <div class="title-desc">
+                      <h2>Payment</h2>
+                      <p>Choose the best payment method for you.</p>
+                  </div>
+              </div>
 
-                        <br style="clear:both;">
-                        <p>Every 6 months the plan will be renewed automatically. You can cancel at any time.</p>
+              <div class="checkout">
+                  <div class="cartao-credito payment-item">
+                      <span><img src="{{ asset('site/img/planos.jpg') }}" alt="">  credit/debit card</span>
 
-                        <div class="total">
-                            total: <span>$ 47.40</span>
-                        </div>
-                        <a href="{{ url('#') }}" class="btn-green">Pay now</a>
+                      <div class="content">
+                          <div class="cover">
+                              <img src="{{ asset('site/img/cc.jpg') }}" alt="">
+                          </div>
 
-                        <br style="clear:both;">
-                        <p class="termos-servico">By proceeding you will agree to the <span> terms of service</span>.
-                        </p>
-                    </div>
-                </div>
+                          <span class="payment-errors"></span>
 
-                <div class="boleto payment-item">
-                    <span><img src="{{ asset('site/img/planos.jpg') }}" alt="">  boleto bancário</span>
+                          <input type="text" name="name" class="nome" placeholder="Nome do títular">
+                          <input type="text" name="cardnumber" class="ncartao" placeholder="Número do cartão" data-stripe="number">
 
-                    <div class="content">
-                        <p>A opção por boleto bancário não permite renovação automática.</p>
+                          <input type="text" name="mm" class="mes" placeholder="MM" data-stripe="exp_month">
+                          <input type="text" name="yy" class="ano" placeholder="YY" data-stripe="exp_year">
+                          <input type="text" name="ccv" class="ccv" placeholder="CCV" data-stripe="cvc">
 
-                        <div class="cupom">
-                            <p>Possuí um cupom? Clique aqui.</p>
+                          <br style="clear:both;">
+                          <p>Every 6 months the plan will be renewed automatically. You can cancel at any time.</p>
 
-                            <input type="text" name="cupom2" class="cupom2" placeholder="digite um cupom válido">
-                        </div>
-                        <div class="total">
-                            total: <span>$ 47.40</span>
-                        </div>
-                        <a href="{{ url('#') }}" class="btn-green">Pagar Agora</a>
+                          <div class="total">
+                              total: <span>$ 47.40</span>
+                          </div>
+                          <button name="pay_method" class="submit btn-green" value="stripe">Pay now</button>
 
-                        <br style="clear:both;">
-                        <p class="termos-servico">Ao prosseguir você concordará com os <span> termos de serviçom</span>.
-                        </p>
-                    </div>
-                </div>
+                          <br style="clear:both;">
+                          <p class="termos-servico">By proceeding you will agree to the <span> terms of service</span>.
+                          </p>
+                      </div>
+                  </div>
 
-                <div class="paypal payment-item">
-                    <span><img src="{{ asset('site/img/planos.jpg') }}" alt="">  Paypal</span>
+                  <div class="boleto payment-item">
+                      <span><img src="{{ asset('site/img/planos.jpg') }}" alt="">  boleto bancário</span>
 
-                    <div class="content">
-                        <div class="cupom">
-                            <p>Do you have a discount coupon? Click here.</p>
+                      <div class="content">
+                          <p>A opção por boleto bancário não permite renovação automática.</p>
 
-                            <input type="text" name="cupom2" class="cupom2" placeholder="digite um cupom válido">
-                        </div>
-                        <div class="total">
-                            total: <span>$ 47.40</span>
-                        </div>
-                          <button class="btn-green">Pay now</button></p>
-                        </form>
+                          <div class="cupom">
+                              <p>Possuí um cupom? Clique aqui.</p>
 
-                        <br style="clear:both;">
-                        <p class="termos-servico">By proceeding you agree to the <span> terms of service</span>.</p>
-                    </div>
-                </div>
+                              <!-- <input type="text" name="cupom2" class="cupom2" placeholder="digite um cupom válido"> -->
+                          </div>
+                          <div class="total">
+                              total: <span>$ 47.40</span>
+                          </div>
+                          <a href="{{ url('#') }}" class="btn-green">Pagar Agora</a>
 
-                <div class="bitcoin payment-item">
-                    <span><img src="{{ asset('site/img/planos.jpg') }}" alt="">  Bitcoin</span>
+                          <br style="clear:both;">
+                          <p class="termos-servico">Ao prosseguir você concordará com os <span> termos de serviçom</span>.
+                          </p>
+                      </div>
+                  </div>
 
-                    <div class="content">
-                        <div class="cupom">
-                            <p>Do you have a discount coupon? Click here.</p>
+                  <div class="paypal payment-item">
+                      <span><img src="{{ asset('site/img/planos.jpg') }}" alt="">  Paypal</span>
 
-                            <input type="text" name="cupom2" class="cupom2" placeholder="digite um cupom válido">
-                        </div>
+                      <div class="content">
+                          <div class="cupom">
+                              <p>Do you have a discount coupon? Click here.</p>
 
-                        <div class="bitcoin-detail">
-                            Send the bitcoins to:<br/>
-                            15hauSOW827nsiqoKoq86m<br/>
-                            abaKJU826abnsoUHAYGSmnajs
+                              <!-- <input type="text" name="cupom2" class="cupom2" placeholder="digite um cupom válido"> -->
+                          </div>
+                          <div class="total">
+                              total: <span>$ 47.40</span>
+                          </div>
+                            <button name="pay_method" class="submit btn-green" value="paypal">Pay now</button></p>
 
-                            <img src="{{ asset('site/img/qrcode-bitcoin.jpg') }}" alt="">
-                        </div>
 
-                        <div class="total">
-                            total: <span>BTC 0.012345</span>
-                        </div>
-                        <a href="{{ url('#') }}" class="btn-green">Pay now</a>
+                          <br style="clear:both;">
+                          <p class="termos-servico">By proceeding you agree to the <span> terms of service</span>.</p>
+                      </div>
+                  </div>
 
-                        <br style="clear:both;">
-                        <p class="termos-servico">By proceeding you agree to the <span> terms of service</span>.</p>
-                    </div>
-                </div>
-            </div>
+                  <div class="bitcoin payment-item">
+                      <span><img src="{{ asset('site/img/planos.jpg') }}" alt="">  Bitcoin</span>
 
+                      <div class="content">
+                          <div class="cupom">
+                              <p>Do you have a discount coupon? Click here.</p>
+
+                              <!-- <input type="text" name="cupom2" class="cupom2" placeholder="digite um cupom válido"> -->
+                          </div>
+
+                          <div class="bitcoin-detail">
+                              Send the bitcoins to:<br/>
+                              15hauSOW827nsiqoKoq86m<br/>
+                              abaKJU826abnsoUHAYGSmnajs
+
+                              <img src="{{ asset('site/img/qrcode-bitcoin.jpg') }}" alt="">
+                          </div>
+
+                          <div class="total">
+                              total: <span>BTC 0.012345</span>
+                          </div>
+                          <a href="{{ url('#') }}" class="btn-green">Pay now</a>
+
+                          <br style="clear:both;">
+                          <p class="termos-servico">By proceeding you agree to the <span> terms of service</span>.</p>
+                      </div>
+                  </div>
+
+              </div>
+            </form>
         </div>
     </main>
 

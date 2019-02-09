@@ -43,9 +43,11 @@ class PayPalController extends Controller
 
     public function payWithpaypal(Request $request)
     {
-        $plan_al = $request->get('pick-plan');
-        $plan = DB::table('plans_table')->where('plan_alias', $plan_al)->first();
-        Session::put('plan_id', $plan->id);
+        $plan_id = $_POST['plan_id'];
+
+        $plan = DB::table('plans_table')->where('id', $plan_id)->first();
+
+        Session::put('plan_id', $plan_id);
         Session::put('months_limit', $plan->months_limit);
 
         $payer = new Payer();
