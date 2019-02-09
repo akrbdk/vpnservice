@@ -19,44 +19,45 @@ class ApiController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected static $successStatus = 200;
-    protected static $errorStatus = 200;
+    public static $successStatus = 200;
+    public static $errorStatus = 200;
 
     // System errors starts from 0
-    protected static $success = 0;
-    protected static $error = 1;
-    protected static $invalidArgument = 2;
-    protected static $unknownError = 3;
+    public static $success = 0;
+    public static $error = 1;
+    public static $invalidArgument = 2;
+    public static $unknownError = 3;
 
     // Custom errors starts from 10
-    protected static $planExpired = 10;
+    public static $planExpired = 10;
 
-    protected static $successCheck = 'Ok';
-    protected static $errorCheck = 'Error';
+    public static $successCheck = 'Ok';
+    public static $errorCheck = 'Error';
 
-    protected static function answer($error, $details, $description, $check, $status){
 
-        return response()->json(
-            [
-                'error'=> $error,
-                'details' => $details,
-                'description' => $description,
-                'payload' => array(
-                    'check' => $check
-                )
-            ], $status
-        );
+    public static function retAnswer($error, $description=false, $payload=false, $status){
+
+        $answer = [
+            'error'=> $error,
+        ];
+        if($description && !empty($description)){
+            $answer['description'] = $description;
+        }
+        if($payload && !empty($payload)){
+            $answer['payload'] = [
+                $payload
+            ];
+        }
+        return response()->json($answer, $status);
     }
 
     protected static function checkPlanExpired($user_id) {
         $result = DB::select('SELECT expiry_at FROM users_plans WHERE user_id = ? LIMIT 1', [$user_id]);
         if (count($result) === 0) return false;
-
-        // info("Expiry: ".$result[0]->expiry_at." Time: ".time());
         return $result[0]->expiry_at < time();
     }
 
-    protected static function checkUserPlatform($params=array(), $checkTokenType = ''){
+    public static function checkUserPlatform($params=array(), $checkTokenType = ''){
 
         $user = false;
 
