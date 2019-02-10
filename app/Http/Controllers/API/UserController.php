@@ -36,9 +36,9 @@ class UserController extends ApiController
             $user = Auth::user();
 
             //if plan expired
-//            if (parent::checkPlanExpired($user['id'])){
-//                return parent::retAnswer(parent::$planExpired, 'Plan expired', false, parent::$errorStatus);
-//            }
+            if (parent::checkPlanExpired($user['id'])){
+                return parent::retAnswer(parent::$planExpired, 'Plan expired', false, parent::$errorStatus);
+            }
 
             //update platform token
             if(!empty($input['platform'])){
