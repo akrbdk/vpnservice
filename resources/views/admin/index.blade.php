@@ -14,13 +14,13 @@
                 <div class="content clearfix">
                     <span class="title">{{ trans('user_admin.subscription') }}</span>
                     <div class="left">
-                        {{ trans('user_admin.plan_header') }}
-                        <span>6 Months</span>
+                        {{ $plan_params->plan_name }}
+                        <span><?= (int)date('m', $months_limit) ?> Months</span>
                     </div>
 
                     <div class="right">
                         {{ trans('user_admin.expires_on') }}
-                        <span>04/11/2017</span>
+                        <span><?= date('d/m/Y', $months_limit) ?></span>
                     </div>
 
                     <br style="clear:both;">
