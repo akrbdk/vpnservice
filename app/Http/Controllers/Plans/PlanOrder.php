@@ -26,7 +26,7 @@ class planOrder
                 'plan_id' => $plan_id,
                 'expiry_at' => time() + (int)$months_limit
             ];
-            if(!empty($data['email'])){
+            if(!empty($data['email']) || $plan_id === '1'){
               return DB::table('users_plans')->insert($planInfoArr);
             }
             else {

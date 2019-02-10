@@ -20,9 +20,8 @@ class PlansTable extends Model
       $userId = Auth::id();
       $plan = new Plan($userId);
 
-      if(!empty($userId)){
-        $planid = $plan->user_plan->plan_id;
-        if($planid != 1 || $plan->isExpired()){
+      if(!empty($userId) && !empty($plan->user_plan)){
+        {
           $data = 'hidden';
         }
       }

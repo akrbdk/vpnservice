@@ -93,6 +93,10 @@ $tab=1;
                   </div>
               </div>
 
+              <div class="trial_start">
+                <button name="pay_method" class="submit btn-green" value="trial">Start Trial Now!</button>
+              </div>
+
               <div class="checkout">
                   <div class="cartao-credito payment-item">
                       <span><img src="{{ asset('site/img/planos.jpg') }}" alt="">  credit/debit card</span>

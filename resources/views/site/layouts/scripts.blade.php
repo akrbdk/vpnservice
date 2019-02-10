@@ -14,15 +14,21 @@
 
 @if(Request::path() == 'plans')
     <script>
-    $('.btn-orange').click(function(){
+    $('label.btn-orange').click(function(){
         $('.checkout').hide();
+        $('#payment-form').attr('action', "{{ url('/getTrial') }}");
+        $('.trial_start').show();
+    });
+    $('label.btn-green').click(function(){
+        $('.checkout').show();
+        $('.trial_start').hide();
     });
     </script>
 
     <script>
         $('.checkout .payment-item').click(function () {
-          var action = '<?php echo url('/');?>/payWith' + $(this).find('.submit').val();
-          $('#payment-form').attr('action', action);
+            var action = '<?php echo url('/');?>/payWith' + $(this).find('.submit').val();
+            $('#payment-form').attr('action', action);
             $('.checkout .payment-item').removeClass('active');
             $('.checkout .payment-item').find('input').removeAttr('required');
             $(this).addClass('active');
