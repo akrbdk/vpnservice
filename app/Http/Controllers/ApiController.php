@@ -44,9 +44,7 @@ class ApiController extends BaseController
             $answer['description'] = $description;
         }
         if($payload && !empty($payload)){
-            $answer['payload'] = [
-                $payload
-            ];
+            $answer['payload'] = $payload;
         }
         return response()->json($answer, $status);
     }
@@ -57,12 +55,15 @@ class ApiController extends BaseController
         return $result[0]->expiry_at < time();
     }
 
-    public static function checkUserPlatform($params=array(), $checkTokenType = ''){
+    public static function checkUserPlatform($token='', $checkTokenType = ''){
 
         $user = false;
-        $user_session = DB::table('sessions')->where('token', $params['token'])->first();
-        if(!empty($user_session)){
-            $user = DB::table('users')->where('id', $user_session->user_id)->first();
+
+        if(!empty($token)){
+            $user_session = DB::table('sessions')->where('token', $token)->first();
+            if(!empty($user_session)){
+                $user = DB::table('users')->where('id', $user_session->user_id)->first();
+            }
         }
 
         return $user;

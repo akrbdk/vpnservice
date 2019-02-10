@@ -31,8 +31,9 @@ class AdminControllerMain extends AdminController
         $user_plan = DB::table('users_plans')->where('user_id', $user_id)->first();
         $plan_params = DB::table('plans_table')->where('id', $user_plan->plan_id)->first();
         $months_limit = time() + (int)$plan_params->months_limit;
+        $latestApp = DB::table('apps_infos')->orderBy('version', 'desc')->first();
 
-        return view('admin.index', ['page_key' => 'admin_index_', 'plan_params' => $plan_params, 'months_limit' => $months_limit]);
+        return view('admin.index', ['page_key' => 'admin_index_', 'plan_params' => $plan_params, 'months_limit' => $months_limit, 'latestApp' => $latestApp]);
 
     }
 }

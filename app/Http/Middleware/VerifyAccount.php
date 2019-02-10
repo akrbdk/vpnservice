@@ -17,9 +17,14 @@ class VerifyAccount{
         $input = $request->all();
         $checkParams = ['token' => $request->header('token')];
 
-        if(!empty($checkParams['token']) || (!empty($input['platform']) && !empty($input['token']))){
-            $check = ApiController::checkUserPlatform($checkParams, 'y');
-            $user = !empty($check) ? $check : ApiController::checkUserPlatform($input);
+        $token = !empty($request->header('token'))
+            ? $request->header('token')
+            : (!empty($input['token'])
+                ? $input['token']
+                : '');
+
+        if(!empty($token)){
+            $user = ApiController::checkUserPlatform($token);
             if (!$user) {
                 return ApiController::retAnswer(ApiController::$error, 'Invalid token', false, ApiController::$errorStatus);
             }

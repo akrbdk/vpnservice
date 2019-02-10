@@ -89,8 +89,6 @@ class ServerController extends ApiController
 
                     $server_uuid = !empty($body['payload']['uuid']) ? $body['payload']['uuid'] : '';
 
-                    self::userVpnInfo($server_uuid, $request);
-
                     DB::table('server_infos')
                         ->where('token', $serverInfo->token)
                         ->update([
@@ -123,15 +121,17 @@ class ServerController extends ApiController
 
         if(!empty($input['uuid'])){
 
-            $user_session = DB::table('sessions')->where('user_id', $request->get('user_id'))->first();
-            $user_vpn_session = DB::table('vpn_sessions')->where('token', $user_session->token)->first();
             $server_info = DB::table('server_infos')->where('server_uuid', $input['uuid'])->first();
 
             if(empty($server_info)){
                 return parent::retAnswer(parent::$invalidArgument, 'invalidArgument', ['check' => parent::$errorCheck], parent::$errorStatus);
             }
 
-            if(!empty($server_info->token) && !empty($user_vpn_session->secret_key)){
+            if(!empty($server_info->token)){
+                self::userVpnInfo($server_info->server_uuid, $request);
+                $user_session = DB::table('sessions')->where('user_id', $request->get('user_id'))->first();
+                $user_vpn_session = DB::table('vpn_sessions')->where('token', $user_session->token)->first();
+
                 $connectInfo = self::serverConnects($user_vpn_session->secret_key, $server_info->token);
                 if(!empty($connectInfo['user_info']['payload'])){
                     return response()->json(['error'=> 0, 'payload' => array('secret_key' => $user_vpn_session->secret_key, 'certs' => $connectInfo['user_info']['payload'])], parent::$successStatus);

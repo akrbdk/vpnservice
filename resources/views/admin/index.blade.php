@@ -57,7 +57,7 @@
                 <div class="content clearfix">
                     <span class="title">{{ trans('user_admin.apps') }}</span>
 
-                    <p>{!! trans('user_admin.download_info') !!}</p>
+                    <p>Download the latest version<br />SpeedVPN Version: {{ $latestApp->version }}</p>
                 </div>
 
                 <div class="btn-section">
