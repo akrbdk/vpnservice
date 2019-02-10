@@ -7,9 +7,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['verifyAccount']], function () {
-    //авторизация
-    Route::post('v1/account/login', 'API\UserController@login');
-    Route::get('v1/account/login', 'API\UserController@login');
     //верификация юзера
     Route::post('v1/account/details', 'API\UserController@checkToken');
     Route::get('v1/account/details', 'API\UserController@checkToken');
@@ -35,6 +32,10 @@ Route::group(['middleware' => ['verifyAccount']], function () {
     Route::post('v1/plan/current', 'API\PlansController@getUserPlan');
     Route::get('v1/plan/current', 'API\PlansController@getUserPlan');
 });
+
+//авторизация
+Route::post('v1/account/login', 'API\UserController@login');
+Route::get('v1/account/login', 'API\UserController@login');
 
 //get apps list
 Route::post('v1/app/list', 'API\AppInfoController@getAppInfoList');

@@ -60,28 +60,9 @@ class ApiController extends BaseController
     public static function checkUserPlatform($params=array(), $checkTokenType = ''){
 
         $user = false;
-
-        if(!empty($checkTokenType) && !empty($params['token'])){
-
-            $user = DB::table('users')
-                ->where('activation_token_desctop', $params['token'])
-                ->orWhere(function($query) use ($params)
-                {
-                    $query->where('activation_token_mobile', $params['token']);
-                })
-                ->first();
-
-            return $user;
-        }
-        if(!empty($params['platform']) && !empty($params['token'])){
-            switch (trim(htmlentities($params['platform']))) {
-                case "pc":
-                    $user = DB::table('users')->where('activation_token_desctop', $params['token'])->first();
-                    break;
-                case "mobile":
-                    $user = DB::table('users')->where('activation_token_mobile', $params['token'])->first();
-                    break;
-            }
+        $user_session = DB::table('sessions')->where('token', $params['token'])->first();
+        if(!empty($user_session)){
+            $user = DB::table('users')->where('id', $user_session->user_id)->first();
         }
 
         return $user;

@@ -84,17 +84,6 @@ class SiteUsersController extends Controller
         $grid->id('Id');
         $grid->name('Name');
         $grid->email('Email');
-        $grid->password('Password');
-        $grid->avatar('Avatar');
-        $grid->active('Active');
-        $grid->activation_token_desctop('Activation token desctop');
-        $grid->activation_token_mobile('Activation token mobile');
-        $grid->remember_token('Remember token');
-        $grid->created_at('Created at');
-        $grid->updated_at('Updated at');
-        $grid->deleted_at('Deleted at');
-        $grid->secret_key('Secret key');
-        $grid->expiry_at('Expiry at');
 
         return $grid;
     }
@@ -112,17 +101,6 @@ class SiteUsersController extends Controller
         $show->id('Id');
         $show->name('Name');
         $show->email('Email');
-        $show->password('Password');
-        $show->avatar('Avatar');
-        $show->active('Active');
-        $show->activation_token_desctop('Activation token desctop');
-        $show->activation_token_mobile('Activation token mobile');
-        $show->remember_token('Remember token');
-        $show->created_at('Created at');
-        $show->updated_at('Updated at');
-        $show->deleted_at('Deleted at');
-        $show->secret_key('Secret key');
-        $show->expiry_at('Expiry at');
 
         return $show;
     }
@@ -138,14 +116,6 @@ class SiteUsersController extends Controller
 
         $form->text('name', 'Name');
         $form->email('email', 'Email');
-        $form->password('password', 'Password');
-        $form->image('avatar', 'Avatar')->default('avatar.png');
-        $form->switch('active', 'Active');
-        $form->text('activation_token_desctop', 'Activation token desctop');
-        $form->text('activation_token_mobile', 'Activation token mobile');
-        $form->text('remember_token', 'Remember token');
-        $form->text('secret_key', 'Secret key');
-        $form->datetime('expiry_at', 'Expiry at')->default(date('Y-m-d H:i:s'));
 
         return $form;
     }

@@ -93,10 +93,7 @@ class RegisterController extends Controller
         $newUser = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'activation_token_desctop' => str_random(60),
-            'activation_token_mobile' => str_random(50),
-            'secret_key' => str_random(20)
+            'password' => Hash::make($data['password'])
         ]);
 
         $user = DB::table('users')->get()->last();
