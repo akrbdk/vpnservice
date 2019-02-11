@@ -53,12 +53,7 @@ class ServerController extends ApiController
                                 array('token' => $body['payload']['token'])
                             );
                         }
-                        DB::table('users')
-                            ->where('id', $request->get('user_id'))
-                            ->update([
-                                'server_token' => $body['payload']['token'],
-                                'secret_key' => str_random(20)
-                            ]);
+
                         return parent::retAnswer(parent::$success, false, ['check' => parent::$successCheck], parent::$successStatus);
                     }
                 }
@@ -92,21 +87,14 @@ class ServerController extends ApiController
             if (!empty($body = json_decode($response->getBody(), true))) {
                 if(!$body['status'] && !empty($body['payload'])){
 
-                    $upd = [
-                        'info' => json_encode($body['payload']),
-                        'server_uuid' => !empty($body['payload']['uuid']) ? $body['payload']['uuid'] : ''
-                    ];
-
-                    DB::table('users')
-                        ->where('id', $request->get('user_id'))
-                        ->update($upd);
+                    $server_uuid = !empty($body['payload']['uuid']) ? $body['payload']['uuid'] : '';
 
                     DB::table('server_infos')
                         ->where('token', $serverInfo->token)
                         ->update([
                             'info' => json_encode($body['payload']),
                             'ip' => !empty($body['payload']['ip']) ? $body['payload']['ip'] : '',
-                            'server_uuid' => !empty($body['payload']['uuid']) ? $body['payload']['uuid'] : ''
+                            'server_uuid' => $server_uuid
                         ]);
 
                     return parent::retAnswer(parent::$success, false, ['check' => parent::$successCheck], parent::$successStatus);
@@ -133,7 +121,6 @@ class ServerController extends ApiController
 
         if(!empty($input['uuid'])){
 
-            $user = $request->get('user_info');
             $server_info = DB::table('server_infos')->where('server_uuid', $input['uuid'])->first();
 
             if(empty($server_info)){
@@ -141,9 +128,13 @@ class ServerController extends ApiController
             }
 
             if(!empty($server_info->token)){
-                $connectInfo = self::serverConnects($user->secret_key, $server_info->token);
+                self::userVpnInfo($server_info->server_uuid, $request);
+                $user_session = DB::table('sessions')->where('user_id', $request->get('user_id'))->first();
+                $user_vpn_session = DB::table('vpn_sessions')->where('token', $user_session->token)->first();
+
+                $connectInfo = self::serverConnects($user_vpn_session->secret_key, $server_info->token);
                 if(!empty($connectInfo['user_info']['payload'])){
-                    return response()->json(['error'=> 0, 'payload' => array('secret_key' => $user->secret_key, 'certs' => $connectInfo['user_info']['payload'])], parent::$successStatus);
+                    return response()->json(['error'=> 0, 'payload' => array('secret_key' => $user_vpn_session->secret_key, 'certs' => $connectInfo['user_info']['payload'])], parent::$successStatus);
                 }
             }
         }
@@ -192,7 +183,7 @@ class ServerController extends ApiController
     {
         $input = $request->all();
         if(!empty($input['secret_key'])){
-            $user = DB::table('users')->where('secret_key', $input['secret_key'])->where('server_uuid', $input['uuid'])->first();
+            $user = DB::table('vpn_sessions')->where('secret_key', $input['secret_key'])->where('server_uuid', $input['uuid'])->first();
             if(!empty($user)){
                 return parent::retAnswer(parent::$success, false, ['check' => parent::$successCheck], parent::$successStatus);
             }
@@ -231,6 +222,31 @@ class ServerController extends ApiController
         }
 
         return $answerInfo;
+
+    }
+
+    /**
+     * upd vpn user info
+     *
+     * @return \Illuminate\Http\Response
+     */
+    protected static function userVpnInfo($server_uuid='', Request $request){
+
+        $user_session = DB::table('sessions')->where('user_id', $request->get('user_id'))->first();
+        $user_vpn_session = DB::table('vpn_sessions')->where('token', $user_session->token)->first();
+
+        $userVpnSessionInfoArr = [
+            'token' => $user_session->token,
+            'secret_key' => str_random(20),
+            'server_uuid' => $server_uuid,
+            'expiry_at' => time() + (3 * 24 * 60 * 60)
+        ];
+        if(empty($user_vpn_session)){
+            DB::table('vpn_sessions')->insert($userVpnSessionInfoArr);
+        }
+        DB::table('vpn_sessions')
+            ->where('token', $user_session->token)
+            ->update($userVpnSessionInfoArr);
 
     }
 }

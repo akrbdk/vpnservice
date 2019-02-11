@@ -4,7 +4,7 @@
             <div class="title">{{ $plan->plan_name }}</div>
             <div class="price">
                 <span class="currency">$</span>
-                <span class="coin"><?= number_format($plan->price, 2, '<span class="cents">.', '') ?></span></span>
+                <span class="coin"><?= number_format(($plan->price/100), 2, '<span class="cents">.', '') ?></span></span>
             </div>
             <div class="plan-type">
                 Per month

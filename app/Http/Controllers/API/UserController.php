@@ -7,6 +7,7 @@ use App\Http\Controllers\ApiController;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use DB;
 
 class UserController extends ApiController
 {
@@ -41,21 +42,30 @@ class UserController extends ApiController
 
             //update platform token
             if(!empty($input['platform'])){
+
                 $input['platform'] = trim(htmlentities($input['platform']));
-                switch ($input['platform']) {
-                    case "pc":
-                        $token = $user->activation_token_desctop = str_random(60);
-                        break;
-                    case "mobile":
-                        $token = $user->activation_token_mobile = str_random(59);
-                        break;
-                    default:
-                        $token = false;
+                $user_session = DB::table('sessions')->where('user_id', $user->id)->where('platform', $input['platform'])->first();
+                $token = str_random(60);
+
+                $userSessionInfoArr = [
+                    'user_id' => $user->id,
+                    'token' => $token,
+                    'platform' => $input['platform'],
+                    'expiry_at' => time() + (3 * 24 * 60 * 60)
+                ];
+
+                if(empty($user_session)){
+                    DB::table('sessions')->insert($userSessionInfoArr);
                 }
-                if($token){
-                    $user->update();
-                    return parent::retAnswer(parent::$success, false, ['token' => $token], parent::$successStatus);
-                }
+                DB::table('sessions')
+                    ->where('user_id', $user->id)
+                    ->where('platform', $input['platform'])
+                    ->update($userSessionInfoArr);
+
+
+                return parent::retAnswer(parent::$success, false, ['token' => $token], parent::$successStatus);
+            } else {
+                return parent::retAnswer(parent::$error, 'Empty platform info', false, parent::$errorStatus);
             }
         }
         return parent::retAnswer(parent::$error, 'Invalid login or password', false, parent::$errorStatus);
