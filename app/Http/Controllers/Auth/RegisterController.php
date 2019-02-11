@@ -96,6 +96,15 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password'])
         ]);
 
+        $user = DB::table('users')->get()->last();
+        $plan = DB::table('plans_table')->first();
+        $planInfoArr = [
+            'user_id' => $user->id,
+            'plan_id' => $plan->id,
+            'expiry_at' => time()
+        ];
+        DB::table('users_plans')->insert($planInfoArr);
+
         return $newUser;
     }
 }
