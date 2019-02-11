@@ -20,7 +20,7 @@
 
                     <div class="right">
                         {{ trans('user_admin.expires_on') }}
-                        <span><?= date('d/m/Y', $months_limit) ?></span>
+                        <span><?= date('d/m/Y', $user_plan_limit) ?></span>
                     </div>
 
                     <br style="clear:both;">
