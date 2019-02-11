@@ -57,7 +57,7 @@ class PayPalStatus extends Controller
         $result = $payment->execute($execution, $this->_api_context);
         if ($result->getState() == 'approved') {
             PlanOrder::planOrder($Order);
-            return Redirect::to('/plans')->with('alert', 'success: Subscribtion success!');
+            return Redirect::to('/plans')->with('alert-success', 'success: Subscribtion success!');
         }
         return Redirect::to('/plans')->with('alert', 'error: Payment failed!');
     }

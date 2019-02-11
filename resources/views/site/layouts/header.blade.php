@@ -30,9 +30,11 @@
                 <li>
                     <a href="{{ url('/download') }}">{{ trans('menu.download') }}</a>
                 </li>
+                @guest
                 <li class="free-test">
                     <a href="{{ url('/plans') }}">{{ trans('menu.testIt') }}</a>
                 </li>
+                @endguest
             </ul>
         </nav>
     </div>

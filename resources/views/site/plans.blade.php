@@ -10,10 +10,15 @@ $tab=1;
     <main class="main-painel finish-plan">
         <div class="container">
           @if (session('alert'))
-              <div class="alert alert-success">
+              <div class="alert">
                   {{ session('alert') }}
               </div>
           @endif
+          <!-- @if (session('alert-success')) -->
+              <div class="alert-success">
+                  {{ session('alert-success') }}
+              </div>
+          <!-- @endif -->
             @if ($message = Session::get('success'))
             <div class="w3-panel w3-green w3-display-container">
                 <span onclick="this.parentElement.style.display='none'"
@@ -78,7 +83,7 @@ $tab=1;
 
                   <div class="clearfix">
                       <label for="password">PASSWORD</label>
-                      <input type="password" class="password" name="password" required>
+                      <input type="password" class="password" name="password" minlength="6" required>
                       <a href="javascript:void(0);" onclick="modal();">Forgotten your password?</a>
                   </div>
                 </section>
@@ -108,7 +113,6 @@ $tab=1;
 
                           <span class="payment-errors"></span>
 
-                          <input type="text" name="name" class="nome" placeholder="Nome do títular">
                           <input type="text" name="cardnumber" class="ncartao" placeholder="Número do cartão" data-stripe="number">
 
                           <input type="text" name="mm" class="mes" placeholder="MM" data-stripe="exp_month">
@@ -119,9 +123,9 @@ $tab=1;
                           <p>Every 6 months the plan will be renewed automatically. You can cancel at any time.</p>
 
                           <div class="total">
-                              total: <span>$ 47.40</span>
+                              total: <span class="get_price"></span>
                           </div>
-                          <button name="pay_method" class="submit btn-green" value="stripe">Pay now</button>
+                          <button name="pay_method" class="submit btn-green" value="{{url('/payWithstripe')}}">Pay now</button>
 
                           <br style="clear:both;">
                           <p class="termos-servico">By proceeding you will agree to the <span> terms of service</span>.
@@ -141,7 +145,7 @@ $tab=1;
                               <!-- <input type="text" name="cupom2" class="cupom2" placeholder="digite um cupom válido"> -->
                           </div>
                           <div class="total">
-                              total: <span>$ 47.40</span>
+                              total: <span class="get_price"></span>
                           </div>
                           <a href="{{ url('#') }}" class="btn-green">Pagar Agora</a>
 
@@ -161,9 +165,9 @@ $tab=1;
                               <!-- <input type="text" name="cupom2" class="cupom2" placeholder="digite um cupom válido"> -->
                           </div>
                           <div class="total">
-                              total: <span>$ 47.40</span>
+                              total: <span class="get_price"></span>
                           </div>
-                            <button name="pay_method" class="submit btn-green" value="paypal">Pay now</button></p>
+                            <button name="pay_method" class="submit btn-green" value="{{url('/payWithpaypal')}}">Pay now</button></p>
 
 
                           <br style="clear:both;">
@@ -178,21 +182,16 @@ $tab=1;
                           <div class="cupom">
                               <p>Do you have a discount coupon? Click here.</p>
 
-                              <!-- <input type="text" name="cupom2" class="cupom2" placeholder="digite um cupom válido"> -->
-                          </div>
-
-                          <div class="bitcoin-detail">
-                              Send the bitcoins to:<br/>
-                              15hauSOW827nsiqoKoq86m<br/>
-                              abaKJU826abnsoUHAYGSmnajs
-
-                              <img src="{{ asset('site/img/qrcode-bitcoin.jpg') }}" alt="">
-                          </div>
-
                           <div class="total">
-                              total: <span>BTC 0.012345</span>
+                              total: <span class="get_price"></span>
                           </div>
-                          <a href="{{ url('#') }}" class="btn-green">Pay now</a>
+                            <input type="hidden" name="action" value="checkout" />
+                            <input type="hidden" class="bitpay" name="data"/>
+                            @Auth
+                            <input type="hidden" class="posData" name="posData" value="{{Auth::id()}}">
+                            @endauth
+                            <button name="pay_method" class="submit btn-green" value="https://test.bitpay.com/checkout">Pay now</button>
+                          </form>
 
                           <br style="clear:both;">
                           <p class="termos-servico">By proceeding you agree to the <span> terms of service</span>.</p>

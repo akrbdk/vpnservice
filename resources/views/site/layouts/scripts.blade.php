@@ -13,21 +13,52 @@
 @endif
 
 @if(Request::path() == 'plans')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
     <script>
-    $('label.btn-orange').click(function(){
+    $(document).ready(function(){
+      $('.ncartao').mask('0000 0000 0000 0000');
+      $('.mes').mask('00');
+      $('.ano').mask('00');
+      $('.ccv').mask('000');
+    });
+    $('.alert').click(function(){
+      $('.alert').remove();
+    });
+    $('.alert-success').click(function(){
+      $('.alert-success').remove();
+    });
+    $('.Basic').click(function(){
         $('.checkout').hide();
         $('#payment-form').attr('action', "{{ url('/getTrial') }}");
         $('.trial_start').show();
     });
-    $('label.btn-green').click(function(){
+    $('.Advanced').click(function(){
+        var bitkey = "jxBlHByrurx6FMglp0ETlrJEsTNizX85nj+bUpS2Ic47s0z5cXw7PBKa0w6nZ9APCn0mkfqVRk/C/KICSWJBhSUNvjj+4UrlBUguSunqTezLjJ+xaHGPdk7G6MaO9m6X0e7vU/zLiG9wIG7mR1c+CAVaxx+b5heIBdW0ErXK/4oS+pbD4LDRdc6W8PrErBpIJ9opgbIbq9Dfxbi6gjB58rVbzl8/VY8W11ZgIuBl1HJHbPG/BtzpHz2669oa4gGDz1ELzrUohilD4vBCp1SiLQ==";
+        $('.bitpay').attr('value', bitkey);
+        $('.get_price').text('$'+ $('.plan-plan2 .coin').text());
         $('.checkout').show();
         $('.trial_start').hide();
+    });
+    $('.Premium').click(function(){
+        var bitkey = "jxBlHByrurx6FMglp0ETlrJEsTNizX85nj+bUpS2Ic47s0z5cXw7PBKa0w6nZ9APYB/37Wh3F0PVEHAfgrh9UDjpLwxiNctUWA4INi9jAmBYt5w0KlWoKa6zehNnIryuZczSwubSHYlPZYkiQG3ndPBE4DrGj8feQT032mx1QHg8G8mJtiDt/REOIU47ccn6D0XRxOwA0/N1f9GMBR1QFdv6BYMRZ1rvHg6I0C8boznWZDDx39hL/RPnY3qFsvMl";
+        $('.bitpay').attr('value', bitkey);
+        $('.get_price').text('$'+ $('.plan-plan3 .coin').text());
+        $('.checkout').show();
+        $('.trial_start').hide();
+    });
+    $('.bitcoin').click(function() {
+      var email = $('.email').val();
+      var password = $('.password').val();
+      if(!$(':input').hasClass('posData')){
+        $('#payment-form').append($('<input type="hidden" class="posData" name="posData">').val(email));
+        $('#payment-form').append($('<input type="hidden" class="posData" name="posData">').val(password));
+      }
     });
     </script>
 
     <script>
         $('.checkout .payment-item').click(function () {
-            var action = '<?php echo url('/');?>/payWith' + $(this).find('.submit').val();
+            var action = $(this).find('.submit').val();
             $('#payment-form').attr('action', action);
             $('.checkout .payment-item').removeClass('active');
             $('.checkout .payment-item').find('input').removeAttr('required');
@@ -51,7 +82,7 @@
     $(function() {
       var $form = $('#payment-form');
         $form.submit(function(event) {
-          if ($form.attr('action') === '<?php echo url('/');?>/payWithstripe') {
+          if ($form.attr('action') === "{{ url('/payWithstripe') }}") {
             $form.find('.submit').prop('disabled', true);
 
              Stripe.card.createToken($form, stripeResponseHandler);

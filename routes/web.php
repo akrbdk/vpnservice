@@ -23,7 +23,6 @@ Route::namespace('Site')->group(function(){
 
 //Ajax маршруты
 Route::post('/sendmail', ['as'=>'contactus.store','uses'=>'Ajax\ContactController@send']);
-Route::post('/plan', 'Plans\PlanOrder@planOrder');
 
 // Маршруты аутентификации и регистрации
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -101,3 +100,8 @@ Route::get('/paypalstatus', 'Payments\PayPalStatus@getPaymentStatus');
 Route::post('/payWithstripe', 'Payments\StripeController@payWithstripe');
 //Trial
 Route::post('/getTrial', 'Plans\TrialController@index');
+//BitPay
+Route::post('/bitpaystatus', 'Payments\BitPayStatus@index');
+Route::get('/bitpayconfirm', function (){
+  return Redirect::to('/plans')->with('alert-success', 'success: Subscribtion success!');
+});

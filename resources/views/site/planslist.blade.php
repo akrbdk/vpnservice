@@ -17,7 +17,7 @@
             {!! $plan->more_advantages !!}
             @if (Request::path() === 'plans')
               <input type="radio" name="plan_id" id="{{ $plan->plan_alias }}" class="hidden radio-label" value="{{ $plan->id }}" required>
-              <label for="{{ $plan->plan_alias }}" class="btn-{{ $plan->button_color }} button-label"
+              <label for="{{ $plan->plan_alias }}" class="btn-{{ $plan->button_color }} button-label {{ $plan->plan_name }}"
                 @if ($plan->plan_name === "Basic")
                 {{ $isHidden }}
                 @endif

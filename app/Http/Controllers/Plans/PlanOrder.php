@@ -13,6 +13,9 @@ class planOrder
         if(!empty($data['email'])){
           $user_id = DB::table('users')->where('email', $data['email'])->value('id');
         }
+        elseif(!empty($data['user_id'])){
+          $user_id = $data['user_id'];
+        }
         else {
           $user_id = Auth::id();
         }

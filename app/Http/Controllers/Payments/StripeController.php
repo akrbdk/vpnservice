@@ -56,6 +56,6 @@ class StripeController
       ));
 
       PlanOrder::planOrder($Order);
-      return Redirect::to('/plans')->with('alert', 'success: Subscribtion success!');
+      return Redirect::to('/plans')->with('alert-success', 'success: Subscribtion success!');
     }
 }
