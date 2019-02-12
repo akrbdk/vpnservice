@@ -51,7 +51,7 @@ class PayPalStatus extends Controller
           'price' => Session::get('price'),
           'method' => 'PayPal',
           'auto_renew' => 0,
-          'expiry' => date('Y-m-d H:i:s', time() + Session::get('months_limit'))
+          'expiry' => time() + Session::get('months_limit')
         );
 
 

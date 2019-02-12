@@ -25,12 +25,12 @@
     </td>
     <td>
         @php
-        if(date('Y-m-d H:i:s',time()) > $pay->expiry_at){
+        if(time() > $pay->expiry_at){
           echo 'Expired';
           $button = 0;
         }
         else{
-          echo $pay->expiry_at;
+          echo date('Y/m/d', $pay->expiry_at);
           $button = 1;
         }
         @endphp

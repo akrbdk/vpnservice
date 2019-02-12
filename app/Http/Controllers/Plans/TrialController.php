@@ -46,7 +46,7 @@ class TrialController
         'price' => $plan->price,
         'method' => 'Trial',
         'auto_renew' => 0,
-        'expiry' => date('Y-m-d H:i:s',time() + $plan->months_limit)
+        'expiry' => time() + $plan->months_limit
       );
 
       HistoryController::addPayment($Payment);
