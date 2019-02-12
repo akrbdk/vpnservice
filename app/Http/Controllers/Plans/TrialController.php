@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Plans;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Plans\PlanOrder;
+use App\Http\Controllers\Payments\HistoryController;
 use App\Http\Controllers\Auth\RegisterController;
 use Redirect;
 use DB;
@@ -38,6 +39,18 @@ class TrialController
       );
 
       PlanOrder::planOrder($Order);
-      return Redirect::to('/plans')->with('alert', 'success: Subscribtion success!');
+
+      $Payment =  array(
+        'email' => $email,
+        'plan_name' => $plan->plan_name,
+        'price' => $plan->price,
+        'method' => 'Trial',
+        'auto_renew' => 0,
+        'expiry' => date('Y-m-d H:i:s',time() + $plan->months_limit)
+      );
+
+      HistoryController::addPayment($Payment);
+
+      return Redirect::to('/plans')->with('alert', trans('plans_err.success'));
     }
 }

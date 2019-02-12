@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Payments;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Plans\PlanOrder;
+use App\Http\Controllers\Payments\HistoryController;
 use App\Http\Controllers\Auth\RegisterController;
 use Redirect;
 use DB;
@@ -12,7 +13,7 @@ class BitPayStatus
 {
     public function index(){
 
-      $price = $_POST['amount'];
+      $price = $_POST['amount']*100;
       $email = '';
       $user_id = '';
 
@@ -32,7 +33,7 @@ class BitPayStatus
         $user_id = $_POST['posData'];
       }
 
-      if($_POST['status'] == 'paid'){
+      if($_POST['status'] === 'paid'){
         $plan = DB::table('plans_table')->where('price', $price)->first();
 
         $Order = array(
@@ -43,6 +44,18 @@ class BitPayStatus
         );
 
         PlanOrder::planOrder($Order);
+
+        $Payment =  array(
+          'email' => $email,
+          'user_id' => $user_id,
+          'plan_name' => $plan->plan_name,
+          'price' => $plan->price,
+          'method' => 'Bitcoin',
+          'auto_renew' => 0,
+          'expiry' => date('Y-m-d H:i:s',time() + $plan->months_limit)
+        );
+
+        HistoryController::addPayment($Payment);
       }
     }
 }

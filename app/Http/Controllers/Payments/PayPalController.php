@@ -68,6 +68,8 @@ class PayPalController extends Controller
 
         Session::put('email', $email);
         Session::put('plan_id', $plan_id);
+        Session::put('plan_name', $plan->plan_name);
+        Session::put('price', $plan->price);
         Session::put('months_limit', $plan->months_limit);
 
         $payer = new Payer();
@@ -77,14 +79,14 @@ class PayPalController extends Controller
         $item->setName($plan->plan_name) /** item name **/
              ->setCurrency('USD')
              ->setQuantity(1)
-             ->setPrice($plan->price); /** unit price **/
+             ->setPrice($plan->price/100); /** unit price **/
 
         $item_list = new ItemList();
         $item_list->setItems(array($item));
 
         $amount = new Amount();
         $amount->setCurrency('USD')
-               ->setTotal($plan->price);
+               ->setTotal($plan->price/100);
 
         $transaction = new Transaction();
         $transaction->setAmount($amount)
@@ -105,9 +107,9 @@ class PayPalController extends Controller
             $payment->create($this->_api_context);
         } catch (\PayPal\Exception\PPConnectionException $ex) {
             if (\Config::get('app.debug')) {
-                return Redirect::to('/plans')->with('alert', 'error: Connection timeout!');
+                return Redirect::to('/plans')->with('alert', trans('plans_err.timeout'));
             } else {
-                return Redirect::to('/plans')->with('alert', 'error: Some error occur, sorry for inconvenient!');
+                return Redirect::to('/plans')->with('alert', trans('plans_err.occur'));
             }
         }
         foreach ($payment->getLinks() as $link) {
@@ -122,6 +124,6 @@ class PayPalController extends Controller
             /** redirect to paypal **/
             return Redirect::away($redirect_url);
         }
-        return Redirect::to('/plans')->with('alert', 'error: Unknown error occurred!');
+        return Redirect::to('/plans')->with('alert', trans('plans_err.unknown'));
     }
 }

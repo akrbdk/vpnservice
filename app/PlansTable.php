@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Controllers\Plans\UserPlanInfo as Plan;
+use DB;
 use Auth;
 
 class PlansTable extends Model
@@ -18,9 +18,9 @@ class PlansTable extends Model
     public static function isHidden(){
       $data = '';
       $userId = Auth::id();
-      $plan = new Plan($userId);
+      $hasTrial = DB::table('payment_history')->where('user_id', $userId)->where('method', 'Trial')->exists();
 
-      if(!empty($userId) && !empty($plan->user_plan)){
+      if(!empty($userId) && !empty($hasTrial)){
         {
           $data = 'hidden';
         }

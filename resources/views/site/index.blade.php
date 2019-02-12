@@ -87,56 +87,7 @@
         <div class="container">
             {!! trans('main.lang_head') !!}
 
-            <ul id="country-list">
-                <li>
-                    <img src="{{ asset('site/img/flag-1.png') }}" alt="">
-                    <span>3</span>
-
-                    <div class="cities">
-                        <p>São Paulo - SP</p>
-                        <p>Rio de Janeiro - RJ</p>
-                        <p>Porto Alegre - RS</p>
-                    </div>
-                </li>
-                <li><img src="{{ asset('site/img/flag-2.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-3.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-4.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-5.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-6.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-7.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-8.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-9.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-10.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-11.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-12.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-13.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-14.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-15.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-16.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-17.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-18.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-19.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-20.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-21.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-22.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-23.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-24.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-25.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-26.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-27.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-28.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-29.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-30.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-31.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-32.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-33.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-34.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-35.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-36.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-37.png') }}" alt=""><span>3</span></li>
-                <li><img src="{{ asset('site/img/flag-38.png') }}" alt=""><span>3</span></li>
-                <li>and counting...</li>
-            </ul>
+            @include('site.serverlist', ['servers' => App\ServersTable::index()])
         </div>
     </section>
 

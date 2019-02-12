@@ -11,6 +11,7 @@ use PayPal\Api\PaymentExecution;
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
 use App\Http\Controllers\Plans\PlanOrder;
+use App\Http\Controllers\Payments\HistoryController;
 use Redirect;
 use Session;
 
@@ -37,18 +38,32 @@ class PayPalStatus extends Controller
     {
         /** Get the payment ID before session clear **/
         $payment_id = Session::get('paypal_payment_id');
+
         $Order = array(
           'plan_id' => Session::get('plan_id'),
           'months_limit' => Session::get('months_limit'),
           'email' => Session::get('email')
         );
 
+        $Payment =  array(
+          'email' => Session::get('email'),
+          'plan_name' => Session::get('plan_name'),
+          'price' => Session::get('price'),
+          'method' => 'PayPal',
+          'auto_renew' => 0,
+          'expiry' => date('Y-m-d H:i:s', time() + Session::get('months_limit'))
+        );
+
+
         /** clear the session payment ID **/
         Session::forget('paypal_payment_id');
         Session::forget('plan_id');
+        Session::forget('plan_name');
+        Session::forget('price');
         Session::forget('months_limit');
+
         if (empty(Input::get('PayerID')) || empty(Input::get('token'))) {
-             return Redirect::to('/plans')->with('alert', 'error: Payment failed!');
+             return Redirect::to('/plans')->with('alert', trans('plans_err.failed'));
         }
         $payment = Payment::get($payment_id, $this->_api_context);
         $execution = new PaymentExecution();
@@ -57,8 +72,9 @@ class PayPalStatus extends Controller
         $result = $payment->execute($execution, $this->_api_context);
         if ($result->getState() == 'approved') {
             PlanOrder::planOrder($Order);
-            return Redirect::to('/plans')->with('alert-success', 'success: Subscribtion success!');
+            HistoryController::addPayment($Payment);
+            return Redirect::to('/plans')->with('alert-success', trans('plans_err.success'));
         }
-        return Redirect::to('/plans')->with('alert', 'error: Payment failed!');
+        return Redirect::to('/plans')->with('alert', trans('plans_err.failed'));
     }
 }
