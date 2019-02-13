@@ -5529,15 +5529,19 @@ ul {
 	display: none
 }
 
-.identificacao {
+#identificacao {
 	position: relative;
 	display: block;
 	width: 100%;
 	max-width: 570px;
 	margin: 0 auto;
+	display: none;
+}
+#payment{
+	display: none;
 }
 
-.identificacao label {
+#identificacao label {
 	float: left;
 	clear: none;
 	text-align: inherit;
@@ -5548,18 +5552,18 @@ ul {
 	margin-bottom: 2px
 }
 
-.identificacao label::after {
+#identificacao label::after {
 	content: '';
 	display: table;
 	clear: both
 }
 
-.identificacao label:last-child {
+#identificacao label:last-child {
 	margin-right: 0%
 }
 
-.identificacao .email,
-.identificacao .password {
+#identificacao .email,
+#identificacao .password {
 	float: left;
 	clear: none;
 	text-align: inherit;
@@ -5583,31 +5587,31 @@ ul {
 	color: #383838;
 }
 
-.identificacao .email::after,
-.identificacao .password::after {
+#identificacao .email::after,
+#identificacao .password::after {
 	content: '';
 	display: table;
 	clear: both
 }
 
-.identificacao .email:last-child,
-.identificacao .password:last-child {
+#identificacao .email:last-child,
+#identificacao .password:last-child {
 	margin-right: 0%
 }
 
-.identificacao .email:focus,
-.identificacao .password:focus,
-.identificacao .email:hover,
-.identificacao .password:hover {
+#identificacao .email:focus,
+#identificacao .password:focus,
+#identificacao .email:hover,
+#identificacao .password:hover {
 	outline: none;
 	border-color: #40cead
 }
 
-.identificacao .email {
+#identificacao .email {
 	margin-bottom: 20px
 }
 
-.identificacao a {
+#identificacao a {
 	position: relative;
 	display: block;
 	float: right;
@@ -5618,11 +5622,11 @@ ul {
 	margin-top: 4px;
 }
 
-.identificacao a:hover {
+#identificacao a:hover {
 	color: #0071fd
 }
 
-.identificacao input[type="submit"] {
+#identificacao input[type="submit"] {
 	width: 100%;
 	max-width: 230px;
 	border: 2px solid #ff9000;
@@ -5644,14 +5648,14 @@ ul {
 	margin: 30px auto 0 auto
 }
 
-.identificacao p {
+#identificacao p {
 	color: #666;
 	font-size: 14px;
 	text-align: center;
 	margin: 40px 0 0 0;
 }
 
-.identificacao p span {
+#identificacao p span {
 	font-weight: 700
 }
 

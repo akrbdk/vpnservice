@@ -66,7 +66,7 @@ $tab=1;
               </section>
 
               @guest
-                <section class="identificacao">
+                <section id="identificacao">
                   <div class="title-c clearfix">
                       <span class="number">@php echo $tab; $tab+=1;@endphp</span>
 
@@ -89,118 +89,120 @@ $tab=1;
                 </section>
               @endguest
 
-              <div class="title-c clearfix">
-                  <span class="number">@php echo $tab; $tab+=1;@endphp</span>
 
-                  <div class="title-desc">
-                      <h2>Payment</h2>
-                      <p>Choose the best payment method for you.</p>
-                  </div>
+              <section id="payment">
+                <div class="title-c clearfix">
+                    <span class="number">@php echo $tab; $tab+=1;@endphp</span>
+
+                    <div class="title-desc">
+                        <h2>Payment</h2>
+                        <p>Choose the best payment method for you.</p>
+                    </div>
+                </div>
+
+                <div class="trial_start">
+                  <button name="pay_method" class="submit btn-green" value="trial">Start Trial Now!</button>
+                </div>
+
+                <div class="checkout">
+                    <div class="cartao-credito payment-item">
+                        <span><img src="{{ asset('site/img/planos.jpg') }}" alt="">  credit/debit card</span>
+
+                        <div class="content">
+                            <div class="cover">
+                                <img src="{{ asset('site/img/cc.jpg') }}" alt="">
+                            </div>
+
+                            <span class="payment-errors"></span>
+
+                            <input type="text" name="cardnumber" class="ncartao" placeholder="Número do cartão" data-stripe="number">
+
+                            <input type="text" name="mm" class="mes" placeholder="MM" data-stripe="exp_month">
+                            <input type="text" name="yy" class="ano" placeholder="YY" data-stripe="exp_year">
+                            <input type="text" name="ccv" class="ccv" placeholder="CCV" data-stripe="cvc">
+
+                            <br style="clear:both;">
+                            <p>Every 6 months the plan will be renewed automatically. You can cancel at any time.</p>
+
+                            <div class="total">
+                                total: <span class="get_price"></span>
+                            </div>
+                            <button name="pay_method" class="submit btn-green" value="{{url('/payWithstripe')}}">Pay now</button>
+
+                            <br style="clear:both;">
+                            <p class="termos-servico">By proceeding you will agree to the <span> terms of service</span>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="boleto payment-item">
+                        <span><img src="{{ asset('site/img/planos.jpg') }}" alt="">  boleto bancário</span>
+
+                        <div class="content">
+                            <p>A opção por boleto bancário não permite renovação automática.</p>
+
+                            <div class="cupom">
+                                <p>Possuí um cupom? Clique aqui.</p>
+
+                                <!-- <input type="text" name="cupom2" class="cupom2" placeholder="digite um cupom válido"> -->
+                            </div>
+                            <div class="total">
+                                total: <span class="get_price"></span>
+                            </div>
+                            <a href="{{ url('#') }}" class="btn-green">Pagar Agora</a>
+
+                            <br style="clear:both;">
+                            <p class="termos-servico">Ao prosseguir você concordará com os <span> termos de serviçom</span>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="paypal payment-item">
+                        <span><img src="{{ asset('site/img/planos.jpg') }}" alt="">  Paypal</span>
+
+                        <div class="content">
+                            <div class="cupom">
+                                <p>Do you have a discount coupon? Click here.</p>
+
+                                <!-- <input type="text" name="cupom2" class="cupom2" placeholder="digite um cupom válido"> -->
+                            </div>
+                            <div class="total">
+                                total: <span class="get_price"></span>
+                            </div>
+                              <button name="pay_method" class="submit btn-green" value="{{url('/payWithpaypal')}}">Pay now</button></p>
+
+
+                            <br style="clear:both;">
+                            <p class="termos-servico">By proceeding you agree to the <span> terms of service</span>.</p>
+                        </div>
+                    </div>
+
+                    <div class="bitcoin payment-item">
+                        <span><img src="{{ asset('site/img/planos.jpg') }}" alt="">  Bitcoin</span>
+
+                        <div class="content">
+                            <div class="cupom">
+                                <p>Do you have a discount coupon? Click here.</p>
+
+                            <div class="total">
+                                total: <span class="get_price"></span>
+                            </div>
+                              <input type="hidden" name="action" value="checkout" />
+                              <input type="hidden" class="bitpay" name="data"/>
+                              @Auth
+                              <input type="hidden" class="posData" name="posData" value="{{Auth::id()}}">
+                              @endauth
+                              <button name="pay_method" class="submit btn-green" value="https://test.bitpay.com/checkout">Pay now</button>
+                            </form>
+
+                            <br style="clear:both;">
+                            <p class="termos-servico">By proceeding you agree to the <span> terms of service</span>.</p>
+                            </div>
+                        </div>
+                    </div>
               </div>
-
-              <div class="trial_start">
-                <button name="pay_method" class="submit btn-green" value="trial">Start Trial Now!</button>
-              </div>
-
-              <div class="checkout">
-                  <div class="cartao-credito payment-item">
-                      <span><img src="{{ asset('site/img/planos.jpg') }}" alt="">  credit/debit card</span>
-
-                      <div class="content">
-                          <div class="cover">
-                              <img src="{{ asset('site/img/cc.jpg') }}" alt="">
-                          </div>
-
-                          <span class="payment-errors"></span>
-
-                          <input type="text" name="cardnumber" class="ncartao" placeholder="Número do cartão" data-stripe="number">
-
-                          <input type="text" name="mm" class="mes" placeholder="MM" data-stripe="exp_month">
-                          <input type="text" name="yy" class="ano" placeholder="YY" data-stripe="exp_year">
-                          <input type="text" name="ccv" class="ccv" placeholder="CCV" data-stripe="cvc">
-
-                          <br style="clear:both;">
-                          <p>Every 6 months the plan will be renewed automatically. You can cancel at any time.</p>
-
-                          <div class="total">
-                              total: <span class="get_price"></span>
-                          </div>
-                          <button name="pay_method" class="submit btn-green" value="{{url('/payWithstripe')}}">Pay now</button>
-
-                          <br style="clear:both;">
-                          <p class="termos-servico">By proceeding you will agree to the <span> terms of service</span>.
-                          </p>
-                      </div>
-                  </div>
-
-                  <div class="boleto payment-item">
-                      <span><img src="{{ asset('site/img/planos.jpg') }}" alt="">  boleto bancário</span>
-
-                      <div class="content">
-                          <p>A opção por boleto bancário não permite renovação automática.</p>
-
-                          <div class="cupom">
-                              <p>Possuí um cupom? Clique aqui.</p>
-
-                              <!-- <input type="text" name="cupom2" class="cupom2" placeholder="digite um cupom válido"> -->
-                          </div>
-                          <div class="total">
-                              total: <span class="get_price"></span>
-                          </div>
-                          <a href="{{ url('#') }}" class="btn-green">Pagar Agora</a>
-
-                          <br style="clear:both;">
-                          <p class="termos-servico">Ao prosseguir você concordará com os <span> termos de serviçom</span>.
-                          </p>
-                      </div>
-                  </div>
-
-                  <div class="paypal payment-item">
-                      <span><img src="{{ asset('site/img/planos.jpg') }}" alt="">  Paypal</span>
-
-                      <div class="content">
-                          <div class="cupom">
-                              <p>Do you have a discount coupon? Click here.</p>
-
-                              <!-- <input type="text" name="cupom2" class="cupom2" placeholder="digite um cupom válido"> -->
-                          </div>
-                          <div class="total">
-                              total: <span class="get_price"></span>
-                          </div>
-                            <button name="pay_method" class="submit btn-green" value="{{url('/payWithpaypal')}}">Pay now</button></p>
-
-
-                          <br style="clear:both;">
-                          <p class="termos-servico">By proceeding you agree to the <span> terms of service</span>.</p>
-                      </div>
-                  </div>
-
-                  <div class="bitcoin payment-item">
-                      <span><img src="{{ asset('site/img/planos.jpg') }}" alt="">  Bitcoin</span>
-
-                      <div class="content">
-                          <div class="cupom">
-                              <p>Do you have a discount coupon? Click here.</p>
-
-                          <div class="total">
-                              total: <span class="get_price"></span>
-                          </div>
-                            <input type="hidden" name="action" value="checkout" />
-                            <input type="hidden" class="bitpay" name="data"/>
-                            @Auth
-                            <input type="hidden" class="posData" name="posData" value="{{Auth::id()}}">
-                            @endauth
-                            <button name="pay_method" class="submit btn-green" value="https://test.bitpay.com/checkout">Pay now</button>
-                          </form>
-
-                          <br style="clear:both;">
-                          <p class="termos-servico">By proceeding you agree to the <span> terms of service</span>.</p>
-                      </div>
-                  </div>
-
-              </div>
-            </form>
-        </div>
+            </section>
+        </form>
     </main>
 
 @stop

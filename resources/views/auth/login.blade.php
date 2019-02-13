@@ -41,14 +41,14 @@
                             {{ __('Remember Me') }}
                         </label>
                     </div>
-                    <!-- <div class="clearfix">
+                    <div class="clearfix">
                         <div class="g-recaptcha" data-sitekey="6LfKh4IUAAAAAGA3yo7qkblWIFXg3_WUGXJTuovW"
                              data-callback="someFunctionName"></div>
                         <script>function someFunctionName() {
                                 $('#button1').removeAttr('disabled');
                             }</script>
-                    </div> -->
-                    <input type="submit" class="btn-orange" value="{{ trans('auth.login') }}"
+                    </div>
+                    <input disabled="disabled" type="submit" class="btn-orange" value="{{ trans('auth.login') }}"
                            id="button1">
                     <p></p>
                 </form>
