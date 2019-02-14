@@ -51,6 +51,6 @@ class TrialController
 
       HistoryController::addPayment($Payment);
 
-      return Redirect::to('/plans')->with('alert', trans('plans_err.success'));
+      return Redirect::to('/plans')->with('alert', trans('payment_err.success'));
     }
 }

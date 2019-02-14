@@ -1,7 +1,7 @@
 <ul id="plan-list" class="clearfix">
     @foreach ($plans as $plan)
         <li class="plan-{{ $plan->plan_alias }} most-pop">
-            <div class="title">{{ $plan->plan_name }}</div>
+            <div class="title">{{ __('plans.'.$plan->id.'_name') }}</div>
             <div class="price">
                 <span class="currency">$</span>
                 <span class="coin"><?= number_format(($plan->price/100), 2, '<span class="cents">.', '') ?></span></span>
@@ -11,22 +11,22 @@
             </div>
 
             <ul class="feature-list">
-                {!! $plan->advantages !!}
+              {!! __('plans.'.$plan->id.'_advantages') !!}
             </ul>
 
-            {!! $plan->more_advantages !!}
+            {!! __('plans.'.$plan->id.'_more') !!}
             @if (Request::path() === 'plans')
               <input type="radio" name="plan_id" id="{{ $plan->plan_alias }}" class="hidden radio-label" value="{{ $plan->id }}" required>
-              <label for="{{ $plan->plan_alias }}" class="btn-{{ $plan->button_color }} button-label {{ $plan->plan_name }}"
-                @if ($plan->plan_name === "Basic")
+              <label for="{{ $plan->plan_alias }}" class="btn-{{ __('plans.'.$plan->id.'_color') }} button-label {{ __('plans.'.$plan->id.'_name') }}"
+                @if ( $plan->id === "1")
                 {{ $isHidden }}
                 @endif
               >
-              <h1>{{ $plan->button_text }}</h1>
+              <h1>{{ __('plans.'.$plan->id.'_button') }}</h1>
               </label>
             @endif
             @if (Request::path() === '/')
-              <a href="{{ url('plans') }}" class="btn-{{ $plan->button_color }}"> {{ $plan->button_text }} </a>
+              <a href="{{ url('plans') }}" class="btn-{{ __('plans.'.$plan->id.'_color') }}"> {{ __('plans.'.$plan->id.'_button') }} </a>
             @endif
         </li>
     @endforeach

@@ -107,9 +107,9 @@ class PayPalController extends Controller
             $payment->create($this->_api_context);
         } catch (\PayPal\Exception\PPConnectionException $ex) {
             if (\Config::get('app.debug')) {
-                return Redirect::to('/plans')->with('alert', trans('plans_err.timeout'));
+                return Redirect::to('/plans')->with('alert', trans('payment_err.timeout'));
             } else {
-                return Redirect::to('/plans')->with('alert', trans('plans_err.occur'));
+                return Redirect::to('/plans')->with('alert', trans('payment_err.occur'));
             }
         }
         foreach ($payment->getLinks() as $link) {
@@ -124,6 +124,6 @@ class PayPalController extends Controller
             /** redirect to paypal **/
             return Redirect::away($redirect_url);
         }
-        return Redirect::to('/plans')->with('alert', trans('plans_err.unknown'));
+        return Redirect::to('/plans')->with('alert', trans('payment_err.unknown'));
     }
 }

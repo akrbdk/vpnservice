@@ -6,20 +6,14 @@ use Illuminate\Http\Request;
 use Sinergi\BrowserDetector\Browser;
 use Sinergi\BrowserDetector\Os;
 
-class ipinfo extends Controller
+class ipinfo
 {
   public $ip;
   public $ipinfo_data;
 
   public static function ip_info() {
 
-      if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-       $ip = $_SERVER['HTTP_CLIENT_IP'];
-      } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-       $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-      } else {
-       $ip = $_SERVER['REMOTE_ADDR'];
-      }
+      $ip = request()->ip();
 
       $browser = new Browser();
       $os = new Os();

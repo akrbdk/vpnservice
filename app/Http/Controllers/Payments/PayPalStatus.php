@@ -63,7 +63,7 @@ class PayPalStatus extends Controller
         Session::forget('months_limit');
 
         if (empty(Input::get('PayerID')) || empty(Input::get('token'))) {
-             return Redirect::to('/plans')->with('alert', trans('plans_err.failed'));
+             return Redirect::to('/plans')->with('alert', trans('payment_err.failed'));
         }
         $payment = Payment::get($payment_id, $this->_api_context);
         $execution = new PaymentExecution();
@@ -73,8 +73,8 @@ class PayPalStatus extends Controller
         if ($result->getState() == 'approved') {
             PlanOrder::planOrder($Order);
             HistoryController::addPayment($Payment);
-            return Redirect::to('/plans')->with('alert-success', trans('plans_err.success'));
+            return Redirect::to('/plans')->with('alert-success', trans('payment_err.success'));
         }
-        return Redirect::to('/plans')->with('alert', trans('plans_err.failed'));
+        return Redirect::to('/plans')->with('alert', trans('payment_err.failed'));
     }
 }

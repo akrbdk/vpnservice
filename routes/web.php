@@ -103,5 +103,5 @@ Route::post('/getTrial', 'Plans\TrialController@index');
 //BitPay
 Route::post('/bitpaystatus', 'Payments\BitPayStatus@index');
 Route::get('/bitpayconfirm', function (){
-  return Redirect::to('/plans')->with('alert-success', trans('plans_err.success'));
+  return Redirect::to('/plans')->with('alert-success', trans('payment_err.success'));
 });
