@@ -33,14 +33,14 @@
         $('.trial_start').show();
     });
     $('.Advanced').click(function(){
-        var bitkey = "jxBlHByrurx6FMglp0ETlrJEsTNizX85nj+bUpS2Ic47s0z5cXw7PBKa0w6nZ9APCn0mkfqVRk/C/KICSWJBhSUNvjj+4UrlBUguSunqTezLjJ+xaHGPdk7G6MaO9m6X0e7vU/zLiG9wIG7mR1c+CAVaxx+b5heIBdW0ErXK/4oS+pbD4LDRdc6W8PrErBpIJ9opgbIbq9Dfxbi6gjB58rVbzl8/VY8W11ZgIuBl1HJHbPG/BtzpHz2669oa4gGDz1ELzrUohilD4vBCp1SiLQ==";
+        var bitkey = "jxBlHByrurx6FMglp0ETlrJEsTNizX85nj+bUpS2Ic47s0z5cXw7PBKa0w6nZ9APCn0mkfqVRk/C/KICSWJBhRSbYSFepiHE3Ek4lcMhL9Aau4gQfeBDK1PkWCIbk1WVSZ/2XEA6b9XTUPofu4GMYwZ7M17X07DRFcCLsC3/RlSfbMlOoAoGdHsa/cMgCU95/NYptW1W5FGRXcQnNp94VzviGSzgTfOdA6Pkq688d2yvdZUXlDVBgZJwMiJYVEDTv+wDMe/pK2GBJjn4H6yvKA==";
         $('.bitpay').attr('value', bitkey);
         $('.get_price').text('$'+ $('.plan-plan2 .coin').text());
         $('.checkout').show();
         $('.trial_start').hide();
     });
     $('.Premium').click(function(){
-        var bitkey = "jxBlHByrurx6FMglp0ETlrJEsTNizX85nj+bUpS2Ic47s0z5cXw7PBKa0w6nZ9APYB/37Wh3F0PVEHAfgrh9UDjpLwxiNctUWA4INi9jAmBYt5w0KlWoKa6zehNnIryuZczSwubSHYlPZYkiQG3ndPBE4DrGj8feQT032mx1QHg8G8mJtiDt/REOIU47ccn6D0XRxOwA0/N1f9GMBR1QFdv6BYMRZ1rvHg6I0C8boznWZDDx39hL/RPnY3qFsvMl";
+        var bitkey = "jxBlHByrurx6FMglp0ETlrJEsTNizX85nj+bUpS2Ic47s0z5cXw7PBKa0w6nZ9APsXg7gphRnHB9GRCMzRqQ63fUGfVsjY0qMmPwLI9T5lssPgFVAAzz3rrAdhnyE8tPs3REd+Yqz5FHD5Ckc8ChyTz7GH4WdMhWyMifO9rzCufD22LYNpwqv31VquGQNGOIuCyvDnzKYMPLNcExjWF0UQFImN9Nr6oWIEa13YgFlh3blhZn8WwcHOqkqFdlYioR9Dwa43obN3blIGgyuwXeog==";
         $('.bitpay').attr('value', bitkey);
         $('.get_price').text('$'+ $('.plan-plan3 .coin').text());
         $('.checkout').show();

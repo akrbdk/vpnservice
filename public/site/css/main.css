@@ -4930,10 +4930,6 @@ ul {
 	margin-right: 0%
 }
 
-#choose-plan #plan-list>li:last-child {
-	padding: 20px 26px 20px 26px
-}
-
 #choose-plan #plan-list>li.most-pop {
 	-webkit-box-shadow: inset 0 0 0 3px #25c7a2;
 	-moz-box-shadow: inset 0 0 0 3px #25c7a2;
