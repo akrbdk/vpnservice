@@ -7,6 +7,7 @@ use App\Http\Controllers\Plans\PlanOrder;
 use App\Http\Controllers\Payments\HistoryController;
 use App\Http\Controllers\Auth\RegisterController;
 use Redirect;
+use Illuminate\Support\Facades\Auth;
 use Stripe\Stripe;
 use Stripe\Customer;
 use Stripe\Charge;
@@ -33,6 +34,8 @@ class StripeController
         );
 
         RegisterController::create($register);
+
+        Auth::attempt(['email' => $email, 'password' => $pass]);
       }
 
       $token = $_POST['stripeToken'];

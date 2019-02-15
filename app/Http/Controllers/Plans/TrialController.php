@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Plans\PlanOrder;
 use App\Http\Controllers\Payments\HistoryController;
 use App\Http\Controllers\Auth\RegisterController;
+use Illuminate\Support\Facades\Auth;
 use Redirect;
 use DB;
 
@@ -28,6 +29,8 @@ class TrialController
         );
 
         RegisterController::create($register);
+
+        Auth::attempt(['email' => $email, 'password' => $pass]);
       }
 
       $plan = DB::table('plans_table')->where('id', $plan_id)->first();

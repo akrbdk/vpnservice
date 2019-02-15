@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Payments;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\RegisterController;
+use Illuminate\Support\Facades\Auth;
 
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
@@ -59,6 +60,8 @@ class PayPalController extends Controller
           );
 
           RegisterController::create($register);
+
+          Auth::attempt(['email' => $email, 'password' => $pass]);
         }
 
         // Get POST data
