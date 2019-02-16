@@ -55,7 +55,7 @@ class PayPalSub extends Controller
       Session::put('price', $plan->price);
       Session::put('months_limit', $plan->months_limit);
 
-      $months = $plan->months_limit/60/60/24/30;
+      $month = $plan->months_limit/60/60/24/30;
       $price = $plan->price/100;
 
       // Create a new billing plan
