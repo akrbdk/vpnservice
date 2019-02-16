@@ -129,10 +129,10 @@ class ServerController extends ApiController
 
             if(!empty($server_info->token)){
                 self::userVpnInfo($server_info->server_uuid, $request);
-                $user_session = DB::table('sessions')->where('user_id', $request->get('user_id'))->first();
+                $user_session = $request.header("Authorization"); // DB::table('sessions')->where('user_id', $request->get('user_id'))->first();
                 $user_vpn_session = DB::table('vpn_sessions')->where('token', $user_session->token)->first();
 
-                $connectInfo = self::serverConnects($user_vpn_session->secret_key, $server_info->token);
+                $connectInfo = self::serverConnects($request->get('user_id'), $server_info->token);
                 if(!empty($connectInfo['user_info']['payload'])){
                     return response()->json(['error'=> 0, 'payload' => array('secret_key' => $user_vpn_session->secret_key, 'certs' => $connectInfo['user_info']['payload'])], parent::$successStatus);
                 }
@@ -239,7 +239,7 @@ class ServerController extends ApiController
             'token' => $user_session->token,
             'secret_key' => str_random(20),
             'server_uuid' => $server_uuid,
-            'expiry_at' => time() + (3 * 24 * 60 * 60)
+            'expiry_at' => time() + (5 * 60)
         ];
         if(empty($user_vpn_session)){
             DB::table('vpn_sessions')->insert($userVpnSessionInfoArr);
