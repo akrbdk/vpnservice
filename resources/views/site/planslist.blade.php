@@ -18,7 +18,7 @@
             @if (Request::path() === 'plans')
               <input type="radio" name="plan_id" id="{{ $plan->plan_alias }}" class="hidden radio-label" value="{{ $plan->id }}" required>
               <label for="{{ $plan->plan_alias }}" class="btn-{{ __('plans.'.$plan->id.'_color') }} button-label {{ __('plans.'.$plan->id.'_name') }}"
-                @if ( $plan->id === "1")
+                @if ( $plan->id === 1)
                 {{ $isHidden }}
                 @endif
               >

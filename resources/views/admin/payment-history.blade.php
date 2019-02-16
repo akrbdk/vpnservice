@@ -8,7 +8,7 @@
 
 				<div class="table-base">
 						<table class="table table-responsive">
-							@include('site.paymentlist', ['payment' => App\PaymentHistory::index(Auth::id())])
+							@include('site.paymentlist', ['payment' => App\PaymentHistory::index(Auth::id())->reverse()])
 
 
 						<a href="{{ url('/plans') }}" class="btn-orange">Purchase more</a>

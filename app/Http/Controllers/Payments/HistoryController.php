@@ -9,13 +9,14 @@ use DB;
 class HistoryController
 {
     public static function addPayment($data){
+      $auto = (!empty($data['auto_renew'])) ? $data['auto_renew'] : 0;
+
       if(!empty($data['email'])){
         $user_id = DB::table('users')->where('email', $data['email'])->value('id');
       }
       elseif(!empty($data['user_id'])){
         $user_id = $data['user_id'];
-      }
-      else {
+      }else {
         $user_id = Auth::id();
       }
 
@@ -24,7 +25,7 @@ class HistoryController
           'plan_name' => $data['plan_name'],
           'price' => $data['price'],
           'method' => $data['method'],
-          'auto_renew' => 0,
+          'auto_renew' => $auto,
           'expiry_at' => $data['expiry']
       ];
 

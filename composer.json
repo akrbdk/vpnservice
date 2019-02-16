@@ -20,6 +20,7 @@
         "laravel/framework": "5.7.*",
         "laravel/passport": "^7.0",
         "laravel/tinker": "^1.0",
+        "mercadopago/sdk": "0.5.3",
         "paypal/rest-api-sdk-php": "^1.14",
         "sinergi/browser-detector": "^6.1",
         "stripe/stripe-php": "^6.29"

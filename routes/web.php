@@ -105,3 +105,6 @@ Route::post('/bitpaystatus', 'Payments\BitPayStatus@index');
 Route::get('/bitpayconfirm', function (){
   return Redirect::to('/plans')->with('alert-success', trans('payment_err.success'));
 });
+Route::post('/paypalsub', 'Payments\PayPalSub@subscribe');
+Route::get('/substatus', 'Payments\SubRedirect@index');
+Route::post('/paypalipn', 'Payments\SubscribeStatus@index');
