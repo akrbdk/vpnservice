@@ -17,8 +17,7 @@ class PlanActive
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {
+    public function handle($request, Closure $next){
         $id = $request->get('user_id');
         $bodyContent = json_decode($request->getContent(),true);
         $hwid = $bodyContent['hwid'];
@@ -39,7 +38,7 @@ class PlanActive
             }
         }
 
-        $request->add(['plan_info' => $info]);
+        $request->merge(['plan_info' => $info]);
         return $next($request);
     }
 }
