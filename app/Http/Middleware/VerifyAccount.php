@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Controllers\ApiController;
+use App\Http\APIUtils\APIReply;
 use Closure;
 
 class VerifyAccount{
@@ -23,12 +23,12 @@ class VerifyAccount{
         } else if (isset($input['token'])) {
             $token = $input['token'];
         } else {
-            return response()->json(['error'=> ApiController::$invalidArgument, 'description' => 'Empty token'], ApiController::$errorStatus);
+            return APIReply::err(APICode::$invArgument, 'Empty token');
         }
 
         $user = ApiController::checkUserPlatform($token);
         if (!$user) {
-            return response()->json(['error'=> ApiController::$invalidArgument, 'description' => 'Invalid token'], ApiController::$errorStatus);
+            return APIReply::err(APICode::$invArgument, 'Invalid token');
         }
 
         $request->merge(['user_id' => $user->id, 'user_info' => $user, 'token' => $token]);
