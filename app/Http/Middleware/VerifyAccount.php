@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use App\Http\APIUtils\APIReply;
+use App\Http\APIUtils\APICode;
+use App\Http\Controllers\ApiController;
 use Closure;
 
 class VerifyAccount{
