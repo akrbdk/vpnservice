@@ -24,18 +24,22 @@ class PlanActive
         $hwid = $bodyContent['hwid'];
 
         $plan = new Plan($id);
-        $request->request->add(['plan_info' => $plan->getPlanInfo()]);
+        $info = $paln->getPlanInfo();
 
         if($plan->isExpired()){
-          return APIReply::err(APICode::$planExpired, 'Plan is expired!!');
+          return APIReply::err(APICode::$planExpired);
         }
+
         if($plan->isTrial()){
             $isHWID = DB::table('trial_hwid')->where('hwid', $hwid)->first();
-            if(!empty($isHWID)){
-              return APIReply::err(APICode::$HWIDexisted, 'HWID existed');
+            if (empty($isHWID)) {
+                DB::table('trial_hwid')->insert(array('hwid' => $hwid, 'expiry_at' => $info->expiry_at));
+            } else if ($isHWID->expiry_at < time()) {
+                return APIReply::err(APICode::$HWIDexisted);
             }
-            DB::table('trial_hwid')->insert(array('hwid' => $hwid));
         }
+
+        $request->add(['plan_info' => $info]);
         return $next($request);
     }
 }
