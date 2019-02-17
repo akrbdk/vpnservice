@@ -27,8 +27,9 @@ class APIReply {
 
 		if (!is_null($description)) {
 			if (!is_string($description)) return 'Passed description not string: ' . $description;
-
 			$reply['description'] = $description;
+		} else {
+			$reply['description'] = APICode::toString($error);
 		}
 
 		if (!is_null($payload)) {
