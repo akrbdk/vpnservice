@@ -10,6 +10,7 @@ class APICode {
 
 	// Controller codes 10+
 	public static $planExpired = 10;
+	public static $HWIDexisted = 11;
 
 	public static function toString($code) {
 		$description = [
@@ -20,7 +21,7 @@ class APICode {
 			$planExpired => 'User plan expired'
 		];
 
-		if (isset($description[$code])) { 
+		if (isset($description[$code])) {
 			return $description[$code];
 		}
 

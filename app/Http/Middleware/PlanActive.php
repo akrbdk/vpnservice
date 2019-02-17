@@ -20,18 +20,19 @@ class PlanActive
     public function handle($request, Closure $next)
     {
         $id = $request->get('user_id');
-        $hwid = $request->get('hwid');
+        $bodyContent = json_decode($request->getContent(),true);
+        $hwid = $bodyContent['hwid'];
 
         $plan = new Plan($id);
-        $request->request->add($plan->getUserPlan());
+        $request->request->add(['plan_info' => $plan->getPlanInfo()]);
 
         if($plan->isExpired()){
-          return APIReply::err(APICode::$invArgument, 'Plan is expired!!');
+          return APIReply::err(APICode::$planExpired, 'Plan is expired!!');
         }
         if($plan->isTrial()){
             $isHWID = DB::table('trial_hwid')->where('hwid', $hwid)->first();
             if(!empty($isHWID)){
-              return APIReply::err(APICode::$invArgument, 'HWID existed');
+              return APIReply::err(APICode::$HWIDexisted, 'HWID existed');
             }
             DB::table('trial_hwid')->insert(array('hwid' => $hwid));
         }
