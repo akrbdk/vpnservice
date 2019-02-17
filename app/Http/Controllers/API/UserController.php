@@ -53,7 +53,7 @@ class UserController extends ApiController
 
         if ($plan->isTrial()) {
             $hwid = DB::table('trial_hwid')->where('hwid', $input['hwid'])->first();
-            if (!empty($hwid) && $hwid->expiry_at < time()) {
+            if (!empty($hwid) || $hwid->expiry_at < time()) {
                 return APIReply::err(APICode::$HWIDexisted);
             }
         }
