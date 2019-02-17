@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use App\Http\APIUtils\APIReply;
 use App\Http\APIUtils\APICode;
+use App\Http\Controllers\Plans\UserPlanInfo as Plan;
 use DB;
 
 class PlanActive
@@ -19,26 +20,22 @@ class PlanActive
     public function handle($request, Closure $next)
     {
         $id = $request->get('user_id');
-        $hwid = 'test123';
+        $hwid = $request->get('hwid');
 
-        $plan = DB::table('users_plans')->where('user_id', $id)->first();
+        $plan = new Plan($id);
+        $request->request->add($plan->getUserPlan());
 
-        if($plan->expiry_at > time()){
-          if($plan->plan_id === '1'){
-            $isHWID = DB::table('trial_hwid')->where('hwid', $hwid)->first();
-            if(empty($isHWID)){
-              DB::table('trial_hwid')->insert(array('hwid' => $hwid));
-              return $next($request);
-            }else{
-              return APIReply::err(APICode::$invArgument, 'HWID existed');
-            }
-          }
-          else {
-            return $next($request);
-          }
-        }
-        else {
+        if($plan->isExpired()){
           return APIReply::err(APICode::$invArgument, 'Plan is expired!!');
         }
+        if($plan->isTrial()){
+            $isHWID = DB::table('trial_hwid')->where('hwid', $hwid)->first();
+            if(!empty($isHWID)){
+              return APIReply::err(APICode::$invArgument, 'HWID existed');
+            }else{
+              DB::table('trial_hwid')->insert(array('hwid' => $hwid));
+          }
+        }
+        return $next($request);
     }
 }
