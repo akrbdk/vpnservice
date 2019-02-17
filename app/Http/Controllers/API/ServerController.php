@@ -142,7 +142,7 @@ class ServerController extends ApiController
         $secret_key = self::userVpnInfo($server_info->server_uuid, $request->get('token'));
 
         $user = $request->get('user_info');
-        $connectInfo = self::serverConnect($user->email, $server_info->token);
+        $connectInfo = self::serverConnect($user->email, $server_info->token, $server_info->ip);
         if(empty($connectInfo['user_info']['payload'])) {
             return APIReply::err(APICode::$invArgument, 'Failed to generate certs');
         }
@@ -217,7 +217,7 @@ class ServerController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    protected static function serverConnect($user_email = '', $server_token='') {
+    protected static function serverConnect($user_email = '', $server_token='', $endpoint='') {
         $answerInfo = [];
         if (empty($user_email) || empty($server_token)) {
             return $answerInfo;
@@ -230,7 +230,7 @@ class ServerController extends ApiController
 
         $answerInfo['disconnect'] = $client->request(
             'POST',
-            self::$apiServer . self::$disconnectPath,
+            'http://' . $endpoint . self::$disconnectPath,
             ['body' => json_encode(['user_key' => $user_email])]
         );
         $answerInfo['disconnect'] = json_decode($answerInfo['disconnect']->getBody(), true);
@@ -238,7 +238,7 @@ class ServerController extends ApiController
 
         $answerInfo['user_info'] = $client->request(
             'POST',
-            self::$apiServer . self::$userInfoPath,
+            'http://' . $endpoint . self::$userInfoPath,
             ['body' => json_encode(['user_key' => $user_email])]
         );
         $answerInfo['user_info'] = json_decode($answerInfo['user_info']->getBody(), true);
