@@ -25,9 +25,9 @@ class PlanActive
 
         if($plan->expiry_at > time()){
           if($plan->plan_id === '1'){
-            $isHWID = DB::table('users_plans')->where('hwid', $hwid)->first();
+            $isHWID = DB::table('trial_hwid')->where('hwid', $hwid)->first();
             if(empty($isHWID)){
-              DB::table('users_plans')->where('user_id', $id)->update(array('hwid' => $hwid));
+              DB::table('trial_hwid')->insert(array('hwid' => $hwid));
               return $next($request);
             }else{
               return APIReply::err(APICode::$invArgument, 'HWID existed');
