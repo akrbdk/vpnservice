@@ -18,7 +18,8 @@ class APICode {
 			$invArgument => 'Invalid argument',
 			$unknown => 'Unknown error',
 
-			$planExpired => 'User plan expired'
+			$planExpired => 'User plan expired',
+			$HWIDexisted => 'HWID already used for trial'
 		];
 
 		if (isset($description[$code])) {
