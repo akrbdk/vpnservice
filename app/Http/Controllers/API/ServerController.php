@@ -126,8 +126,8 @@ class ServerController extends ApiController
             return response()->json(['error'=> parent::$invalidArgument, 'description' => 'Invalid server uuid'], $parent::$errorStatus);
         }
 
-        self::userVpnInfo($server_info->server_uuid, $request);
-        $vpn_session = DB::table('vpn_sessions')->where('token', $request->get('token'))->first();
+        $secret_key = self::userVpnInfo($server_info->server_uuid, $request->get('token'));
+        // $vpn_session = DB::table('vpn_sessions')->where('token', $request->get('token'))->first();
 
         $user = $request->get('user_info');
         $connectInfo = self::serverConnect($user->email, $server_info->token);
@@ -137,7 +137,7 @@ class ServerController extends ApiController
 
         $reply = [
             'error'=> parent::$success, 
-            'payload' => array('secret_key' => $vpn_session->secret_key, 'certs' => $connectInfo['user_info']['payload'])
+            'payload' => array('secret_key' => $secret_key, 'certs' => $connectInfo['user_info']['payload'])
         ];
 
         return response()->json($reply, parent::$successStatus);
@@ -231,23 +231,24 @@ class ServerController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    protected static function userVpnInfo($server_uuid='', Request $request){
-
-        $user_session = DB::table('sessions')->where('user_id', $request->get('user_id'))->first();
-        $user_vpn_session = DB::table('vpn_sessions')->where('token', $user_session->token)->first();
-
-        $userVpnSessionInfoArr = [
-            'token' => $user_session->token,
-            'secret_key' => str_random(20),
+    protected static function userVpnInfo($server_uuid='', $user_token = ''){
+        $secret = str_random(16);
+        $info = [
+            'token' => $user_token,
+            'secret_key' => $secret,
             'server_uuid' => $server_uuid,
             'expiry_at' => time() + (5 * 60)
         ];
-        if(empty($user_vpn_session)){
-            DB::table('vpn_sessions')->insert($userVpnSessionInfoArr);
-        }
-        DB::table('vpn_sessions')
-            ->where('token', $user_session->token)
-            ->update($userVpnSessionInfoArr);
 
+        $user_vpn_session = DB::table('vpn_sessions')->where('token', $user_token)->first();
+
+        // TODO: Use replace into if database is MySQL
+        if(empty($user_vpn_session)){
+            DB::table('vpn_sessions')->insert($info);
+        } else {
+            DB::table('vpn_sessions')->where('token', $user_token)->update($info);
+        }
+
+        return $secret;
     }
 }
