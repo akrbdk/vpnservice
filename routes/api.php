@@ -32,7 +32,7 @@ Route::group(['middleware' => ['verifyAccount']], function () {
     Route::post('v1/plan/current', 'API\PlansController@getUserPlan');
     Route::get('v1/plan/current', 'API\PlansController@getUserPlan');
 
-    Route::get('v1/dns/list', 'API\dnsController@getList');
+    Route::get('v1/dns/list', 'API\dnsController@getList')->middleware('planActive');
 });
 
 //авторизация

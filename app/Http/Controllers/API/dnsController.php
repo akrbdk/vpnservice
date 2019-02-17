@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\APIUtils\APIReply;
-use App\Http\APIUtils\APICode;
 
 use DB;
 
