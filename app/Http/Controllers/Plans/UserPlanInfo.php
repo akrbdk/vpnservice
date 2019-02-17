@@ -16,12 +16,21 @@ class UserPlanInfo
     }
 
     public function getPlanInfo(){
-      if(!empty($this->plan_info)){
-        return $this->plan_info;
+      if(!empty($this->user_plan)){
+        return $this->user_plan;
       }
       else {
         return 'No plan';
       }
+    }
+
+    public function isTrial()
+    {
+      if($this->user_plan->plan_id === '1')
+      {
+        return 1;
+      }
+      return 0;
     }
 
     public function isExpired(){

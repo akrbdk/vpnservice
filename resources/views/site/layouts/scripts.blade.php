@@ -21,11 +21,9 @@
       $('.ano').mask('00');
       $('.ccv').mask('000');
     });
-    $('.alert').click(function(){
-      $('.alert').remove();
-    });
-    $('.alert-success').click(function(){
-      $('.alert-success').remove();
+    $('.modal-close').click(function(){
+      $('.modal-content').remove();
+      $('.modal').remove();
     });
     $('.Basic').click(function(){
         $('.checkout').hide();
@@ -33,14 +31,14 @@
         $('.trial_start').show();
     });
     $('.Advanced').click(function(){
-        var bitkey = "jxBlHByrurx6FMglp0ETlrJEsTNizX85nj+bUpS2Ic47s0z5cXw7PBKa0w6nZ9APCn0mkfqVRk/C/KICSWJBhRSbYSFepiHE3Ek4lcMhL9Aau4gQfeBDK1PkWCIbk1WVSZ/2XEA6b9XTUPofu4GMYwZ7M17X07DRFcCLsC3/RlSfbMlOoAoGdHsa/cMgCU95/NYptW1W5FGRXcQnNp94VzviGSzgTfOdA6Pkq688d2yvdZUXlDVBgZJwMiJYVEDTv+wDMe/pK2GBJjn4H6yvKA==";
+        var bitkey = "jxBlHByrurx6FMglp0ETlrJEsTNizX85nj+bUpS2Ic47s0z5cXw7PBKa0w6nZ9APCn0mkfqVRk/C/KICSWJBhRSbYSFepiHE3Ek4lcMhL9Aau4gQfeBDK1PkWCIbk1WVSZ/2XEA6b9XTUPofu4GMYwZ7M17X07DRFcCLsC3/RlTZbDLmxHx/pMkBlozNVXkRer936QSI9PZsVdAASw+S4tv54OX6vDozE1eUGGCjfnKKoLd9pdT9NTp+mmlL4WPtl+s2ig0gL09JacAoqxQ/Ig==";
         $('.bitpay').attr('value', bitkey);
         $('.get_price').text('$'+ $('.plan-plan2 .coin').text());
         $('.checkout').show();
         $('.trial_start').hide();
     });
     $('.Premium').click(function(){
-        var bitkey = "jxBlHByrurx6FMglp0ETlrJEsTNizX85nj+bUpS2Ic47s0z5cXw7PBKa0w6nZ9APsXg7gphRnHB9GRCMzRqQ63fUGfVsjY0qMmPwLI9T5lssPgFVAAzz3rrAdhnyE8tPs3REd+Yqz5FHD5Ckc8ChyTz7GH4WdMhWyMifO9rzCufD22LYNpwqv31VquGQNGOIuCyvDnzKYMPLNcExjWF0UQFImN9Nr6oWIEa13YgFlh3blhZn8WwcHOqkqFdlYioR9Dwa43obN3blIGgyuwXeog==";
+        var bitkey = "jxBlHByrurx6FMglp0ETlrJEsTNizX85nj+bUpS2Ic47s0z5cXw7PBKa0w6nZ9APsXg7gphRnHB9GRCMzRqQ63fUGfVsjY0qMmPwLI9T5lssPgFVAAzz3rrAdhnyE8tPs3REd+Yqz5FHD5Ckc8ChyTz7GH4WdMhWyMifO9rzCufg/T4KQRYGT1BRg6dEIjWFmudI52jaECuVHZ3jPq2yl4E4rbotz3PnhB7ak1MqrYop8jfOpgEbLdf9x+NTpa9GzfWMT/6GYZitef9aP3RHwg==";
         $('.bitpay').attr('value', bitkey);
         $('.get_price').text('$'+ $('.plan-plan3 .coin').text());
         $('.checkout').show();
