@@ -26,7 +26,7 @@ class UserPlanInfo
 
     public function isTrial()
     {
-      if($this->user_plan->plan_id === '1')
+      if($this->user_plan->plan_id === 1)
       {
         return 1;
       }
