@@ -10,6 +10,9 @@ use Validator;
 use DB;
 use GuzzleHttp\Client;
 
+use App\Http\APIUtils\APIReply;
+use App\Http\APIUtils\APICode;
+
 class ServerController extends ApiController
 {
 
@@ -118,12 +121,12 @@ class ServerController extends ApiController
     public function connect(Request $request){
         $input = $request->all();
         if (empty($input['uuid'])) {
-            return response()->json(['error'=> parent::$invalidArgument, 'description' => 'Empty UUID'], $parent::$errorStatus);
+            return APIReply::err(APICode::$invArgument, 'Empty UUID');
         }
 
         $server_info = DB::table('server_infos')->where('server_uuid', $input['uuid'])->first();
         if (empty($server_info) || empty($server_info->token)) {
-            return response()->json(['error'=> parent::$invalidArgument, 'description' => 'Invalid server uuid'], $parent::$errorStatus);
+            return APIReply::err(APICode::$invArgument, 'Invalid server uuid');
         }
 
         $secret_key = self::userVpnInfo($server_info->server_uuid, $request->get('token'));
@@ -131,7 +134,7 @@ class ServerController extends ApiController
         $user = $request->get('user_info');
         $connectInfo = self::serverConnect($user->email, $server_info->token);
         if(empty($connectInfo['user_info']['payload'])) {
-            return response()->json(['error'=> parent::$unknownError, 'description' => 'Failed to generate certs'], $parent::$errorStatus);
+            return APIReply::err(APICode::$invArgument, 'Failed to generate certs');
         }
 
         $reply = [
@@ -139,7 +142,7 @@ class ServerController extends ApiController
             'payload' => array('secret_key' => $secret_key, 'certs' => $connectInfo['user_info']['payload'])
         ];
 
-        return response()->json($reply, parent::$successStatus);
+        return APIReply::with($reply);
     }
 
     /**
@@ -159,10 +162,8 @@ class ServerController extends ApiController
                 $serverArr[] = json_decode($server->info, true);
             }
         }
-        if(!empty($serverArr)){
-            return parent::retAnswer(parent::$success, false, ['servers' => $serverArr], parent::$successStatus);
-        }
-        return parent::retAnswer(parent::$error, 'The server list is empty', ['check' => parent::$errorCheck], parent::$errorStatus);
+
+        return APIReply::with(['servers'=> $serverArr]);
     }
 
     /**
@@ -181,7 +182,7 @@ class ServerController extends ApiController
     public function verifyConn(Request $request) {
         $input = $request->all();
         if (!isset($input['secret_key']) || !isset($input['uuid'])) {
-            return response()->json(['error'=> parent::$invalidArgument, 'description' => 'Empty uuid or secret'], parent::$errorStatus);
+            return APIReply::err(APICode::$invArgument, 'Empty UUID or secret');
         }
 
         $user = DB::table('vpn_sessions')
@@ -191,7 +192,7 @@ class ServerController extends ApiController
                 ->first();
 
         if (empty($user) || $user->expiry_at < time()) {
-            return response()->json(['error'=> parent::$invalidArgument], parent::$errorStatus);
+            return APIReply::err(APICode::$invArgument);
         }
 
         DB::table('vpn_sessions')
@@ -200,7 +201,7 @@ class ServerController extends ApiController
                 ->where('token', $request->get('token'))
                 ->update(['expiry_at' => 0]);
 
-        return response()->json(['error'=> parent::$success], parent::$errorStatus);
+        return APIReply::ok();
     }
 
     /**
