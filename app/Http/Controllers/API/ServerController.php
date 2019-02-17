@@ -137,12 +137,10 @@ class ServerController extends ApiController
             return APIReply::err(APICode::$invArgument, 'Failed to generate certs');
         }
 
-        $reply = [
-            'error'=> parent::$success, 
-            'payload' => array('secret_key' => $secret_key, 'certs' => $connectInfo['user_info']['payload'])
-        ];
-
-        return APIReply::with($reply);
+        return APIReply::with([
+            'secret_key' => $secret_key, 
+            'certs' => $connectInfo['user_info']['payload']]
+        );
     }
 
     /**
