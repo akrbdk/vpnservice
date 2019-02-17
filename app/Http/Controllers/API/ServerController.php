@@ -127,7 +127,6 @@ class ServerController extends ApiController
         }
 
         $secret_key = self::userVpnInfo($server_info->server_uuid, $request->get('token'));
-        // $vpn_session = DB::table('vpn_sessions')->where('token', $request->get('token'))->first();
 
         $user = $request->get('user_info');
         $connectInfo = self::serverConnect($user->email, $server_info->token);
@@ -153,7 +152,6 @@ class ServerController extends ApiController
      * @return \Illuminate\Http\Response
      */
     public function serverList(Request $request){
-
         $serverArr = [];
         $serverList = DB::table('server_infos')->get();
         if(!empty($serverList)){
@@ -180,16 +178,29 @@ class ServerController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function verifyConn(Request $request)
-    {
+    public function verifyConn(Request $request) {
         $input = $request->all();
-        if(!empty($input['secret_key'])){
-            $user = DB::table('vpn_sessions')->where('secret_key', $input['secret_key'])->where('server_uuid', $input['uuid'])->first();
-            if(!empty($user)){
-                return parent::retAnswer(parent::$success, false, ['check' => parent::$successCheck], parent::$successStatus);
-            }
+        if (!isset($input['secret_key']) || !isset($input['uuid'])) {
+            return response()->json(['error'=> parent::$invalidArgument, 'description' => 'Empty uuid or secret'], parent::$errorStatus);
         }
-        return parent::retAnswer(parent::$error, 'The user does not exist', ['check' => parent::$errorCheck], parent::$errorStatus);
+
+        $user = DB::table('vpn_sessions')
+                ->where('secret_key', $input['secret_key'])
+                ->where('server_uuid', $input['uuid'])
+                ->where('token', $request->get('token'))
+                ->first();
+
+        if (empty($user) || $user->expiry_at < time()) {
+            return response()->json(['error'=> parent::$invalidArgument], parent::$errorStatus);
+        }
+
+        DB::table('vpn_sessions')
+                ->where('secret_key', $input['secret_key'])
+                ->where('server_uuid', $input['uuid'])
+                ->where('token', $request->get('token'))
+                ->update(['expiry_at' => 0]);
+
+        return response()->json(['error'=> parent::$success], parent::$errorStatus);
     }
 
     /**

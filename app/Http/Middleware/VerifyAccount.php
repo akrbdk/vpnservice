@@ -23,12 +23,12 @@ class VerifyAccount{
         } else if (isset($input['token'])) {
             $token = $input['token'];
         } else {
-            return response()->json(['error'=> ApiController::$invalidArgument, 'description' => 'Empty token'], ApiController::$errosStatus);
+            return response()->json(['error'=> ApiController::$invalidArgument, 'description' => 'Empty token'], ApiController::$errorStatus);
         }
 
         $user = ApiController::checkUserPlatform($token);
         if (!$user) {
-            return response()->json(['error'=> ApiController::$invalidArgument, 'description' => 'Invalid token'], ApiController::$errosStatus);
+            return response()->json(['error'=> ApiController::$invalidArgument, 'description' => 'Invalid token'], ApiController::$errorStatus);
         }
 
         $request->merge(['user_id' => $user->id, 'user_info' => $user, 'token' => $token]);
