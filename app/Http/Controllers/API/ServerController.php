@@ -130,14 +130,14 @@ class ServerController extends ApiController
         $vpn_session = DB::table('vpn_sessions')->where('token', $request->get('token'))->first();
 
         $user = $request->get('user_info');
-        $connectInfo = self::serverConnect($user->get('email'), $server_info->token);
+        $connectInfo = self::serverConnect($user->email, $server_info->token);
         if(empty($connectInfo['user_info']['payload'])) {
             return response()->json(['error'=> parent::$unknownError, 'description' => 'Failed to generate certs'], $parent::$errorStatus);
         }
 
         $reply = [
             'error'=> parent::$success, 
-            'payload' => array('secret_key' => $user_vpn_session->secret_key, 'certs' => $connectInfo['user_info']['payload'])
+            'payload' => array('secret_key' => $vpn_session->secret_key, 'certs' => $connectInfo['user_info']['payload'])
         ];
 
         return response()->json($reply, parent::$successStatus);
