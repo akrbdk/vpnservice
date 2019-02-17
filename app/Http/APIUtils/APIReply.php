@@ -29,7 +29,8 @@ class APIReply {
 			if (!is_string($description)) return 'Passed description not string: ' . $description;
 			$reply['description'] = $description;
 		} else {
-			$reply['description'] = APICode::toString($error);
+			$local = APICode::toString($error);
+			if (!is_null($local)) $reply['description'] = $local;
 		}
 
 		if (!is_null($payload)) {
