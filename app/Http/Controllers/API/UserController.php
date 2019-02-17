@@ -11,6 +11,7 @@ use DB;
 
 use App\Http\APIUtils\APIReply;
 use App\Http\APIUtils\APICode;
+use App\Http\Controllers\Plans\UserPlanInfo;
 
 class UserController extends ApiController
 {
@@ -44,6 +45,18 @@ class UserController extends ApiController
         }
 
         $user = Auth::user();
+
+        $plan = new UserPlanInfo($user->id);
+        if ($plan->isExpired()){
+            return APIReply::err(APICode::$planExpired);
+        }
+
+        if ($plan->isTrial()) {
+            $hwid = DB::table('trial_hwid')->where('hwid', $hwid)->first();
+            if (empty($hwid)) {
+                return APIReply::err(APICode::$planExpired);
+            }
+        }
 
         $input['platform'] = trim(htmlentities($input['platform']));
         $user_session = DB::table('sessions')->where('user_id', $user->id)->where('platform', $input['platform'])->first();
