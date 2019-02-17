@@ -17,22 +17,24 @@ class VerifyAccount{
         $input = $request->all();
         $checkParams = ['token' => $request->header('token')];
 
-        $token = !empty($request->header('token'))
-            ? $request->header('token')
-            : (!empty($input['token'])
-                ? $input['token']
-                : '');
+        $headerToken = $request->header('token');
+        $payloadToken = $request->$input['token'];
+        $token = '';
 
-        if(!empty($token)){
-            $user = ApiController::checkUserPlatform($token);
-            if (!$user) {
-                return ApiController::retAnswer(ApiController::$error, 'Invalid token', false, ApiController::$errorStatus);
-            }
-
-            $request->merge(['user_id' => $user->id, 'user_info' => $user]);
-            return $next($request);
+        if (!empty($headerToken)) {
+            $token = $headerToken;
+        } else if (!empty($payloadToken)) {
+            $token = $payloadToken;
+        } else {
+            return response()->json(['error'=> ApiController::$invalidArgument, 'description' => 'Empty token'], ApiController::$errosStatus);
         }
 
-        return ApiController::retAnswer(ApiController::$error, 'Invalid token', false, ApiController::$errorStatus);
+        $user = ApiController::checkUserPlatform($token);
+        if (!$user) {
+            return response()->json(['error'=> ApiController::$invalidArgument, 'description' => 'Invalid token'], ApiController::$errosStatus);
+        }
+
+        $request->merge(['user_id' => $user->id, 'user_info' => $user, 'token' => $token]);
+        return $next($request);
     }
 }

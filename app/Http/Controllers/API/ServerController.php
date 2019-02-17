@@ -116,30 +116,31 @@ class ServerController extends ApiController
      * @return \Illuminate\Http\Response
      */
     public function connect(Request $request){
-
         $input = $request->all();
-
-        if(!empty($input['uuid'])){
-
-            $server_info = DB::table('server_infos')->where('server_uuid', $input['uuid'])->first();
-
-            if(empty($server_info)){
-                return parent::retAnswer(parent::$invalidArgument, 'invalidArgument', ['check' => parent::$errorCheck], parent::$errorStatus);
-            }
-
-            if(!empty($server_info->token)){
-                self::userVpnInfo($server_info->server_uuid, $request);
-                $user_session = $request.header("Authorization"); // DB::table('sessions')->where('user_id', $request->get('user_id'))->first();
-                $user_vpn_session = DB::table('vpn_sessions')->where('token', $user_session->token)->first();
-
-                $connectInfo = self::serverConnects($request->get('user_id'), $server_info->token);
-                if(!empty($connectInfo['user_info']['payload'])){
-                    return response()->json(['error'=> 0, 'payload' => array('secret_key' => $user_vpn_session->secret_key, 'certs' => $connectInfo['user_info']['payload'])], parent::$successStatus);
-                }
-            }
+        if (empty($input['uuid'])) {
+            return response()->json(['error'=> parent::$invalidArgument, 'description' => 'Empty UUID'], $parent::$errorStatus);
         }
 
-        return parent::retAnswer(parent::$error, 'Unauthorized', ['check' => parent::$errorCheck], parent::$errorStatus);
+        $server_info = DB::table('server_infos')->where('server_uuid', $input['uuid'])->first();
+        if (empty($server_info) || empty($server_info->token)) {
+            return response()->json(['error'=> parent::$invalidArgument, 'description' => 'Invalid server uuid'], $parent::$errorStatus);
+        }
+
+        self::userVpnInfo($server_info->server_uuid, $request);
+        $vpn_session = DB::table('vpn_sessions')->where('token', $request->get('token'))->first();
+
+        $user = $request->get('user_info');
+        $connectInfo = self::serverConnect($user->get('email'), $server_info->token);
+        if(empty($connectInfo['user_info']['payload'])) {
+            return response()->json(['error'=> parent::$unknownError, 'description' => 'Failed to generate certs'], $parent::$errorStatus);
+        }
+
+        $reply = [
+            'error'=> parent::$success, 
+            'payload' => array('secret_key' => $user_vpn_session->secret_key, 'certs' => $connectInfo['user_info']['payload'])
+        ];
+
+        return response()->json($reply, parent::$successStatus);
     }
 
     /**
@@ -196,33 +197,33 @@ class ServerController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    protected static function serverConnects($secret_key = '', $server_token=''){
-
+    protected static function serverConnect($user_email = '', $server_token='') {
         $answerInfo = [];
-
-        if(!empty($secret_key) && !empty($server_token)){
-            $client = new Client([
-                'headers' => ['Content-Type' => 'application/json', 'Authorization' => $server_token],
-                'http_errors' => false
-            ]);
-
-            $answerInfo['disconnect'] = $client->request(
-                'POST',
-                self::$apiServer . self::$disconnectPath,
-                ['body' => json_encode(['user_key' => $secret_key])]
-            );
-            $answerInfo['disconnect'] = json_decode($answerInfo['disconnect']->getBody(), true);
-
-            $answerInfo['user_info'] = $client->request(
-                'POST',
-                self::$apiServer . self::$userInfoPath,
-                ['body' => json_encode(['user_key' => $secret_key])]
-            );
-            $answerInfo['user_info'] = json_decode($answerInfo['user_info']->getBody(), true);
+        if (empty($user_email) || empty($server_token)) {
+            return $answerInfo;
         }
 
-        return $answerInfo;
+        $client = new Client([
+            'headers' => ['Content-Type' => 'application/json', 'Authorization' => $server_token],
+            'http_errors' => false
+        ]);
 
+        $answerInfo['disconnect'] = $client->request(
+            'POST',
+            self::$apiServer . self::$disconnectPath,
+            ['body' => json_encode(['user_key' => $user_email])]
+        );
+        $answerInfo['disconnect'] = json_decode($answerInfo['disconnect']->getBody(), true);
+
+
+        $answerInfo['user_info'] = $client->request(
+            'POST',
+            self::$apiServer . self::$userInfoPath,
+            ['body' => json_encode(['user_key' => $user_email])]
+        );
+        $answerInfo['user_info'] = json_decode($answerInfo['user_info']->getBody(), true);
+
+        return $answerInfo;
     }
 
     /**
