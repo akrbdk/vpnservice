@@ -14,12 +14,12 @@ class APICode {
 
 	public static function toString($code) {
 		$description = [
-			$invToken => 'Invalid token',
-			$invArgument => 'Invalid argument',
-			$unknown => 'Unknown error',
+			self::$invToken => 'Invalid token',
+			self::$invArgument => 'Invalid argument',
+			self::$unknown => 'Unknown error',
 
-			$planExpired => 'User plan expired',
-			$HWIDexisted => 'HWID already used for trial'
+			self::$planExpired => 'User plan expired',
+			self::$HWIDexisted => 'HWID already used for trial'
 		];
 
 		if (isset($description[$code])) {
