@@ -31,6 +31,8 @@ Route::group(['middleware' => ['verifyAccount']], function () {
     //get user plan
     Route::post('v1/plan/current', 'API\PlansController@getUserPlan');
     Route::get('v1/plan/current', 'API\PlansController@getUserPlan');
+
+    Route::get('v1/dns/list', 'API\dnsController@getList');
 });
 
 //авторизация
