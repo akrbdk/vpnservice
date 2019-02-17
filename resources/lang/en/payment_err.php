@@ -14,6 +14,8 @@ return [
     */
 
     'success' => 'success: Subscribtion success!',
+    'autopay' => 'success: Autopay by PayPal success!',
+    'autopay_err' => 'success: Autopay by PayPal error!',
     'timeout' => 'error: Connection timeout!',
     'occur' => 'error: Some error occur, sorry for inconvenient!',
     'unknown' => 'error: Unknown error occurred!',

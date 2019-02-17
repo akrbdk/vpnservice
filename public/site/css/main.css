@@ -442,13 +442,18 @@ textarea:focus {
 	transform: translate3d(0, 0, 0)
 }
 
+.modal-close{
+	margin: 0 auto;
+}
+
 .modal {
 	position: fixed;
+	top: 0;
 	display: none;
 	width: 100vw;
 	height: 100vh;
 	background: rgba(0, 0, 0, 0.7);
-	z-index: 9000
+	z-index: 10000
 }
 
 .modal-content {
@@ -461,7 +466,7 @@ textarea:focus {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	z-index: 9999;
+	z-index: 10001;
 }
 
 .modal-content h2 {
@@ -3943,38 +3948,6 @@ ul {
 #plan3:checked + .button-label {
   background-color: #fff;
   color: #25c7a2 !important;
-}
-
-.alert{
-	border: 2px solid #ff9000 !important;
-	background-color: #ff9000;
-}
-.alert-success{
-	border: 2px solid #25c7a2 !important;
-	background-color: #25c7a2;
-}
-
-.alert-success,.alert{
-	width: 100%;
-	position: absolute;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: -20px;
-	left: 0;
-	right: 0;
-	z-index: 1;
-	cursor: pointer;
-	max-width: 400px;
-	padding: 15px 5px;
-	color: #fff;
-	font-size: 14px;
-	font-weight: 700;
-	text-align: center;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-ms-border-radius: 5px;
-	-o-border-radius: 5px;
-	border-radius: 5px;
 }
 
 .btn-orange {

@@ -131,24 +131,24 @@ class PayPalSub extends Controller
                   header("Location: " . $approvalUrl);
                   exit();
               } catch (PayPalConnectionException $ex) {
-                  return Redirect::to('/plans')->with('alert', trans('payment_err.failed'));
+                  return Redirect::to('/plans')->with('alert', trans('payment_err.autopay_err'));
                   die($ex);
               } catch (Exception $ex) {
-                  return Redirect::to('/plans')->with('alert', trans('payment_err.failed'));
+                  return Redirect::to('/plans')->with('alert', trans('payment_err.autopay_err'));
                   die($ex);
               }
           } catch (PayPalConnectionException $ex) {
-              return Redirect::to('/plans')->with('alert', trans('payment_err.failed'));
+              return Redirect::to('/plans')->with('alert', trans('payment_err.autopay_err'));
               die($ex);
           } catch (Exception $ex) {
-              return Redirect::to('/plans')->with('alert', trans('payment_err.failed'));
+              return Redirect::to('/plans')->with('alert', trans('payment_err.autopay_err'));
               die($ex);
           }
       } catch (PayPalConnectionException $ex) {
-          return Redirect::to('/plans')->with('alert', trans('payment_err.failed'));
+          return Redirect::to('/plans')->with('alert', trans('payment_err.autopay_err'));
           die($ex);
       } catch (Exception $ex) {
-          return Redirect::to('/plans')->with('alert', trans('payment_err.failed'));
+          return Redirect::to('/plans')->with('alert', trans('payment_err.autopay_err'));
           die($ex);
       }
     }

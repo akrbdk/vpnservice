@@ -21,11 +21,9 @@
       $('.ano').mask('00');
       $('.ccv').mask('000');
     });
-    $('.alert').click(function(){
-      $('.alert').remove();
-    });
-    $('.alert-success').click(function(){
-      $('.alert-success').remove();
+    $('.modal-close').click(function(){
+      $('.modal-content').remove();
+      $('.modal').remove();
     });
     $('.Basic').click(function(){
         $('.checkout').hide();

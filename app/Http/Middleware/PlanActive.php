@@ -32,9 +32,8 @@ class PlanActive
             $isHWID = DB::table('trial_hwid')->where('hwid', $hwid)->first();
             if(!empty($isHWID)){
               return APIReply::err(APICode::$invArgument, 'HWID existed');
-            }else{
-              DB::table('trial_hwid')->insert(array('hwid' => $hwid));
-          }
+            }
+            DB::table('trial_hwid')->insert(array('hwid' => $hwid));
         }
         return $next($request);
     }
