@@ -19,9 +19,6 @@ class dnsController
               $dnsArr[] = $dns->ip;
           }
       }
-      if(!empty($dnsArr)){
-          return APIReply::with(['servers' => $dnsArr]);
-      }
-      return APIReply::err(APICode::$invArgument, 'No data exists');
+      return APIReply::with(['servers' => $dnsArr]);
     }
 }
