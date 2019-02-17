@@ -24,7 +24,7 @@ class PlanActive
         $hwid = $bodyContent['hwid'];
 
         $plan = new Plan($id);
-        $info = $paln->getPlanInfo();
+        $info = $plan->getPlanInfo();
 
         if($plan->isExpired()){
           return APIReply::err(APICode::$planExpired);
