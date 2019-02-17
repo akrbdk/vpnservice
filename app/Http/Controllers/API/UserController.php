@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use DB;
 
+use App\Http\APIUtils\APIReply;
+use App\Http\APIUtils\APICode;
+
 class UserController extends ApiController
 {
 
@@ -32,43 +35,37 @@ class UserController extends ApiController
     public function login(Request $request){
         $input = $request->all();
 
-        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
-            $user = Auth::user();
-
-            //if plan expired
-            if (parent::checkPlanExpired($user['id'])){
-                return parent::retAnswer(parent::$planExpired, 'Plan expired', false, parent::$errorStatus);
-            }
-
-            //update platform token
-            if(!empty($input['platform'])){
-
-                $input['platform'] = trim(htmlentities($input['platform']));
-                $user_session = DB::table('sessions')->where('user_id', $user->id)->where('platform', $input['platform'])->first();
-                $token = str_random(60);
-
-                $userSessionInfoArr = [
-                    'user_id' => $user->id,
-                    'token' => $token,
-                    'platform' => $input['platform'],
-                    'expiry_at' => time() + (3 * 24 * 60 * 60)
-                ];
-
-                if(empty($user_session)){
-                    DB::table('sessions')->insert($userSessionInfoArr);
-                }
-                DB::table('sessions')
-                    ->where('user_id', $user->id)
-                    ->where('platform', $input['platform'])
-                    ->update($userSessionInfoArr);
-
-
-                return parent::retAnswer(parent::$success, false, ['token' => $token], parent::$successStatus);
-            } else {
-                return parent::retAnswer(parent::$error, 'Empty platform info', false, parent::$errorStatus);
-            }
+        if ( !isset($input['platform']) ) {
+            return APIReply::err(APICode::$invArgument, 'Empty platform');
         }
-        return parent::retAnswer(parent::$error, 'Invalid login or password', false, parent::$errorStatus);
+
+        if (!Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
+            return APIReply::err(APICode::$invArgument, 'Invalid username or password');
+        }
+
+        $user = Auth::user();
+
+        $input['platform'] = trim(htmlentities($input['platform']));
+        $user_session = DB::table('sessions')->where('user_id', $user->id)->where('platform', $input['platform'])->first();
+        $token = str_random(60);
+
+        $userSessionInfoArr = [
+            'user_id' => $user->id,
+            'token' => $token,
+            'platform' => $input['platform'],
+            'expiry_at' => time() + (3 * 24 * 60 * 60)
+        ];
+
+        if(empty($user_session)){
+            DB::table('sessions')->insert($userSessionInfoArr);
+        } else {
+            DB::table('sessions')
+                ->where('user_id', $user->id)
+                ->where('platform', $input['platform'])
+                ->update($userSessionInfoArr);
+        }
+
+        return APIReply::with(['token' => $token]);
     }
 
     /**
@@ -88,13 +85,7 @@ class UserController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function checkToken(Request $request)
-    {
-        //check active plan
-        if (parent::checkPlanExpired($request->get('user_id'))){
-            return parent::retAnswer(parent::$planExpired, 'Plan expired', false, parent::$errorStatus);
-        }
-        return parent::retAnswer(parent::$success, false, false, parent::$successStatus);
-
+    public function checkToken(Request $request) {
+        return APIReply::ok();
     }
 }
