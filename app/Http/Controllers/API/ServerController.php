@@ -15,14 +15,10 @@ use App\Http\APIUtils\APICode;
 
 class ServerController extends ApiController
 {
-
-    public static $apiServer = 'http://51.75.169.54:8000/';
-    public static $serverAccessKey= 'test_secret';
-
-    public static $createPath = 'api/v1/server/create';
-    public static $infoPath = 'api/v1/server/info';
-    public static $disconnectPath = 'api/v1/user/disconnect';
-    public static $userInfoPath = 'api/v1/user/get';
+    public static $createPath = '/api/v1/server/create';
+    public static $infoPath = '/api/v1/server/info';
+    public static $disconnectPath = '/api/v1/user/disconnect';
+    public static $userInfoPath = '/api/v1/user/get';
 
     /**
      * create api
@@ -31,37 +27,46 @@ class ServerController extends ApiController
      * Content-Type - application/json
      * token - User token
      *
+     * * request body
+     * endpoint - VPNController endpoint
+     * secret_key - configuration defined user key
+     * 
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request){
+        $input = $request->all();
+        if ( !isset($input['endpoint']) || !isset($input['secret_key'])) {
+            return APIReply::err(APICode::$invArgument, 'Empty secret or endpoint');
+        }
 
         $client = new Client([
             'headers' => ['Content-Type' => 'application/json'],
             'http_errors' => false
         ]);
+
         $response = $client->request(
             'POST',
-            self::$apiServer . self::$createPath,
-            ['body' => json_encode(['secret_key' => self::$serverAccessKey])]
+            'http://' . $input['endpoint'] . self::$createPath,
+            ['body' => json_encode(['secret_key' => $input['secret_key']])]
         );
-        if ($response->getStatusCode() == 200) {
-            if ($response->hasHeader('Content-Length')) {
-                $content_length = current($response->getHeader('Content-Length'));
-                if (!empty($body = json_decode($response->getBody(), true)) && $content_length) {
-                    if(!empty($body['payload']['token'])){
 
-                        $serverInfo = DB::table('server_infos')->where('token', $body['payload']['token'])->first();
-                        if(empty($serverInfo)){
-                            DB::table('server_infos')->insert(
-                                array('token' => $body['payload']['token'])
-                            );
-                        }
-
-                        return parent::retAnswer(parent::$success, false, ['check' => parent::$successCheck], parent::$successStatus);
-                    }
-                }
-            }
+        $reply = json_decode($response->getBody(), true);
+        if ( !isset($reply['payload']) ) {
+            return APIReply::err(APICode::$unknown, 'Invalid VPN server reply');
         }
+
+        $payload = $reply['payload'];
+        if ( !isset($payload['token']) || !isset($payload['uuid']) ) {
+            return APIReply::err(APICode::$unknown, 'Invalid VPN server reply');
+        }
+
+        DB::table('server_infos')->insert([
+            'token' => $payload['token'], 
+            'server_uuid' => $payload['uuid'],
+            'ip' => $input['endpoint']
+        ]);
+
+        return APIReply::ok();
     }
 
     /**
@@ -70,40 +75,45 @@ class ServerController extends ApiController
      * * headers body
      * Content-Type - application/json
      * token - User token
-     *
+     * * body
+     * uuid - server uuid
      * @return \Illuminate\Http\Response
      */
-    public function info(Request $request){
+    public function info(Request $request) {
+        $input = $request->all();
+        if ( !isset($input['uuid']) ) {
+            return APIReply::err(APICode::$invArgument, 'Empty uuid');
+        }
 
-        $serverInfo = DB::table('server_infos')->get()->last();
+        $serverInfo = DB::table('server_infos')->where('server_uuid', $input['uuid'])->first();
         $client = new Client([
             'headers' => ['Content-Type' => 'application/json', 'Authorization' => $serverInfo->token],
             'http_errors' => false
         ]);
+
         $response = $client->request(
             'GET',
-            self::$apiServer . self::$infoPath,
+            'http://' . $serverInfo->ip . self::$infoPath,
             ['body' => json_encode(['token' => $serverInfo->token])]
         );
 
-        if ($response->getStatusCode() == 200) {
-            if (!empty($body = json_decode($response->getBody(), true))) {
-                if(!$body['status'] && !empty($body['payload'])){
-
-                    $server_uuid = !empty($body['payload']['uuid']) ? $body['payload']['uuid'] : '';
-
-                    DB::table('server_infos')
-                        ->where('token', $serverInfo->token)
-                        ->update([
-                            'info' => json_encode($body['payload']),
-                            'ip' => !empty($body['payload']['ip']) ? $body['payload']['ip'] : '',
-                            'server_uuid' => $server_uuid
-                        ]);
-
-                    return parent::retAnswer(parent::$success, false, ['check' => parent::$successCheck], parent::$successStatus);
-                }
-            }
+        $reply = json_decode($response->getBody(), true);
+        if ( !isset($reply['payload']) ) {
+            return APIReply::err(APICode::$unknown, 'Invalid VPN server reply');
         }
+
+        $payload = $reply['payload'];
+        if ( !isset($payload['uuid']) || !isset($payload['country_iso']) ) {
+            return APIReply::err(APICode::$unknown, 'Invalid VPN server reply');
+        }
+
+        DB::table('server_infos')->where('server_uuid', $input['uuid'])->update([
+            'info' => json_encode($payload),
+            'server_uuid' => $payload['uuid'],
+            'country_iso' => $payload['country_iso']
+        ]);
+
+        return APIReply::ok();
     }
 
     /**
