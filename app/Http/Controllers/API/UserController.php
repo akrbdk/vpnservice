@@ -36,8 +36,8 @@ class UserController extends ApiController
     public function login(Request $request){
         $input = $request->all();
 
-        if ( !isset($input['platform']) ) {
-            return APIReply::err(APICode::$invArgument, 'Empty platform');
+        if ( !isset($input['platform']) || !isset($input['hwid'])) {
+            return APIReply::err(APICode::$invArgument, 'Empty platform or HWID');
         }
 
         if (!Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
@@ -52,7 +52,7 @@ class UserController extends ApiController
         }
 
         if ($plan->isTrial()) {
-            $hwid = DB::table('trial_hwid')->where('hwid', $hwid->hwid)->first();
+            $hwid = DB::table('trial_hwid')->where('hwid', $input['hwid'])->first();
             if (!empty($hwid) && $hwid->expiry_at < time()) {
                 return APIReply::err(APICode::$HWIDexisted);
             }
