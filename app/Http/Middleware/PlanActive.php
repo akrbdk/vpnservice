@@ -19,7 +19,7 @@ class PlanActive
      */
     public function handle($request, Closure $next){
         $id = $request->get('user_id');
-        $bodyContent = json_decode($request->getContent(),true);
+        $bodyContent = $request->all();
         $hwid = $bodyContent['hwid'];
 
         $plan = new Plan($id);
