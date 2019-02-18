@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="btn-section">
-                    <a href="{{ url('/admin/customer-area') }}" class="btn-green">{{ trans('user_admin.upgrade_plan') }}</a>
+                    <a href="{{ url('/plans') }}" class="btn-green">{{ trans('user_admin.upgrade_plan') }}</a>
                 </div>
             </div>
 
