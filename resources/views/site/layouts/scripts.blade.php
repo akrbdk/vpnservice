@@ -21,10 +21,6 @@
       $('.ano').mask('00');
       $('.ccv').mask('000');
     });
-    $('.modal-close').click(function(){
-      $('.modal-content').remove();
-      $('.modal').remove();
-    });
     $('.Basic').click(function(){
         $('.checkout').hide();
         $('#payment-form').attr('action', "{{ url('/getTrial') }}");
@@ -140,6 +136,10 @@
 @endif
 
 <script>
+    $('.modal-close').click(function(){
+      $('.modal-content').remove();
+      $('.modal').remove();
+    });
     $('#contactform').submit(function (e) {
         e.preventDefault();
 
@@ -154,18 +154,17 @@
             contentType: false,
             processData: false,
             success: function (data) {
+              $('#sendmessage').show();
                 if (data.result) {
-                    $('#senderror').hide();
-                    $('#sendmessage').show();
+                    $('#sendmessage .errtext').text('Message was sended.');
                 }
                 else {
-                    $('#senderror').show();
-                    $('#sendmessage').hide();
+                    $('#sendmessage .errtext').text("Message wasn't sended.");
                 }
             },
             error: function () {
-                $('#senderror').show();
-                $('#sendmessage').hide();
+                $('#sendmessage').show();
+                $('#sendmessage .errtext').text("Message wasn't sended.");
             }
         });
     });
