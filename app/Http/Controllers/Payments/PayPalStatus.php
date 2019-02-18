@@ -73,7 +73,7 @@ class PayPalStatus extends Controller
         if ($result->getState() == 'approved') {
             PlanOrder::planOrder($Order);
             HistoryController::addPayment($Payment);
-            return Redirect::to('/plans')->with('alert-success', trans('payment_err.success'));
+            return Redirect::to('/admin')->with('alert-success', trans('payment_err.success'));
         }
         return Redirect::to('/plans')->with('alert', trans('payment_err.failed'));
     }

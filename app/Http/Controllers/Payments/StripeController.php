@@ -72,6 +72,6 @@ class StripeController
 
       HistoryController::addPayment($Payment);
 
-      return Redirect::to('/plans')->with('alert-success', trans('payment_err.success'));
+      return Redirect::to('/admin')->with('alert-success', trans('payment_err.success'));
     }
 }

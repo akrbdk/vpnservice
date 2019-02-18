@@ -4,20 +4,13 @@
 @php
 $tab=1;
 @endphp
-    @if (session('alert'))
-        <div class="alert modal-content recovery-pw" style="display: block;">
-            <h2>{{ session('alert') }}</h2>
-            <button type="button" class="modal-close btn-orange">Ok</button>
-        </div>
-        <div class="modal" style="display: block;"></div>
-    @endif
-    @if (session('alert-success'))
-        <div class="alert-success modal-content recovery-pw" style="display: block;">
-            <h2>{{ session('alert-success') }}</h2>
-            <button type="button" class="modal-close btn-green">Ok</button>
-        </div>
-        <div class="modal" style="display: block;"></div>
-    @endif
+@if (session('alert'))
+    <div class="alert modal-content recovery-pw" style="display: block;">
+        <h2>{{ session('alert') }}</h2>
+        <button type="button" class="modal-close btn-orange">Ok</button>
+    </div>
+    <div class="modal" style="display: block;"></div>
+@endif
     <div class="bg-gray"></div>
 
     <main class="main-painel finish-plan">

@@ -16,6 +16,10 @@
 </script>
 
 <script>
+    $('.modal-close').click(function(){
+      $('.modal-content').remove();
+      $('.modal').remove();
+    });
     $('.btn-send').click(function(e){
         e.preventDefault();
 

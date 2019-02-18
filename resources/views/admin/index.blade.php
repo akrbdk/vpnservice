@@ -1,7 +1,13 @@
 @extends('admin.layouts._layout')
 
 @section('content')
-
+@if (session('alert-success'))
+    <div class="alert-success modal-content recovery-pw" style="display: block;">
+        <h2>{{ session('alert-success') }}</h2>
+        <button type="button" class="modal-close btn-green">Ok</button>
+    </div>
+    <div class="modal" style="display: block;"></div>
+@endif
     <main class="main-painel client-area">
         <div class="container">
             <h2>{{ trans('user_admin.header') }}</h2>

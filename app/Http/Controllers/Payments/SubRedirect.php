@@ -45,7 +45,7 @@ class SubRedirect extends Controller
              $exec = $agreement->execute($token, $this->_api_context);
              $autopay_id = $exec->id;
              DB::table('payment_history')->where('user_id', $user_id)->where('expiry_at', '>', time())->update(array('auto_renew' => '1', 'autopay_id' => $autopay_id));
-             return Redirect::to('/plans')->with('alert-success', trans('payment_err.autopay'));
+             return Redirect::to('/admin')->with('alert-success', trans('payment_err.autopay'));
          } catch (PayPalConnectionException $ex) {
              return Redirect::to('/plans')->with('alert', trans('payment_err.autopay_err'));
              die($ex);
