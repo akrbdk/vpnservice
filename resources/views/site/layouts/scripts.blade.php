@@ -156,15 +156,15 @@
             success: function (data) {
               $('#sendmessage').show();
                 if (data.result) {
-                    $('#sendmessage .errtext').text('Message was sended.');
+                    $('#sendmessage .errtext').text('Message sent successfully');
                 }
                 else {
-                    $('#sendmessage .errtext').text("Message wasn't sended.");
+                    $('#sendmessage .errtext').text("Failed to send message");
                 }
             },
             error: function () {
                 $('#sendmessage').show();
-                $('#sendmessage .errtext').text("Message wasn't sended.");
+                $('#sendmessage .errtext').text("Failed to send message");
             }
         });
     });
