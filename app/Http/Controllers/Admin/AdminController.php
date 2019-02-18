@@ -6,6 +6,8 @@ use App\Http\Controllers\AdminController;
 use Auth;
 use DB;
 use App\User;
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
 
 class AdminControllerMain extends AdminController
 {
@@ -20,6 +22,21 @@ class AdminControllerMain extends AdminController
         $this->middleware('auth');
     }
 
+    private function convertDuration($duration) {
+        $locale = app()->getLocale();
+        Carbon::setlocale($locale);
+
+        $dt = Carbon::now();
+
+        $months = $dt->diffInMonths($dt->copy()->addSeconds($duration));
+        if ($months > 0) return CarbonInterval::months($months);
+
+        $days = $dt->diffInDays($dt->copy()->addSeconds($duration));
+        if ($days > 0) return CarbonInterval::days($days);
+
+        return 0;
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -30,7 +47,7 @@ class AdminControllerMain extends AdminController
         $user_id = Auth::id();
         $user_plan = DB::table('users_plans')->where('user_id', $user_id)->first();
         $plan_params = DB::table('plans_table')->where('id', $user_plan->plan_id)->first();
-        $months_limit = time() + (int)$plan_params->months_limit;
+        $months_limit = self::convertDuration((int)$plan_params->months_limit);
         $latestApp = DB::table('apps_infos')->orderBy('version', 'desc')->first();
 
         return view('admin.index', [

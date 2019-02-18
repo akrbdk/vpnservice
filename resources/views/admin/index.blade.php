@@ -15,7 +15,7 @@
                     <span class="title">{{ trans('user_admin.subscription') }}</span>
                     <div class="left">
                         {{ $plan_params->plan_name }}
-                        <span><?= (int)date('m', $months_limit) ?> Months</span>
+                        <span>{{ $months_limit }}</span>
                     </div>
 
                     <div class="right">
