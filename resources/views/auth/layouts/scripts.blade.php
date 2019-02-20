@@ -23,11 +23,11 @@
             type: "POST",
             success: function() {
               $('#sendmessage').show();
-                $('#sendmessage .errtext').text("Successful : link send");
+              $('#sendmessage .errtext').text("{{trans('password_reset.success')}}");
             },
             error: function(e) {
               $('#sendmessage').show();
-                $('#sendmessage .errtext').text("Faild: link not send");
+              $('#sendmessage .errtext').text("{{trans('password_reset.error')}}");
             }
         });
 

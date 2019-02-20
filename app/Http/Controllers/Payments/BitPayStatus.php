@@ -58,7 +58,7 @@ class BitPayStatus
           'price' => $plan->price,
           'method' => 'Bitcoin',
           'auto_renew' => 0,
-          'expiry' => $plan->months_limit
+          'months_limit' => $plan->months_limit
         );
 
         HistoryController::addPayment($Payment);

@@ -21,7 +21,7 @@ class TrialController
       if(isset($_POST['password'])){
         $email = $_POST['email'];
         if(!empty(DB::table('users')->where('email', $email)->first())){
-          return Redirect::to('/plans')->with('alert', trans('payment_err.success'));
+          return Redirect::to('/plans')->with('alert', trans('payment_err.email'));
         }
         $pass = $_POST['password'];
 
@@ -52,7 +52,7 @@ class TrialController
         'price' => $plan->price,
         'method' => 'Trial',
         'auto_renew' => 0,
-        'expiry' => $plan->months_limit
+        'months_limit' => $plan->months_limit
       );
 
       HistoryController::addPayment($Payment);

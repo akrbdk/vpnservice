@@ -21,22 +21,26 @@
       $('.ano').mask('00');
       $('.ccv').mask('000');
     });
-    $('.Basic').click(function(){
-        $('.checkout').hide();
+    $('.card1 label').click(function(){
+        var plan_id = $('.card1 select').val();
+        $('.plan_id').attr('value', plan_id);
         $('#payment-form').attr('action', "{{ url('/getTrial') }}");
+        $('.checkout').hide();
         $('.trial_start').show();
     });
-    $('.Advanced').click(function(){
+    $('.card2 label').click(function(){
         var bitkey = "jxBlHByrurx6FMglp0ETlrJEsTNizX85nj+bUpS2Ic47s0z5cXw7PBKa0w6nZ9APCn0mkfqVRk/C/KICSWJBhRSbYSFepiHE3Ek4lcMhL9Aau4gQfeBDK1PkWCIbk1WVSZ/2XEA6b9XTUPofu4GMYwZ7M17X07DRFcCLsC3/RlTZbDLmxHx/pMkBlozNVXkRer936QSI9PZsVdAASw+S4tv54OX6vDozE1eUGGCjfnKKoLd9pdT9NTp+mmlL4WPtl+s2ig0gL09JacAoqxQ/Ig==";
+        var plan_id = $('.card2 select').val();
+        $('.plan_id').attr('value', plan_id);
         $('.bitpay').attr('value', bitkey);
-        $('.get_price').text('$'+ $('.plan-plan2 .coin').text());
         $('.checkout').show();
         $('.trial_start').hide();
     });
-    $('.Premium').click(function(){
+    $('.card3 label').click(function(){
         var bitkey = "jxBlHByrurx6FMglp0ETlrJEsTNizX85nj+bUpS2Ic47s0z5cXw7PBKa0w6nZ9APsXg7gphRnHB9GRCMzRqQ63fUGfVsjY0qMmPwLI9T5lssPgFVAAzz3rrAdhnyE8tPs3REd+Yqz5FHD5Ckc8ChyTz7GH4WdMhWyMifO9rzCufg/T4KQRYGT1BRg6dEIjWFmudI52jaECuVHZ3jPq2yl4E4rbotz3PnhB7ak1MqrYop8jfOpgEbLdf9x+NTpa9GzfWMT/6GYZitef9aP3RHwg==";
+        var plan_id = $('.card3 select').val();
+        $('.plan_id').attr('value', plan_id);
         $('.bitpay').attr('value', bitkey);
-        $('.get_price').text('$'+ $('.plan-plan3 .coin').text());
         $('.checkout').show();
         $('.trial_start').hide();
     });

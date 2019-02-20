@@ -3935,17 +3935,17 @@ ul {
 
 #plan-list input[type="radio"]{display: none;}
 
-#plan1:checked + .button-label {
+#card1:checked + .button-label {
   background-color: #fff;
   color: #ff9000 !important;
 }
 
-#plan2:checked + .button-label {
+#card2:checked + .button-label {
   background-color: #fff;
   color: #25c7a2 !important;
 }
 
-#plan3:checked + .button-label {
+#card3:checked + .button-label {
   background-color: #fff;
   color: #25c7a2 !important;
 }

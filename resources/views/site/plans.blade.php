@@ -43,6 +43,7 @@ $tab=1;
             </div>
 
             <form method="POST" id="payment-form">
+              <input type="hidden" class="plan_id" name="plan_id" value="">
               {{ csrf_field() }}
 
               <section id="choose-plan">
