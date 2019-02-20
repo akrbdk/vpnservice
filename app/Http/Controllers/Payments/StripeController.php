@@ -70,7 +70,7 @@ class StripeController
         'price' => $plan->price,
         'method' => 'Card',
         'auto_renew' => 0,
-        'expiry' => time() + $plan->months_limit
+        'months_limit' => $plan->months_limit
       );
 
       HistoryController::addPayment($Payment);

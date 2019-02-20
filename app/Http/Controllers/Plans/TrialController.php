@@ -52,7 +52,7 @@ class TrialController
         'price' => $plan->price,
         'method' => 'Trial',
         'auto_renew' => 0,
-        'expiry' => time() + $plan->months_limit
+        'expiry' => $plan->months_limit
       );
 
       HistoryController::addPayment($Payment);
