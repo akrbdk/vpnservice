@@ -170,7 +170,7 @@
         });
     });
 </script>
-@endig
+@endif
 
 @if(Request::path() == 'how-it-works')
 <script>
