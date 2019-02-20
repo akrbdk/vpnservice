@@ -20,5 +20,6 @@ return [
     'occur' => 'error: Some error occur, sorry for inconvenient!',
     'unknown' => 'error: Unknown error occurred!',
     'failed' => 'error: Payment failed!',
+    'email' => 'error: Email already registred!',
 
 ];

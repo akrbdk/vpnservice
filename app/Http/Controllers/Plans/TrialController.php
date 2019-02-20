@@ -20,6 +20,9 @@ class TrialController
 
       if(isset($_POST['password'])){
         $email = $_POST['email'];
+        if(!empty(DB::table('users')->where('email', $email)->first())){
+          return Redirect::to('/plans')->with('alert', trans('payment_err.success'));
+        }
         $pass = $_POST['password'];
 
         $register = array(

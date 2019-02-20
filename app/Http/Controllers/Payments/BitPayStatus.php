@@ -20,6 +20,9 @@ class BitPayStatus
 
       if(strstr($_POST['posData'],",")){
         $email = strstr($_POST['posData'], ',', true);
+        if(!empty(DB::table('users')->where('email', $email)->first())){
+          return Redirect::to('/plans')->with('alert', trans('payment_err.email'));
+        }
         $pass = substr(strrchr($_POST['posData'], ","), 1);
 
         $register = array(
