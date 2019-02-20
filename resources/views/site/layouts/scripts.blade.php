@@ -139,6 +139,7 @@
     </script>
 @endif
 
+@if(Request::path() == 'send-us-an-email')
 <script>
     $('.modal-close').click(function(){
       $('.modal-content').remove();
@@ -160,19 +161,20 @@
             success: function (data) {
               $('#sendmessage').show();
                 if (data.result) {
-                    $('#sendmessage .errtext').text('Message sent successfully');
+                    $('#sendmessage .errtext').text("@lang('contact_us.success')");
                 }
                 else {
-                    $('#sendmessage .errtext').text("Failed to send message");
+                    $('#sendmessage .errtext').text("@lang('contact_us.failed')");
                 }
             },
             error: function () {
                 $('#sendmessage').show();
-                $('#sendmessage .errtext').text("Failed to send message");
+                $('#sendmessage .errtext').text("@lang('contact_us.failed')");
             }
         });
     });
 </script>
+@endif
 
 @if(Request::path() == 'how-it-works')
 <script>
