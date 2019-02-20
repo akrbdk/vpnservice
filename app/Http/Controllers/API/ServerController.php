@@ -66,7 +66,7 @@ class ServerController extends ApiController
             'ip' => $input['endpoint']
         ]);
 
-        return APIReply::ok();
+        return APIReply::with(['uuid' => $payload['uuid']]);
     }
 
     /**
