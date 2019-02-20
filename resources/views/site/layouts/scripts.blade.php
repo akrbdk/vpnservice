@@ -135,7 +135,7 @@
     </script>
 @endif
 
-@if(Request::path() == 'contact-us')
+@if(Request::path() == 'send-us-an-email')
 <script>
     $('.modal-close').click(function(){
       $('.modal-content').remove();
