@@ -48,13 +48,7 @@ class ApiController extends BaseController
         }
         return response()->json($answer, $status);
     }
-
-    protected static function checkPlanExpired($user_id) {
-        $result = DB::select('SELECT expiry_at FROM users_plans WHERE user_id = ? LIMIT 1', [$user_id]);
-        if (count($result) === 0) return false;
-        return $result[0]->expiry_at < time();
-    }
-
+    
     public static function checkUserPlatform($token='', $checkTokenType = ''){
 
         $user = false;

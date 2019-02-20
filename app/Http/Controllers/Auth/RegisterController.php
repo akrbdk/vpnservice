@@ -101,10 +101,15 @@ class RegisterController extends Controller
         $planInfoArr = [
             'user_id' => $user->id,
             'plan_id' => $plan->id,
-            'expiry_at' => time()
+            'plan_name' => $plan->plan_name,
+            'price' => 0,
+            'method' => 'Free',
+            'auto_renew' => 0,
+            'expiry_at' => time(),
+            'autopay_id' => null
         ];
-        DB::table('users_plans')->insert($planInfoArr);
 
+        DB::table('payment_history')->insert($planInfoArr);
         return $newUser;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Plans\UserPlanInfo;
 use Auth;
 use DB;
 use App\User;
@@ -45,8 +46,10 @@ class AdminControllerMain extends AdminController
     public function index()
     {
         $user_id = Auth::id();
-        $user_plan = DB::table('users_plans')->where('user_id', $user_id)->first();
-        $plan_params = DB::table('plans_table')->where('id', $user_plan->plan_id)->first();
+        $info = new UserPlanInfo($user_id);
+
+        $user_plan = $info->getPlanInfo();
+        $plan_params = $info->getPlan();
         $months_limit = self::convertDuration((int)$plan_params->months_limit);
         $latestApp = DB::table('apps_infos')->orderBy('version', 'desc')->first();
 

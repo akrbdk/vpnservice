@@ -11,6 +11,10 @@ use Validator;
 use DB;
 use GuzzleHttp\Client;
 
+use App\Http\APIUtils\APIReply;
+use App\Http\APIUtils\APICode;
+use App\Http\Controllers\Plans\UserPlanInfo;
+
 class PlansController extends ApiController
 {
 
@@ -23,30 +27,24 @@ class PlansController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function getUserPlan(Request $request){
-
+    public function getUserPlan(Request $request) {
         $user_id = $request->get('user_id');
-        $userPlan = (array)DB::table('plans_table')
-            ->join('users_plans', function($join) use($user_id)
-            {
-                $join->on('plans_table.id', '=', 'users_plans.plan_id')
-                    ->where('users_plans.user_id', $user_id);
-            })
-            ->first();
 
-        if(!empty($userPlan)){
-            return parent::retAnswer(
-                parent::$success,
-                false,
-                [
-                    'id' => (int)$userPlan['plan_id'],
-                    'name' => $userPlan['plan_name'],
-                    'months' => (int)$userPlan['months_limit'],
-                    'expiry_at' => $userPlan['expiry_at']
-                ],
-                parent::$successStatus);
-        } else {
-            return response()->json(['error'=> 0, 'payload' => array('id' => 1, 'name' => 'Basic', 'expiry_at' => time() + 350)], parent::$successStatus);
+        $info = new UserPlanInfo($user_id);
+        $plan = $info->getPlan();
+        $plan_info = $info->getPlanInfo();
+
+        if (empty($plan) || empty($plan_info)) {
+            return APIReply::err(APICode::$unknown);
         }
+
+        $reply = [
+            'id' => (int)$plan_info->plan_id,
+            'name' => $plan_info->plan_name,
+            'months' => (int)$plan->months_limit,
+            'expiry_at' => $plan_info->expiry_at
+        ];
+
+        return APIReply::with($reply);
     }
 }
