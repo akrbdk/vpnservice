@@ -141,10 +141,6 @@
 
 @if(Request::path() == 'send-us-an-email')
 <script>
-    $('.modal-close').click(function(){
-      $('.modal-content').remove();
-      $('.modal').remove();
-    });
     $('#contactform').submit(function (e) {
         e.preventDefault();
 
@@ -184,6 +180,12 @@
 @endif
 
 <script>
+
+$('.modal-close').click(function(){
+  $('.modal-content').remove();
+  $('.modal').remove();
+});
+
     (function (b, o, i, l, e, r) {
         b.GoogleAnalyticsObject = l;
         b[l] || (b[l] =
