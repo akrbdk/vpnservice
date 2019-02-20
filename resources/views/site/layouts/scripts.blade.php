@@ -135,6 +135,7 @@
     </script>
 @endif
 
+@if(Request::path() == 'contact-us')
 <script>
     $('.modal-close').click(function(){
       $('.modal-content').remove();
@@ -169,6 +170,7 @@
         });
     });
 </script>
+@endig
 
 @if(Request::path() == 'how-it-works')
 <script>
