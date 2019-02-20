@@ -3,13 +3,17 @@
 <script src="{{ asset('site/js/vendor.min.js') }}"></script>
 <script src="{{ asset('site/js/main.min.js') }}"></script>
 <script>
+    $('.modal-close').click(function(){
+      $('.modal-content').remove();
+      $('.modal').remove();
+    });
     var modal = function(){
         $(".modal, .modal-content").show();
     }
 
     $('#reset_email_submit').on('submit', function(e){
         e.preventDefault();
-        $(".modal, .modal-content").hide();
+        $(".forgot").hide();
         $.ajax({
             url: "password/email",
             data: {
@@ -18,10 +22,12 @@
             },
             type: "POST",
             success: function() {
-                console.log("Successful : link send");
+              $('#sendmessage').show();
+                $('#sendmessage .errtext').text("Successful : link send");
             },
             error: function(e) {
-                console.log("Faild: link not send");
+              $('#sendmessage').show();
+                $('#sendmessage .errtext').text("Faild: link not send");
             }
         });
 

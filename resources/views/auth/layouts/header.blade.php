@@ -5,28 +5,28 @@
     <a href="http://browsehappy.com/">atualize seu navegador</a>.
 </p>
 <![endif]-->
+<div class="forgot">
+  <div class="modal-content recovery-pw">
+      <h2>{{ trans('auth.forgotten_pass') }}</h2>
+      <form id="reset_email_submit" class="clearfix" method="POST" action="">
+          {{ csrf_field() }}
 
+          <div class="clearfix reset_email">
+              <label for="email">{{ trans('auth.email') }}</label>
+              <input type="email" class="email" placeholder="{{ trans('auth.email_inform') }}" name="email"
+                     value="{{ old('email') }}" required autofocus>
 
-<div class="modal-content recovery-pw">
-    <h2>{{ trans('auth.forgotten_pass') }}</h2>
-    <form id="reset_email_submit" class="clearfix" method="POST" action="">
-        {{ csrf_field() }}
-
-        <div class="clearfix reset_email">
-            <label for="email">{{ trans('auth.email') }}</label>
-            <input type="email" class="email" placeholder="{{ trans('auth.email_inform') }}" name="email"
-                   value="{{ old('email') }}" required autofocus>
-
-            @if ($errors->has('email'))
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('email') }}</strong>
-                </span>
-            @endif
-        </div>
-        <input type="submit" class="btn-orange" value="{{ trans('auth.submit_email') }}">
-    </form>
+              @if ($errors->has('email'))
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $errors->first('email') }}</strong>
+                  </span>
+              @endif
+          </div>
+          <input type="submit" class="btn-orange" value="{{ trans('auth.submit_email') }}">
+      </form>
+  </div>
+  <div class="modal"></div>
 </div>
-<div class="modal"></div>
 
 <header id="header-painel">
     <h1 class="logo">

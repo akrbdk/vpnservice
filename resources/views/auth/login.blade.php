@@ -1,8 +1,16 @@
 @extends('auth.layouts._layout')
 
 @section('content')
+<div id='sendmessage' style='display:none'>
+  <div class="alert-success modal-content recovery-pw" style="display: block;">
+      <h2 class='errtext'>Email wasn't send</h2>
+      <button type="button" class="modal-close btn-green">Ok</button>
+  </div>
+  <div class="modal" style="display: block;"></div>
+</div>
 
     <main class="main-painel login-area">
+
         <div class="container">
             <h2>{{ trans('auth.area_name') }}</h2>
             <div class="table-base clearfix">
