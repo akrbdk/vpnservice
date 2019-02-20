@@ -36,7 +36,7 @@ class Controller extends BaseController
         $this->middleware(function ($request, $next) {
             $ip_info = IpInfo::ip_info();
 
-            $serverInfo = DB::table('server_infos')->where('ip', trim($ip_info['ip']))->first();
+            $serverInfo = DB::table('server_infos')->where('ip', 'like', trim($ip_info['ip']) . '%' )->first();
 
             $this->protect_status = !empty($serverInfo) ? true : false;
 
