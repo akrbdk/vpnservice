@@ -12,6 +12,40 @@
     </script>
 @endif
 
+@if(Request::path() == 'plans' || Request::path() == '/')
+<script>
+  $('.button-label').click(function () {
+    $('.card').removeClass('selected');
+    $(this).parent().addClass('selected');
+    var price = $('.selected option:selected').attr("price");
+    var duration = $('.selected option:selected').attr("duration");
+    $('.get_price').text('$'+price/100);
+    $('.selected .coin').text( (price/duration/100).toFixed(2));
+    if(price === '0'){
+      $('.checkout').hide();
+      $('.trial_start').show();
+      $('#payment-form').attr('action', "{{ url('/getTrial') }}");
+    }
+    else {
+      $('.checkout').show();
+      $('.trial_start').hide();
+    }
+    $('section').show();
+  });
+
+  $('.select-options li').click(function () {
+    let card = $(this).closest('.card');
+    let price = card.find('option:selected').attr("price");
+    let duration = card.find('option:selected').attr("duration");
+
+    let coin = (price/duration/100).toFixed(2);
+
+    $(this).closest('.card').find('.coin').text(coin);
+    if (card.hasClass('selected')) $('.get_price').text('$' + price/100);
+  });
+</script>
+@endif
+
 @if(Request::path() == 'plans')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
     <script>
@@ -20,36 +54,6 @@
       $('.mes').mask('00');
       $('.ano').mask('00');
       $('.ccv').mask('000');
-    });
-
-    $('.button-label').click(function () {
-      $('.card').removeClass('selected');
-      $(this).parent().addClass('selected');
-      var price = $('.selected option:selected').attr("price");
-      var duration = $('.selected option:selected').attr("duration");
-      $('.get_price').text('$'+price/100);
-      $('.selected .coin').text( (price/duration/100).toFixed(2));
-      if(price === '0'){
-        $('.checkout').hide();
-        $('.trial_start').show();
-        $('#payment-form').attr('action', "{{ url('/getTrial') }}");
-      }
-      else {
-        $('.checkout').show();
-        $('.trial_start').hide();
-      }
-      $('section').show();
-    });
-
-    $('.select-options li').click(function () {
-      let card = $(this).closest('.card');
-      let price = card.find('option:selected').attr("price");
-      let duration = card.find('option:selected').attr("duration");
-
-      let coin = (price/duration/100).toFixed(2);
-
-      $(this).closest('.card').find('.coin').text(coin);
-      if (card.hasClass('selected')) $('.get_price').text('$' + price/100);
     });
     </script>
 
