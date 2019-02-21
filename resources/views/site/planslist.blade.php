@@ -1,3 +1,6 @@
+@php
+$prices = json_decode(DB::table('plans_table')->select('id','price')->get(),true);
+@endphp
 <ul id="plan-list" class="clearfix">
  @foreach($cards as $card)
         <li class="most-pop card">
@@ -21,7 +24,13 @@
               @endphp
 
               @foreach ($plans as $plan)
-                <option plan_id='{{$plan["plan_id"]}}' price='{{$plan["price"]}}'>{{ trans($plan["text"]) }}</option>
+                <option plan_id='{{$plan["plan_id"]}}' price='
+                @foreach ($prices as $price)
+                @if ($plan["plan_id"] === $price["id"])
+                {{$price["price"]}}
+                @endif
+                @endforeach
+                '>{{ trans($plan["text"]) }}</option>
               @endforeach
             </select>
             @if (Request::path() === 'plans')
