@@ -51,8 +51,9 @@
       $('.card').removeClass('selected');
       $(this).parent().addClass('selected');
       var price = $('.selected option:selected').attr("price");
+      var duration = $('.selected option:selected').attr("duration");
       $('.get_price').text('$'+price/100);
-      $('.selected .coin').text(price/100);
+      $('.selected .coin').text(price/duration/100);
       if(price === '0'){
         $('.checkout').hide();
         $('.trial_start').show();
@@ -65,9 +66,10 @@
       $('section').show();
     });
     $('.select-options li').click(function () {
-      var price = $('.selected option:selected').attr("price");
-      $('.get_price').text('$'+price/100);
-        $('.selected .coin').text(price/100);
+      var price = $(this).closest('.card').find('option:selected').attr("price");
+      var duration = $(this).closest('.card').find('option:selected').attr("duration");
+      var coin = (price/duration/100).toFixed(2);
+      $(this).closest('.card').find('.coin').text(coin);
     });
 
 
