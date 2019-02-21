@@ -15,7 +15,7 @@ $prices = DB::table('plans_table')->select('id','price','months_limit')->get()->
       <div class="title">{{ trans($card->title) }}</div>
       <div class="price">
           <span class="currency">$</span>
-          <span class="coin"><?= number_format(($plans[0]['price']/100), 2, '<span class="cents">.', '') ?></span></span>
+          <span class="coin"><?= number_format(($plans[0]['price']/100), 2, '.', '') ?></span></span>
       </div>
       <div class="plan-type">
           Per month
