@@ -19,7 +19,7 @@
               $plans = json_decode($card->plans, true);
               @endphp
               @foreach ($plans as $plan)
-                <option plan_id='{{$plan["plan_id"]}}' price='{{$plan["price"]}}'>{{$plan["text"]}}</option>
+                <option plan_id='{{$plan["plan_id"]}}' price='{{$plan["price"]}}'>{{trans($plan["text"])}}</option>
               @endforeach
             </select>
             @if (Request::path() === 'plans')
