@@ -1,5 +1,5 @@
 @php
-$prices = json_decode(DB::table('plans_table')->select('id','price')->get(),true);
+$prices = json_decode(DB::table('plans_table')->select('id','price','months_limit')->get(),true);
 @endphp
 <ul id="plan-list" class="clearfix">
  @foreach($cards as $card)
@@ -24,13 +24,13 @@ $prices = json_decode(DB::table('plans_table')->select('id','price')->get(),true
               @endphp
 
               @foreach ($plans as $plan)
-                <option plan_id='{{$plan["plan_id"]}}' price='
+                <option plan_id='{{$plan["plan_id"]}}'
                 @foreach ($prices as $price)
                 @if ($plan["plan_id"] === $price["id"])
-                {{$price["price"]}}
+                price='{{$price["price"]}}' duration='{{$price["months_limit"]/30/24/60/60}}'
                 @endif
                 @endforeach
-                '>{{ trans($plan["text"]) }}</option>
+                >{{ trans($plan["text"]) }}</option>
               @endforeach
             </select>
             @if (Request::path() === 'plans')
