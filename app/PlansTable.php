@@ -13,7 +13,7 @@ class PlansTable extends Model
      *
      * @var string
      */
-    protected $table = 'plans_table';
+    protected $table = 'card_view';
 
     public static function isHidden(){
       $data = '';

@@ -23,11 +23,12 @@ class SubscribeStatus extends Controller
           $autopay_id = $_POST['recurring_payment_id'];
 
           $autopay = DB::table('payment_history')->where('autopay_id', $autopay_id)->first();
-          $plan = DB::table('plans_table')->where('plan_name', $autopay->plan_name)->first();
+          $plan = DB::table('plans_table')->where('plan_id', $autopay->plan_id)->first();
 
           $Payment =  array(
               'email' => '',
               'user_id' => $autopay->user_id,
+              'plan_id' => $autopay->plan_id,
               'plan_name' => $plan->plan_name,
               'price' => $plan->price,
               'method' => 'PayPal',

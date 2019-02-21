@@ -41,6 +41,7 @@ class PayPalStatus extends Controller
         $Payment =  array(
           'email' => Session::get('email'),
           'plan_name' => Session::get('plan_name'),
+          'plan_id' => Session::get('plan_id'),
           'price' => Session::get('price'),
           'method' => 'PayPal',
           'auto_renew' => 0,

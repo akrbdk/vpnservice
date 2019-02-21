@@ -45,13 +45,12 @@ class PayPalSub extends Controller
      }
 
     public function subscribe(){
-      $plan_name = $_POST['plan'];
+      $plan_id = $_POST['plan_id'];
       $expire = isset($_POST['expire']) ? $_POST['expire'] : time() + 120;
 
-      $plan = DB::table('plans_table')->where('plan_name', $plan_name)->first();
+      $plan = DB::table('plans_table')->where('plan_id', $plan_id)->first();
 
-      Session::put('plan_id', $plan->id);
-      Session::put('plan_name', $plan_name);
+      Session::put('plan_id', $plan_id);
       Session::put('price', $plan->price);
       Session::put('months_limit', $plan->months_limit);
 

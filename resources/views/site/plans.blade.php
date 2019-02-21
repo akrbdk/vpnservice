@@ -51,7 +51,7 @@ $tab=1;
 
 
 
-                      @include('site.planslist', ['plans' => App\PlansTable::all(), 'isHidden' => App\PlansTable::isHidden()])
+                      @include('site.planslist', ['cards' => App\PlansTable::all(), 'isHidden' => App\PlansTable::isHidden()])
                   </div>
 
 
