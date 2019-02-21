@@ -34,7 +34,7 @@
               </label>
             @endif
             @if (Request::path() === '/')
-              <a href="{{ url('plans') }}" class="btn-{{ $card->btn_color }}"> {{ $card->button }} </a>
+              <a href="{{ url('plans') }}" class="btn-{{ $card->btn_color }}"> {{ trans($card->button) }} </a>
             @endif
         </li>
   @endforeach
