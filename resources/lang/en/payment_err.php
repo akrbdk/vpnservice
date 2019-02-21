@@ -13,13 +13,12 @@ return [
     |
     */
 
-    'success' => 'success: Subscribtion success!',
-    'autopay' => 'success: Autopay by PayPal success!',
-    'autopay_err' => 'success: Autopay by PayPal error!',
-    'timeout' => 'error: Connection timeout!',
-    'occur' => 'error: Some error occur, sorry for inconvenient!',
-    'unknown' => 'error: Unknown error occurred!',
-    'failed' => 'error: Payment failed!',
-    'email' => 'error: Email already registred!',
-
+    'success' => 'Plan successfully purchased',
+    'autopay' => 'PayPal autopay activated',
+    'autopay_err' => 'Failed to enable paypal autopay',
+    'timeout' => 'Connection timeout. Try again later',
+    'occur' => 'Some error occured, try again',
+    'unknown' => 'Unknown error occurred. Try again later',
+    'failed' => 'Failed to make payment. Try again later',
+    'email' => 'Email already exists'
 ];
