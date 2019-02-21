@@ -56,7 +56,8 @@ class BitPayController {
         $invoice
             ->setOrderId($userId . ',' . $planId)
             // You will receive IPN's at this URL, should be HTTPS for security purposes!
-            ->setNotificationUrl('https://store.example.com/bitpay/callback');
+            ->setNotificationUrl(url('/bitpaystatus'))
+            ->setRedirectUrl(url('/admin'));
     }
 
 	public function index() {
