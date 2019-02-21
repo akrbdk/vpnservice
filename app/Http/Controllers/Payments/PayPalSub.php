@@ -48,7 +48,7 @@ class PayPalSub extends Controller
       $plan_id = $_POST['plan_id'];
       $expire = isset($_POST['expire']) ? $_POST['expire'] : time() + 120;
 
-      $plan = DB::table('plans_table')->where('plan_id', $plan_id)->first();
+      $plan = DB::table('plans_table')->where('id', $plan_id)->first();
 
       Session::put('plan_id', $plan_id);
       Session::put('price', $plan->price);
