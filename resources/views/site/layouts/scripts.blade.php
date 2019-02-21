@@ -53,7 +53,7 @@
       var price = $('.selected option:selected').attr("price");
       var duration = $('.selected option:selected').attr("duration");
       $('.get_price').text('$'+price/100);
-      $('.selected .coin').text(price/duration/100);
+      $('.selected .coin').text( (price/duration/100).toFixed(2));
       if(price === '0'){
         $('.checkout').hide();
         $('.trial_start').show();
