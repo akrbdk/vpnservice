@@ -58,7 +58,7 @@ class StripeController
       $Payment =  array(
         'email' => $email,
         'plan_name' => $plan->plan_name,
-        'plan_id' => $plan->plan_id,
+        'plan_id' => $plan->id,
         'price' => $plan->price,
         'method' => 'Card',
         'auto_renew' => 0,

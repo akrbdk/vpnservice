@@ -45,7 +45,7 @@ class BitPayStatus
           'email' => $email,
           'user_id' => $user_id,
           'plan_name' => $plan->plan_name,
-          'plan_id' => $plan->plan_id,
+          'plan_id' => $plan->id,
           'price' => $plan->price,
           'method' => 'Bitcoin',
           'auto_renew' => 0,
