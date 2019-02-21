@@ -30,6 +30,7 @@ class SubscribeStatus extends Controller
               'user_id' => $autopay->user_id,
               'plan_id' => $autopay->plan_id,
               'plan_name' => $plan->plan_name,
+              'plan_id' => $plan->id,
               'price' => $plan->price,
               'method' => 'PayPal',
               'auto_renew' => 1,

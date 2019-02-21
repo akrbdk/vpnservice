@@ -40,7 +40,7 @@ class TrialController
       $Payment =  array(
         'email' => $email,
         'plan_name' => $plan->plan_name,
-        'plan_id' => $plan_id,
+        'plan_id' => $plan->id,
         'price' => $plan->price,
         'method' => 'Trial',
         'auto_renew' => 0,
