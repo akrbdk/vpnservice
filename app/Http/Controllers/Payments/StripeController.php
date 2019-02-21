@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Payments;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Plans\PlanOrder;
 use App\Http\Controllers\Payments\HistoryController;
 use App\Http\Controllers\Auth\RegisterController;
 use Redirect;
