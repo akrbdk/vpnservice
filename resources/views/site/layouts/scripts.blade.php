@@ -68,8 +68,8 @@
     $('.select-options li').click(function () {
       var price = $(this).closest('.card').find('option:selected').attr("price");
       var duration = $(this).closest('.card').find('option:selected').attr("duration");
-      $('.get_price').text('$'+price/100);
-      $(this).closest('.card').find('.coin').text(price/duration/100);
+      var coin = (price/duration/100).toFixed(2);
+      $(this).closest('.card').find('.coin').text(coin);
     });
 
 
