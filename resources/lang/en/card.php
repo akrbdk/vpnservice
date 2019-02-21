@@ -31,5 +31,13 @@ return [
                            <li>High connection speed</li>
                            <li>Support premium</li>',
 
+    'plantext1' => 'test 3 days free',
+    'plantext2' => '1 month',
+    'plantext3' => '3 month',
+    'plantext4' => '6 month',
+    'plantext5' => '1 month',
+    'plantext6' => '3 month',
+    'plantext7' => '6 month',
+
 
 ];

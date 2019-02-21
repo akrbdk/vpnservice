@@ -52,6 +52,7 @@
       $(this).parent().addClass('selected');
       var price = $('.selected option:selected').attr("price");
       $('.get_price').text('$'+price/100);
+      $('.selected .coin').text(price/100);
       if(price === '0'){
         $('.checkout').hide();
         $('.trial_start').show();
@@ -66,6 +67,7 @@
     $('.select-options li').click(function () {
       var price = $('.selected option:selected').attr("price");
       $('.get_price').text('$'+price/100);
+        $('.selected .coin').text(price/100);
     });
 
 
