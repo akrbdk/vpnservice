@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Payments;
 
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\RegisterController;
 use Redirect;
 use DB;
 
