@@ -190,7 +190,7 @@ $tab=1;
                               @Auth
                               <input type="hidden" class="posData" name="posData" value="{{Auth::id()}}">
                               @endauth
-                              <button name="pay_method" class="submit btn-green" value="https://test.bitpay.com/checkout">Pay now</button>
+                              <button name="pay_method" class="submit btn-green" value="{{ url('/payWithBitPay') }}">Pay now</button>
                             </form>
 
                             <br style="clear:both;">

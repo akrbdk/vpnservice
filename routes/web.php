@@ -101,6 +101,7 @@ Route::post('/payWithstripe', 'Payments\StripeController@payWithstripe');
 //Trial
 Route::post('/getTrial', 'Plans\TrialController@index');
 //BitPay
+Route::post('/payWithBitPay', 'Payments\BitPayController@index');
 Route::post('/bitpaystatus', 'Payments\BitPayStatus@index');
 Route::get('/bitpayconfirm', function (){
   return Redirect::to('/admin')->with('alert-success', trans('payment_err.success'));
