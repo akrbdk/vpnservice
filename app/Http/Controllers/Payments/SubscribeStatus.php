@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Payments;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Plans\PlanOrder;
 use App\Http\Controllers\Payments\HistoryController;
 
 use DB;
@@ -25,15 +24,6 @@ class SubscribeStatus extends Controller
 
           $autopay = DB::table('payment_history')->where('autopay_id', $autopay_id)->first();
           $plan = DB::table('plans_table')->where('plan_name', $autopay->plan_name)->first();
-
-          $Order = array(
-              'plan_id' => $plan->id,
-              'months_limit' => $plan->months_limit,
-              'email' => '',
-              'user_id' => $autopay->user_id
-          );
-
-          PlanOrder::planOrder($Order);
 
           $Payment =  array(
               'email' => '',

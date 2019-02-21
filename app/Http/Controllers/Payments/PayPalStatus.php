@@ -10,7 +10,6 @@ use PayPal\Api\Payment;
 use PayPal\Api\PaymentExecution;
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
-use App\Http\Controllers\Plans\PlanOrder;
 use App\Http\Controllers\Payments\HistoryController;
 use Redirect;
 use Session;
@@ -39,12 +38,6 @@ class PayPalStatus extends Controller
         /** Get the payment ID before session clear **/
         $payment_id = Session::get('paypal_payment_id');
 
-        $Order = array(
-          'plan_id' => Session::get('plan_id'),
-          'months_limit' => Session::get('months_limit'),
-          'email' => Session::get('email')
-        );
-
         $Payment =  array(
           'email' => Session::get('email'),
           'plan_name' => Session::get('plan_name'),
@@ -71,7 +64,6 @@ class PayPalStatus extends Controller
         /**Execute the payment **/
         $result = $payment->execute($execution, $this->_api_context);
         if ($result->getState() == 'approved') {
-            PlanOrder::planOrder($Order);
             HistoryController::addPayment($Payment);
             return Redirect::to('/admin')->with('alert-success', trans('payment_err.success'));
         }

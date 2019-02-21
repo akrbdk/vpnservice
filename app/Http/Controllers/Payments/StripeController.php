@@ -56,14 +56,6 @@ class StripeController
         "customer" => $customer->id
       ));
 
-      $Order = array(
-        'plan_id' => $plan_id,
-        'months_limit' => $plan->months_limit,
-        'email' => $email
-      );
-
-      PlanOrder::planOrder($Order);
-
       $Payment =  array(
         'email' => $email,
         'plan_name' => $plan->plan_name,

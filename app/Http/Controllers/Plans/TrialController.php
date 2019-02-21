@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Plans;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Plans\PlanOrder;
 use App\Http\Controllers\Payments\HistoryController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Auth;
@@ -37,14 +36,6 @@ class TrialController
       }
 
       $plan = DB::table('plans_table')->where('id', $plan_id)->first();
-
-      $Order = array(
-        'plan_id' => $plan_id,
-        'months_limit' => $plan->months_limit,
-        'email' => $email
-      );
-
-      PlanOrder::planOrder($Order);
 
       $Payment =  array(
         'email' => $email,

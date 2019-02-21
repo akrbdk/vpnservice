@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Payments;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Plans\PlanOrder;
 use App\Http\Controllers\Payments\HistoryController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Auth;
@@ -41,15 +40,6 @@ class BitPayStatus
 
       if($_POST['status'] === 'paid'){
         $plan = DB::table('plans_table')->where('price', $price)->first();
-
-        $Order = array(
-          'plan_id' => $plan->id,
-          'months_limit' => $plan->months_limit,
-          'email' => $email,
-          'user_id' => $user_id
-        );
-
-        PlanOrder::planOrder($Order);
 
         $Payment =  array(
           'email' => $email,
