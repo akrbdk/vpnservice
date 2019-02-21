@@ -30,6 +30,7 @@ class HistoryController
 
       $planInfoArr = [
           'user_id' => $user_id,
+          'plan_id' => $data['plan_id'],
           'plan_name' => $data['plan_name'],
           'price' => $data['price'],
           'method' => $data['method'],
