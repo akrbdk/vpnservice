@@ -53,8 +53,14 @@ class BitPayController {
     }
 
     private function setAdditionalInfo($invoice, $userId, $planId) {
+        $posData = [
+            'user_id' => $userId,
+            'plan_id' => $planId
+        ];
+
         $invoice
-            ->setOrderId($userId . ',' . $planId)
+            // ->setOrderId()
+            ->setPosData(json_encode($posData))
             // You will receive IPN's at this URL, should be HTTPS for security purposes!
             ->setNotificationUrl(url('/bitpaystatus'))
             ->setRedirectUrl(url('/admin'));
