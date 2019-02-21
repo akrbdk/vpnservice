@@ -49,7 +49,7 @@
       @elseif ($button === 1 && $pay->method === 'PayPal')
         <form action="{{ url('/paypalsub') }}" method="post">
           @csrf
-          <input type="hidden" name="plan" value="{{$pay->plan_name}}">
+          <input type="hidden" name="plan_id" value="{{$pay->plan_id}}">
           <input type="hidden" name="expire" value="{{$pay->expiry_at}}">
           <button href="#" class="btn-green">Get Autopay</button>
         </form>
