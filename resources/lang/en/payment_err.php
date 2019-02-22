@@ -20,5 +20,8 @@ return [
     'occur' => 'Some error occured, try again',
     'unknown' => 'Unknown error occurred. Try again later',
     'failed' => 'Failed to make payment. Try again later',
-    'email' => 'Email already exists'
+    'email' => 'Email already exists',
+    'no_sub' => 'You dont have a subscription',
+    'cancel_success' => 'Your subscription successfully canceled',
+    'cancel_err' => 'There is an error to cancel your subscription'
 ];

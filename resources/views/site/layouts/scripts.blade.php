@@ -31,6 +31,7 @@
       $('.trial_start').hide();
     }
     $('section').show();
+    $('html, body').animate( { scrollTop: $('section').next('section').offset().top }, 2000 );
   });
 
   $('.select-options li').click(function () {
@@ -86,8 +87,6 @@
 
           var plan_id = $('.selected option:selected').attr("plan_id");
           $('.plan_id').attr('value', plan_id);
-
-          $
 
           if ($form.attr('action') === "{{ url('/payWithstripe') }}") {
             $form.find('.submit').prop('disabled', true);

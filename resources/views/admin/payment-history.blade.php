@@ -2,6 +2,14 @@
 
 @section('content')
 
+@if (session('alert'))
+    <div class="alert-success modal-content recovery-pw" style="display: block;">
+        <h2>{{ session('alert') }}</h2>
+        <button type="button" class="modal-close btn-green">Ok</button>
+    </div>
+    <div class="modal" style="display: block;"></div>
+@endif
+
 <main class="main-painel history-pay">
 		<div class="container">
 				<h2>Payments history</h2>

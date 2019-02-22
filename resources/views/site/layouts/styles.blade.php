@@ -7,7 +7,6 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 
 <!-- Humans -->
-<link rel="icon" href="{{ asset('site/img/icons/favicon.ico') }}">
 <link type="text/plain" rel="author" href="{{ asset('site/humans.txt') }}"/>
 <link rel="search" type="application/opensearchdescription+xml" href="{{ asset('site/opensearch.xml') }}" title="">
 
@@ -16,18 +15,20 @@
 <meta http-equiv="cleartype" content="on">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
+<!-- favicons -->
+<link rel="apple-touch-icon" sizes="120x120" href="{{ asset('site/img/icons/apple-touch-icon.png') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('site/img/icons/favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('site/img/icons/favicon-16x16.png') }}">
+<link rel="manifest" href="{{ asset('site/site.webmanifest') }}">
+<link rel="mask-icon" href="{{ asset('site/img/icons/safari-pinned-tab.svg') }}" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#ffc40d">
+<meta name="theme-color" content="#ffffff">
+
 <!-- Apple -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-touch-fullscreen" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="">
-<link rel="apple-touch-icon-precomposed" href="{{ asset('site/apple-touch-icon.png') }}">
-<link rel="apple-touch-startup-image" href="{{ asset('site/apple-startup.png') }}">
-<link rel="apple-touch-icon" sizes="57x57" href="{{ asset('site/apple-touch-icon-57x57.png') }}">
-<link rel="apple-touch-icon" sizes="72x72" href="{{ asset('site/apple-touch-icon-72x72.png') }}">
-<link rel="apple-touch-icon" sizes="114x114" href="{{ asset('site/apple-touch-icon-114x114.png') }}">
-<link rel="icon" sizes="192x192" href="{{ asset('site/chrome-touch-icon-192x192.png') }}">
-<link rel="shortcut icon" href="{{ asset('site/apple-touch-icon.png') }}">
 
 <!-- Android Chrome icon -->
 <meta name="mobile-web-app-capable" content="yes">

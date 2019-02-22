@@ -9,7 +9,6 @@ Route::get('setlocale/{locale}', function ($locale) {
 Route::namespace('Site')->group(function(){
     Route::get('/', 'IndexController@index');
     Route::get('/home', 'IndexController@index');
-    Route::get('/cancel', 'CancelController@index');
     Route::get('/contact-us', 'ContactsController@index');
     Route::get('/plans', 'PlansController@index');
     Route::get('/download', function () {
@@ -108,4 +107,5 @@ Route::get('/bitpayconfirm', function (){
 });
 Route::post('/paypalsub', 'Payments\PayPalSub@subscribe');
 Route::get('/substatus', 'Payments\SubRedirect@index');
+Route::get('/cancel', 'Payments\CancelSub@index');
 Route::post('/paypalipn', 'Payments\SubscribeStatus@index');
