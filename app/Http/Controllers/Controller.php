@@ -25,13 +25,18 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        if(empty(Session::get('locale'))){
-            $browser_lang = substr(Request::server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
-            $locale = (!empty($browser_lang) && in_array($browser_lang, Config::get('app.locales'))) ? $browser_lang : Config::get('app.locale');
+        $this->middleware(function ($request, $next) {
+            if(empty(Session::get('locale'))) {
+                $browser_lang = substr(Request::server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+                $locale = (!empty($browser_lang) && in_array($browser_lang, Config::get('app.locales'))) ? $browser_lang : Config::get('app.locale');
 
-            session(['locale' => $locale]);
-        }
-        App::setLocale(Session::get('locale'));
+                session(['locale' => $locale]);
+            }
+            App::setLocale(Session::get('locale'));
+
+            return $next($request);
+        });
+
 
         $this->middleware(function ($request, $next) {
             $ip_info = IpInfo::ip_info();
