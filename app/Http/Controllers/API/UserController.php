@@ -3,17 +3,16 @@
 namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\ApiController;
-use App\User;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Validator;
+use App\User;
 use DB;
 
 use App\Http\APIUtils\APIReply;
 use App\Http\APIUtils\APICode;
 use App\Http\Controllers\Plans\UserPlanInfo;
 
-class UserController extends ApiController
+class UserController extends Controller
 {
 
     /**

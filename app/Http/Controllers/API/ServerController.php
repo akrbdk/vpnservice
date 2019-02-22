@@ -3,17 +3,14 @@
 namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\ApiController;
-use App\User;
-use Illuminate\Support\Facades\Auth;
-use Validator;
+use Illuminate\Routing\Controller;
 use DB;
 use GuzzleHttp\Client;
 
 use App\Http\APIUtils\APIReply;
 use App\Http\APIUtils\APICode;
 
-class ServerController extends ApiController
+class ServerController extends Controller
 {
     public static $createPath = '/api/v1/server/create';
     public static $infoPath = '/api/v1/server/info';

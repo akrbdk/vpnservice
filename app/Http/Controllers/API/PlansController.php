@@ -3,19 +3,13 @@
 namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\ApiController;
-use App\User;
-use App\PlansTable;
-use Illuminate\Support\Facades\Auth;
-use Validator;
-use DB;
-use GuzzleHttp\Client;
+use Illuminate\Routing\Controller;
 
 use App\Http\APIUtils\APIReply;
 use App\Http\APIUtils\APICode;
 use App\Http\Controllers\Plans\UserPlanInfo;
 
-class PlansController extends ApiController
+class PlansController extends Controller
 {
 
     /**

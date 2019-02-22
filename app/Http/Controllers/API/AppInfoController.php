@@ -5,7 +5,7 @@ use DB;
 use App\Http\APIUtils\APIReply;
 use App\Http\APIUtils\APICode;
 
-class AppInfoController extends ApiController
+class AppInfoController
 {
 
     /**
