@@ -31,7 +31,7 @@
       $('.trial_start').hide();
     }
     $('section').show();
-    $('html, body').animate( { scrollTop: $('section').next('section').offset().top }, 2000 );
+    $('html, body').animate( { scrollTop: $('section').next('section').offset().top }, 300 );
   });
 
   $('.select-options li').click(function () {
