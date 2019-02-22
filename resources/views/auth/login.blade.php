@@ -56,7 +56,7 @@
                                 $('#button1').removeAttr('disabled');
                             }</script>
                     </div>
-                    <input type="submit" class="btn-orange" value="{{ trans('auth.login') }}"
+                    <input type="submit" class="disabled btn-orange" value="{{ trans('auth.login') }}"
                            id="button1">
                     <p></p>
                 </form>
