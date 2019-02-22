@@ -13,6 +13,6 @@ return [
     |
     */
 
-    'success' => 'Successful : link send!',
-    'error' => 'Faild: link not send!',
+    'success' => 'Reset link was sent',
+    'error' => 'Unknown error occured. Try again later',
 ];
