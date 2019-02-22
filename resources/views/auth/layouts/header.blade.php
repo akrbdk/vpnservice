@@ -37,8 +37,8 @@
 
     <nav id="menu">
         <ul class="menu-header">
-            <li><a href="{{ url('/payment-history') }}">{{ trans('menu.payments') }}</a></li>
-            <li><a href="{{ url('/invites') }}">{{ trans('menu.invitations') }}</a></li>
+            <li><a href="{{ url('/admin/payment-history') }}">{{ trans('menu.payments') }}</a></li>
+            <li><a href="{{ url('/admin/invites') }}">{{ trans('menu.invitations') }}</a></li>
             <li><a href="{{ url('/download') }}">{{ trans('menu.download') }}</a></li>
             <li><a href="{{ url('/contact-us') }}">{{ trans('menu.contact') }}</a></li>
             <li><a href="{{ url('/') }}">{{ trans('menu.leave') }}</a></li>
