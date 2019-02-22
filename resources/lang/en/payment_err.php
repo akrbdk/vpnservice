@@ -14,7 +14,7 @@ return [
     */
 
     'success' => 'Plan successfully purchased',
-    'autopay' => 'PayPal autopay activated',
+    'autopay' => 'Autopay activated',
     'autopay_err' => 'Failed to enable paypal autopay',
     'timeout' => 'Connection timeout. Try again later',
     'occur' => 'Some error occured, try again',

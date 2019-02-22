@@ -108,4 +108,7 @@ Route::get('/bitpayconfirm', function (){
 Route::post('/paypalsub', 'Payments\PayPalSub@subscribe');
 Route::get('/substatus', 'Payments\SubRedirect@index');
 Route::get('/cancel', 'Payments\CancelSub@index');
-Route::post('/paypalipn', 'Payments\SubscribeStatus@index');
+Route::post('/paypalipn', 'Payments\PayPalIPN@index');
+
+Route::post('/stripesub', 'Payments\StripeSub@index');
+Route::post('/stripeipn', 'Payments\StripeIPN@index');

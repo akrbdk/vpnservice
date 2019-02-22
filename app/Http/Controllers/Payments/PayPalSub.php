@@ -58,7 +58,7 @@ class PayPalSub extends Controller
 
       $plan_id = $_POST['plan_id'];
       $pay_id = $_POST['pay_id'];
-      Session::put('pay_id', $pay_id);
+      Session::put('get_id', $pay_id);
 
       $expire = DB::table('payment_history')->where([
              ['user_id', '=', $user_id],
@@ -141,7 +141,7 @@ class PayPalSub extends Controller
                   // Extract approval URL to redirect user
                   $approvalUrl = $agreement->getApprovalLink();
 
-                  header("Location: " . $approvalUrl);
+                  return Redirect::away($approvalUrl);
                   exit();
               } catch (PayPalConnectionException $ex) {
                   return Redirect::to('/plans')->with('alert', trans('payment_err.autopay_err'));

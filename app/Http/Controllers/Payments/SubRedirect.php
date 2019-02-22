@@ -37,9 +37,7 @@ class SubRedirect extends Controller
    {
          $token = $_GET['token'];
          $user_id = Auth::id();
-         $pay_id = Session::get('pay_id');
-
-         Session::forget('pay_id');
+         $pay_id = Session::get('get_id');
 
          $agreement = new Agreement();
            try {

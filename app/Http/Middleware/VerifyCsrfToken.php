@@ -22,5 +22,6 @@ class VerifyCsrfToken extends Middleware
         '/bitpaystatus',
         'password/email',
         'paypalipn',
+        'stripeipn'
     ];
 }

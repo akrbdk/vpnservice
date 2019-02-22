@@ -53,6 +53,13 @@
           <input type="hidden" name="pay_id" value="{{$pay->id}}">
           <button href="#" class="btn-green">Get Autopay</button>
         </form>
+      @elseif ($button === 1 && $pay->method === 'Card')
+        <form action="{{ url('/stripesub') }}" method="post">
+          @csrf
+          <input type="hidden" name="plan_id" value="{{$pay->plan_id}}">
+          <input type="hidden" name="pay_id" value="{{$pay->id}}">
+          <button href="#" class="btn-green">Get Autopay</button>
+        </form>
       @else
         <a href="#" class="btn-gray">Do not renew</a>
       @endif

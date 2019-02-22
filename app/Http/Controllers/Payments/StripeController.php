@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Stripe\Stripe;
 use Stripe\Customer;
 use Stripe\Charge;
+
 use DB;
 
 class StripeController
@@ -42,7 +43,10 @@ class StripeController
 
       $token = $_POST['stripeToken'];
 
+      $stripe_email = (isset($_POST['password'])) ? $email : Auth::user()->email;
+
       $customer = Customer::create(array(
+        "email" => $stripe_email,
         "source" => $token
       ));
 
@@ -51,7 +55,7 @@ class StripeController
       $charge = Charge::create(array(
         "amount" => $plan->price,
         "currency" => "usd",
-        "description" => 'some desc',
+        "description" => $plan->plan_name,
         "customer" => $customer->id
       ));
 
