@@ -29,7 +29,7 @@
 					</div>
 
 					<div class="clearfix">
-						<div class="g-recaptcha" data-sitekey="6LfKh4IUAAAAAGA3yo7qkblWIFXg3_WUGXJTuovW" data-callback="someFunctionName"></div>
+						<div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_SITEKEY') }}" data-callback="someFunctionName"></div>
 						<script>function someFunctionName(){
                                 $('#button1').removeAttr('disabled');
                             }</script>
