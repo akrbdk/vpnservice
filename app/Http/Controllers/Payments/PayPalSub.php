@@ -52,8 +52,7 @@ class PayPalSub extends Controller
 
       $expire = DB::table('payment_history')->where([
              ['user_id', '=', $user_id],
-             ['expiry_at', '>', time()],
-             ['method', '=', 'PayPal']
+             ['expiry_at', '>', time()]
          ])->orderBy('expiry_at', 'desc')->first()->expiry_at;
 
       $plan = DB::table('plans_table')->where('id', $plan_id)->first();
