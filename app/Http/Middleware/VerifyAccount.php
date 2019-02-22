@@ -37,6 +37,7 @@ class VerifyAccount{
         $user = DB::table('users')
                 ->join('sessions', 'users.id', '=', 'sessions.user_id')
                 ->where('sessions.token', '=', $token)
+                ->where('sessions.expiry_at', '>', time())
                 ->first();
 
         if (empty($user)) {
