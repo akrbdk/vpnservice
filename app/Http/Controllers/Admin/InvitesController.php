@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Controller;
 
-class InvitesController extends AdminController
+class InvitesController extends Controller
 {
     /**
      * Create a new controller instance.

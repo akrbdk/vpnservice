@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Controller;
 
-class PaymentHistoryController extends AdminController
+class PaymentHistoryController extends Controller
 {
     /**
      * Create a new controller instance.

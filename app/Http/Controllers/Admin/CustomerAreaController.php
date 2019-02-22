@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Controller;
 
-class CustomerAreaController extends AdminController
+class CustomerAreaController extends Controller
 {
     /**
      * Create a new controller instance.
