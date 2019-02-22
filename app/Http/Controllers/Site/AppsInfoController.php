@@ -9,7 +9,6 @@ class AppsInfoController extends Controller
 {
     public function index($alias)
     {
-        parent::__construct();
         $tabInfo= AppsInfo::where('link', $alias)->firstOrFail();
         $allTabs = AppsInfo::all();
 

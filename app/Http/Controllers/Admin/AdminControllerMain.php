@@ -12,18 +12,6 @@ use Carbon\CarbonInterval;
 
 class AdminControllerMain extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->middleware('auth');
-	info('Called locale: ' . app()->getLocale());
-    }
-
     private function convertDuration($duration) {
         $locale = app()->getLocale();
         Carbon::setlocale($locale);

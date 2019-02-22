@@ -8,7 +8,6 @@ class SendUsEmailController extends Controller
 {
     public function index()
     {
-        parent::__construct();
         return view('site.send-us-an-email', ['page_key' => 'send_email_']);
     }
 }
