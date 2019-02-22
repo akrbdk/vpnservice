@@ -21,6 +21,7 @@ use PayPal\Api\Agreement;
 use PayPal\Api\Payer;
 
 use URL;
+use Auth;
 use Session;
 use DB;
 
@@ -46,7 +47,14 @@ class PayPalSub extends Controller
 
     public function subscribe(){
       $plan_id = $_POST['plan_id'];
-      $expire = isset($_POST['expire']) ? $_POST['expire'] : time() + 120;
+      $user_id = Auth::id();
+
+
+      $expire = DB::table('payment_history')->where([
+             ['user_id', '=', $user_id],
+             ['expiry_at', '>', time()],
+             ['method', '=', 'PayPal']
+         ])->orderBy('expiry_at', 'desc')->first()->expiry_at;
 
       $plan = DB::table('plans_table')->where('id', $plan_id)->first();
       $plan_name = $plan->plan_name;
