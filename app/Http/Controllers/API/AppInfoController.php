@@ -1,15 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\API;
-
-use Illuminate\Http\Request;
-use App\Http\Controllers\ApiController;
-use App\User;
-use App\AppsInfo;
-use Illuminate\Support\Facades\Auth;
-use Validator;
 use DB;
-use GuzzleHttp\Client;
+use App\Http\APIUtils\APIReply;
+use App\Http\APIUtils\APICode;
 
 class AppInfoController extends ApiController
 {
@@ -20,14 +14,7 @@ class AppInfoController extends ApiController
      * @return \Illuminate\Http\Response
      */
     public function getAppInfoList(){
-
         $allPlans = DB::table('apps_infos')->select('version', 'client', 'link_update')->get()->toArray();
-
-        if(!empty($allPlans)){
-            return response()->json(['error'=> 0, 'payload' => array('apps' => $allPlans)], parent::$successStatus);
-
-        }
-
-        return parent::retAnswer(parent::$error, 'Empty plans table', ['check' => parent::$errorCheck], parent::$errorStatus);
+        return APIReply::with(['apps' => $allPlans]);
     }
 }
