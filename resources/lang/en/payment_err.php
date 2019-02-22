@@ -24,5 +24,6 @@ return [
     'no_sub' => 'You dont have a subscription',
     'has_sub' => 'You already got subscription',
     'cancel_success' => 'Your subscription successfully canceled',
-    'cancel_err' => 'There is an error to cancel your subscription'
+    'cancel_err' => 'There is an error to cancel your subscription',
+    'max_time' => 'Your next subscription start date more then max'
 ];

@@ -15,19 +15,18 @@ class StripeIPN extends Controller
 
       $bodyContent = json_decode($request->getContent(),true);
 
-      if($bodyContent['object']['object'] === 'subscription'){
-          if($bodyContent['object']['status'] === 'canceled'){
+      if($bodyContent['type'] === 'customer.subscription.deleted'){
 
-          $autopay_id = $bodyContent['object']['id'];
+          $autopay_id = $bodyContent['data']['object']['id'];
 
           DB::table('payment_history')->where('autopay_id', $autopay_id)->update(array('auto_renew' => '0', 'autopay_id' => ''));
-        }
+
       }
-      elseif ($bodyContent['object']['object'] === 'invoice') {
+      elseif ($bodyContent['type'] === 'invoice.payment_succeeded' && $bodyContent['data']['object']['billing_reason'] != 'subscription_create') {
 
-        if($bodyContent['object']['status'] === 'paid'){
+        if($bodyContent['data']['object']['status'] === 'paid'){
 
-          $autopay_id = $bodyContent['object']['subscription'];
+          $autopay_id = $bodyContent['data']['object']['subscription'];
 
           $autopay = DB::table('payment_history')->where('autopay_id', $autopay_id)->first();
 
@@ -41,7 +40,7 @@ class StripeIPN extends Controller
               'plan_id' => $autopay->plan_id,
               'plan_name' => $plan->plan_name,
               'price' => $plan->price,
-              'method' => 'PayPal',
+              'method' => 'Card',
               'auto_renew' => 1,
               'months_limit' => $plan->months_limit,
               'autopay_id' => $autopay_id

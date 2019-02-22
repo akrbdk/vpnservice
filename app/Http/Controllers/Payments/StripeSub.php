@@ -36,6 +36,10 @@ class StripeSub extends Controller
            ['expiry_at', '>', time()]
     ])->orderBy('expiry_at', 'desc')->first()->expiry_at;
 
+    if($expire - time() >= 63072000){
+      return Redirect::to('/admin/payment-history')->with('alert', trans('payment_err.max_time'));
+    }
+
     $plan = DB::table('plans_table')->where('id', $plan_id)->first();
     $plan_name = $plan->plan_name;
 
