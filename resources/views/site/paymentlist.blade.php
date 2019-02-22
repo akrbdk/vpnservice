@@ -50,7 +50,7 @@
         <form action="{{ url('/paypalsub') }}" method="post">
           @csrf
           <input type="hidden" name="plan_id" value="{{$pay->plan_id}}">
-          <input type="hidden" name="expire" value="{{$pay->expiry_at}}">
+          <input type="hidden" name="pay_id" value="{{$pay->id}}">
           <button href="#" class="btn-green">Get Autopay</button>
         </form>
       @else

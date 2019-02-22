@@ -22,6 +22,7 @@ return [
     'failed' => 'Failed to make payment. Try again later',
     'email' => 'Email already exists',
     'no_sub' => 'You dont have a subscription',
+    'has_sub' => 'You already got subscription',
     'cancel_success' => 'Your subscription successfully canceled',
     'cancel_err' => 'There is an error to cancel your subscription'
 ];

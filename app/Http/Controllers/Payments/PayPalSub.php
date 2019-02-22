@@ -22,6 +22,7 @@ use PayPal\Api\Payer;
 
 use URL;
 use Auth;
+use Redirect;
 use Session;
 use DB;
 
@@ -46,9 +47,18 @@ class PayPalSub extends Controller
      }
 
     public function subscribe(){
-      $plan_id = $_POST['plan_id'];
+
       $user_id = Auth::id();
 
+      $autopay = DB::table('payment_history')->where('autopay_id', '<>', '')->where('user_id', $user_id)->first();
+
+      if(!empty($autopay)){
+        return Redirect::to('/admin/payment-history')->with('alert', trans('payment_err.has_sub'));
+      }
+
+      $plan_id = $_POST['plan_id'];
+      $pay_id = $_POST['pay_id'];
+      Session::put('pay_id', $pay_id);
 
       $expire = DB::table('payment_history')->where([
              ['user_id', '=', $user_id],
@@ -57,10 +67,6 @@ class PayPalSub extends Controller
 
       $plan = DB::table('plans_table')->where('id', $plan_id)->first();
       $plan_name = $plan->plan_name;
-
-      Session::put('plan_id', $plan_id);
-      Session::put('price', $plan->price);
-      Session::put('months_limit', $plan->months_limit);
 
       $month = $plan->months_limit/60/60/24/30;
       $price = $plan->price/100;
