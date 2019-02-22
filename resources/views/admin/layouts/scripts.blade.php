@@ -16,6 +16,11 @@
 </script>
 
 <script>
+
+    $('.cancel-subs').click(function () {
+      $(this).remove();
+    });
+
     $('.modal-close').click(function(){
       $('.modal-content').remove();
       $('.modal').remove();

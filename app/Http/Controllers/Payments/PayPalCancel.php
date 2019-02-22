@@ -30,7 +30,7 @@ class PayPalCancel
              );
              $this->_api_context->setConfig($paypal_conf['settings']);
          }
-         
+
     public function index($autopay_id)
         {
             $agreement = new Agreement();
@@ -42,6 +42,7 @@ class PayPalCancel
             try {
                 $agreement->cancel($agreementStateDescriptor, $this->_api_context);
                 $cancelAgreementDetails = Agreement::get($agreement->getId(), $this->_api_context);
+                DB::table('payment_history')->where('autopay_id', $autopay_id)->update(array('auto_renew' => '0', 'autopay_id' => ''));
                 return Redirect::to('/admin/payment-history')->with('alert', trans('payment_err.cancel_success'));
             } catch (Exception $ex) {
               return Redirect::to('/admin/payment-history')->with('alert', trans('payment_err.cancel_err'));
