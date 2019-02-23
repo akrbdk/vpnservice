@@ -9,6 +9,7 @@ use GuzzleHttp\Client;
 
 use App\Http\APIUtils\APIReply;
 use App\Http\APIUtils\APICode;
+use App\Http\Controllers\Plans\UserPlanInfo;
 
 class ServerController extends Controller
 {
@@ -161,13 +162,14 @@ class ServerController extends Controller
      */
     public function serverList(Request $request){
         $serverArr = [];
-        $serverList = DB::table('server_infos')->get();
-        if(!empty($serverList)){
-            foreach ($serverList as $server){
-                $serverArr[] = json_decode($server->info, true);
-            }
+        $info = new UserPlanInfo($request->get('user_id'));
+        $plan = $info->getPlan();
+        $serverList = DB::table('server_infos')->where('access_level', '>=', $plan->server_access)->select('info')->get();
+        
+        foreach ($serverList as $server){
+            $serverArr[] = json_decode($server->info, true);
         }
-
+        
         return APIReply::with(['servers'=> $serverArr]);
     }
 
