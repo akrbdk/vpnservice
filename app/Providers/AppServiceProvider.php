@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Encore\Admin\Config\Config;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +18,8 @@ class AppServiceProvider extends ServiceProvider
         if (class_exists(Config::class)) {
             Config::load();
         }
+
+        Validator::extend('recaptcha', 'App\\Validators\\ReCaptcha@validate');
     }
 
     /**
