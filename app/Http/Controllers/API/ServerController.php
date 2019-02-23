@@ -164,7 +164,7 @@ class ServerController extends Controller
         $serverArr = [];
         $info = new UserPlanInfo($request->get('user_id'));
         $plan = $info->getPlan();
-        $serverList = DB::table('server_infos')->where('access_level', '>=', $plan->server_access)->select('info')->get();
+        $serverList = DB::table('server_infos')->where('access_level', '<=', $plan->server_access)->select('info')->get();
         
         foreach ($serverList as $server){
             $serverArr[] = json_decode($server->info, true);
