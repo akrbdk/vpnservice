@@ -1,0 +1,781 @@
+#header-painel.planos
+  padding-bottom 20px
+
+.bg-gray
+  position absolute
+  height 350px
+  width 100%
+  background #f4f4f4
+
+.finish-plan
+  #choose-plan
+    background-color transparent
+    padding-top 0px
+    padding-bottom 0px
+
+  .title-c
+    position relative
+    display block
+    margin 0 auto
+    width 100%
+    max-width 350px
+    padding 60px 0
+
+    .number
+      span(2/10)
+      background #fff
+      width 40px
+      height 40px
+      text-align center
+      font-size 14px
+      line-height 40px
+      border 1px solid #e3e3e3
+      border-radius 100%
+      margin-right 10px
+
+    .title-desc
+      span(8/10)
+
+      h2
+        margin 0px
+        line-height 18px
+
+      p
+        color #999999
+        font-size 14px
+        margin 0px
+        line-height 14px
+        margin-top 5px
+
+.warn-section
+  position relative
+  display block
+  width: 31.33333333333333%;
+  margin 10px auto
+  border 2px solid #ff9000
+  border-radius 5px
+  box-sizing border-box
+
+  .icon
+    span(2/10)
+    width 60px
+    display block
+    height 65px
+    position relative
+
+    &::before
+      position absolute
+      content "!"
+      color #ff9000
+      font-size 24px
+      line-height 24px
+      font-weight 700
+      top 50%
+      left 50%
+      transform translate(-50%,-50%)
+
+  p
+    span(8/10)
+    font-size 14px
+    color #999999
+
+.advantages
+  background #f4f4f4
+  border-radius 5px
+  padding 0 80px 35px 80px
+
+  h3
+    padding: 0px
+    text-align: center
+    color: #383838
+    font-size: 16px
+    line-height 16px
+    text-transform uppercase
+    padding 35px 0
+
+  .list
+    position relative
+    display block
+    list-style none
+
+    li
+      span(1/3)
+      font-size 14px
+      line-height 20px
+      color #7b7b7b
+      padding-left 22px
+      box-sizing border-box
+      background url("../img/check.png") no-repeat center left;
+      margin-bottom 25px
+
+.advantages-basic,
+.advantages-pop,
+.advantages-mostpop
+  display none
+
+.identificacao
+  position relative
+  display block
+  width 100%
+  max-width 570px
+  margin 0 auto
+
+  label
+    column(1/1)
+    font-weight 700
+    margin-bottom 2px
+
+  .email,
+  .password
+    column(1/1)
+    border 2px solid #e3e3e3
+    font-size 14px
+    padding 0 15px
+    border-radius 5px
+    height 50px
+    box-sizing border-box
+    color #383838
+
+    &:focus,
+    &:hover
+      outline none
+      border-color #40cead
+
+
+  .email
+    margin-bottom 20px
+
+  a
+    position relative
+    display block
+    float right
+    color #999999
+    font-weight 700
+    font-size 13px
+    text-decoration none
+    margin-top 4px
+
+    &:hover
+      color #0071fd
+
+  input[type="submit"]
+    width 100%
+    max-width 230px
+    border 2px solid orange
+    font-size 14px
+    padding 0
+    border-radius 5px
+    height 50px
+    box-sizing border-box
+    text-align center
+    float none
+    margin 30px auto 0 auto
+
+  p
+    color #666666
+    font-size 14px
+    text-align center
+    margin 40px 0 0 0
+
+    span
+      font-weight 700
+
+
+.checkout
+
+  .cartao-credito
+    position relative
+    display block
+    width 100%
+    max-width 570px
+    margin 0 auto
+    overflow hidden
+    height 53px
+    box-sizing: border-box;
+    overflow: hidden
+    margin-bottom 20px
+
+    .cupom
+      font-size 14px
+      color #a0a0a0
+      text-align center
+      margin 20px 0
+      border none
+
+      .cupom2
+        border 2px solid #e3e3e3
+        font-size 14px
+        padding 0 15px
+        border-radius 5px
+        height 50px
+        box-sizing border-box
+        color #383838
+        margin-bottom 15px
+        display none;
+        max-width: 300px
+        margin 10px auto 20px auto
+        float none
+
+        &:focus,
+        &:hover
+          outline none
+          border-color #40cead
+
+      &.active
+        .cupom2
+          display block;
+
+      p
+        cursor pointer
+        text-align center
+        transition all ease .5s
+        max-width 230px
+        margin 0 auto
+
+        &:hover
+          color #0071fd
+
+    .content
+      height 0
+      padding 0px 30px 20px 30px
+      box-sizing: border-box;
+      overflow: hidden
+    p
+      font-size 13px
+      color #a0a0a0
+      text-align left
+
+    > span
+      position relative
+      display block
+      color #848484
+      font-weight 700
+      padding 15px
+      border-radius 5px
+      border 2px solid #e3e3e3
+      text-transform uppercase
+      font-size 14px
+      margin-bottom 20px
+      cursor pointer
+      background url("../img/planos_03.jpg") no-repeat center right 30px;
+
+      img
+        margin-right 10px
+
+    .cover
+      position relative
+      display block
+      width 100%
+      text-align: center
+      margin-bottom 15px
+
+    label
+      column(1/1)
+      font-weight 700
+      margin-bottom 2px
+
+    .nome,
+    .ncartao
+      column(1/1)
+      border 2px solid #e3e3e3
+      font-size 14px
+      padding 0 15px
+      border-radius 5px
+      height 50px
+      box-sizing border-box
+      color #383838
+      margin-bottom 15px
+
+      &:focus,
+      &:hover
+        outline none
+        border-color #40cead
+
+    .mes,
+    .ano,
+    .ccv
+      column(1/3)
+      border 2px solid #e3e3e3
+      font-size 14px
+      padding 0 15px
+      border-radius 5px
+      height 50px
+      box-sizing border-box
+      color #383838
+      margin-bottom 15px
+
+      &:focus,
+      &:hover
+        outline none
+        border-color #40cead
+
+    .ccv
+      margin-right 0px
+
+    .total,
+    .btn-green
+      span(1/2)
+      box-sizing: border-box;
+
+    .total
+      padding-right 30px
+      text-align right
+      font-size 14px
+      text-transform: uppercase
+      font-weight: bold
+      line-height: 50px
+
+      span
+        color green
+
+    .btn-green
+      text-align: center
+
+    p
+      color #666666
+      font-size 14px
+      text-align left
+      margin 0px 0 0 0
+      float none
+
+      span
+        font-weight 700
+
+    .termos-servico
+      margin 10px 0 0 0
+      font-size 13px
+      text-align: center
+
+
+
+
+  .boleto
+    position relative
+    display block
+    width 100%
+    max-width 570px
+    margin 0 auto
+    overflow hidden
+    height 53px
+    box-sizing: border-box;
+    overflow: hidden
+    margin-bottom 20px
+
+    .content
+      height 0
+      padding 0px 30px 20px 30px
+      box-sizing: border-box;
+      overflow: hidden
+
+      p
+        font-size 14px
+        color #a0a0a0
+        text-align center
+
+      .cupom
+        font-size 14px
+        color #a0a0a0
+        text-align center
+        margin 20px 0
+        border none
+
+        .cupom2
+          border 2px solid #e3e3e3
+          font-size 14px
+          padding 0 15px
+          border-radius 5px
+          height 50px
+          box-sizing border-box
+          color #383838
+          margin-bottom 15px
+          display none;
+          max-width: 300px
+          margin 10px auto 20px auto
+          float none
+
+          &:focus,
+          &:hover
+            outline none
+            border-color #40cead
+
+        &.active
+          .cupom2
+            display block;
+
+        p
+          cursor pointer
+          text-align center
+          transition all ease .5s
+          max-width 230px
+          margin 0 auto
+
+          &:hover
+            color #0071fd
+
+
+    > span
+      position relative
+      display block
+      color #848484
+      font-weight 700
+      padding 15px
+      border-radius 5px
+      border 2px solid #e3e3e3
+      text-transform uppercase
+      font-size 14px
+      margin-bottom 20px
+      cursor pointer
+      background url("../img/planos_03.jpg") no-repeat center right 30px;
+
+      img
+        margin-right 10px
+
+
+    .total,
+    .btn-green
+      span(1/2)
+      box-sizing: border-box;
+
+    .total
+      padding-right 30px
+      text-align right
+      font-size 14px
+      text-transform: uppercase
+      font-weight: bold
+      line-height: 50px
+
+      span
+        color green
+
+    .btn-green
+      text-align: center
+
+    p
+      color #666666
+      font-size 14px
+      text-align left
+      margin 0px 0 0 0
+      float none
+
+      span
+        font-weight 700
+
+    .termos-servico
+      margin 10px 0 0 0
+      font-size 13px !important
+      text-align: center
+
+  .paypal
+    position relative
+    display block
+    width 100%
+    max-width 570px
+    margin 0 auto
+    overflow hidden
+    height 53px
+    box-sizing: border-box;
+    overflow: hidden
+    margin-bottom 20px
+
+    .content
+      height 0
+      padding 0px 30px 20px 30px
+      box-sizing: border-box;
+      overflow: hidden
+
+      .bitcoin-detail
+        position relative
+        display block
+        width 100%
+        font-size 14px
+        color #a0a0a0
+        text-align left
+        min-height 90px
+
+        img
+          position absolute
+          display block
+          right 0px
+          top 0px
+
+      p
+        font-size 14px
+        color #a0a0a0
+        text-align center
+
+      .cupom
+        font-size 14px
+        color #a0a0a0
+        text-align center
+        margin 20px 0
+        border none
+
+        .cupom2
+          border 2px solid #e3e3e3
+          font-size 14px
+          padding 0 15px
+          border-radius 5px
+          height 50px
+          box-sizing border-box
+          color #383838
+          margin-bottom 15px
+          display none;
+          max-width: 300px
+          margin 10px auto 20px auto
+          float none
+
+          &:focus,
+          &:hover
+            outline none
+            border-color #40cead
+
+        &.active
+          .cupom2
+            display block;
+
+        p
+          cursor pointer
+          text-align center
+          transition all ease .5s
+          max-width 230px
+          margin 0 auto
+
+          &:hover
+            color #0071fd
+
+
+    > span
+      position relative
+      display block
+      color #848484
+      font-weight 700
+      padding 15px
+      border-radius 5px
+      border 2px solid #e3e3e3
+      text-transform uppercase
+      font-size 14px
+      margin-bottom 20px
+      cursor pointer
+      background url("../img/planos_07.jpg") no-repeat center right 30px;
+
+      img
+        margin-right 10px
+
+
+    .total,
+    .btn-green
+      span(1/2)
+      box-sizing: border-box;
+
+    .total
+      padding-right 30px
+      text-align right
+      font-size 14px
+      text-transform: uppercase
+      font-weight: bold
+      line-height: 50px
+
+      span
+        color green
+
+    .btn-green
+      text-align: center
+
+    p
+      color #666666
+      font-size 14px
+      text-align left
+      margin 0px 0 0 0
+      float none
+
+      span
+        font-weight 700
+
+    .termos-servico
+      margin 10px 0 0 0
+      font-size 13px !important
+      text-align: center
+
+
+  .bitcoin
+    position relative
+    display block
+    width 100%
+    max-width 570px
+    margin 0 auto
+    overflow hidden
+    height 53px
+    box-sizing: border-box;
+    overflow: hidden
+    margin-bottom 20px
+
+    .content
+      height 0
+      padding 0px 30px 20px 30px
+      box-sizing: border-box;
+      overflow: hidden
+
+      .bitcoin-detail
+        position relative
+        display block
+        width 100%
+        font-size 14px
+        color #a0a0a0
+        text-align left
+        min-height 90px
+        margin-bottom 40px
+
+        img
+          position absolute
+          display block
+          right 0px
+          top 0px
+
+      p
+        font-size 14px
+        color #a0a0a0
+        text-align center
+
+      .cupom
+        font-size 14px
+        color #a0a0a0
+        text-align center
+        margin 20px 0
+        border none
+
+        .cupom2
+          border 2px solid #e3e3e3
+          font-size 14px
+          padding 0 15px
+          border-radius 5px
+          height 50px
+          box-sizing border-box
+          color #383838
+          margin-bottom 15px
+          display none;
+          max-width: 300px
+          margin 10px auto 20px auto
+          float none
+
+          &:focus,
+          &:hover
+            outline none
+            border-color #40cead
+
+        &.active
+          .cupom2
+            display block;
+
+        p
+          cursor pointer
+          text-align center
+          transition all ease .5s
+          max-width 230px
+          margin 0 auto
+
+          &:hover
+            color #0071fd
+
+
+    > span
+      position relative
+      display block
+      color #848484
+      font-weight 700
+      padding 15px
+      border-radius 5px
+      border 2px solid #e3e3e3
+      text-transform uppercase
+      font-size 14px
+      margin-bottom 20px
+      cursor pointer
+      background url("../img/planos_11.jpg") no-repeat center right 30px;
+
+
+      img
+        margin-right 10px
+
+
+    .total,
+    .btn-green
+      position relative
+      display block
+      width 100%
+      max-width 300px
+      box-sizing: border-box;
+      text-align: center
+      margin 0 auto
+
+    .total
+      padding-right 30px
+      text-align right
+      font-size 14px
+      text-transform: uppercase
+      font-weight: bold
+      line-height: 50px
+      text-align: center
+      padding 0px
+
+      span
+        color green
+
+    .btn-green
+      text-align: center
+
+    p
+      color #666666
+      font-size 14px
+      text-align left
+      margin 0px 0 0 0
+      float none
+
+      span
+        font-weight 700
+
+    .termos-servico
+      margin 10px 0 0 0
+      font-size 13px !important
+      text-align: center
+
+.checkout .active
+  border 2px solid green
+  box-sizing: border-box;
+  border-radius 5px
+  height inherit
+
+  > span
+    border none
+    position: relative
+
+    &::before
+      content ""
+      position: absolute;
+      display: block;
+      width: 90%
+      height 2px
+      background #e3e3e3
+      left 50%
+      bottom 0px
+      transform translateX(-50%)
+
+  .content
+    display block
+    height auto
+
+.footer-checkout
+
+  .container
+    width: 100%;
+    max-width: 550px;
+    margin: 0 auto;
+    position: relative;
+    display: table;
+
+    .logo-base,
+    .payments-base
+      float: left;
+      clear: none;
+      text-align: inherit;
+      width: 48.5% !important;
+      margin-left: 0%;
+      margin-right: 3%;

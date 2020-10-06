@@ -1,0 +1,55 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "npm run development -- --watch",
+    "watch-poll": "npm run watch -- --watch-poll",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "devDependencies": {
+    "axios": "^0.18",
+    "bootstrap": "^4.0.0",
+    "browser-sync": "^2.8.2",
+    "cross-env": "^5.1",
+    "gulp": "^3.9.0",
+    "gulp-combine-mq": "^0.4.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-stylus": "^2.0.6",
+    "gulp-uglify": "^1.2.0",
+    "gulp-util": "^3.0.6",
+    "gulp-watch": "^4.3.4",
+    "jeet": "^7.1.0",
+    "jquery": "^3.2",
+    "laravel-elixir": "^6.0.0-18",
+    "laravel-elixir-vue-2": "^0.3.0",
+    "laravel-elixir-webpack-official": "^1.0.10",
+    "laravel-mix": "^2.0",
+    "lodash": "^4.17.5",
+    "popper.js": "^1.12",
+    "stylus": "^0.54.5",
+    "vue": "^2.5.17"
+  },
+  "name": "padrao-front-end",
+  "version": "1.0.0",
+  "description": "Kick starter para projetos front end com gulp",
+  "main": "gulpfile.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunogallo/Padrao-Front-End-Gulp.git"
+  },
+  "keywords": [
+    "Front-End",
+    "Gulp",
+    "Kick",
+    "Starter"
+  ],
+  "author": "Bruno Gallo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brunogallo/Padrao-Front-End-Gulp/issues"
+  },
+  "homepage": "https://github.com/brunogallo/Padrao-Front-End-Gulp#readme"
+}

@@ -1,0 +1,459 @@
+#features
+  position relative
+  display block
+  width 100%
+  background #fff
+
+  #features-list
+    position relative
+    display block
+    width 100%
+    margin 0px
+    padding 0px
+    list-style none
+
+    li
+      column(1/3)
+      text-align center
+
+      img
+        margin-bottom 12px
+
+      p
+        position relative
+        display block
+        font-size 14px
+        max-width 278px
+        margin 14px auto 0 auto
+
+      span
+        position relative
+        display block
+        font-size 16px
+        text-transform uppercase
+        padding-bottom 11px
+        font-weight 700
+        line-height 16px
+
+        &:before
+          content ''
+          position absolute
+          bottom 0px
+          left 50%
+          transform translateX(-50%)
+          height 2px
+          width 100%
+          max-width 170px
+
+    li:nth-child(1) span:before
+      background #69ffeb
+      background -moz-linear-gradient(left, #69ffeb 0%, #48f2e1 100%)
+      background -webkit-linear-gradient(left, #69ffeb 0%,#48f2e1 100%)
+      background linear-gradient(to right, #69ffeb 0%,#48f2e1 100%)
+
+    li:nth-child(2) span:before
+      background #99ffc4
+      background -moz-linear-gradient(left, #99ffc4 0%, #4dffb6 100%)
+      background -webkit-linear-gradient(left, #99ffc4 0%,#4dffb6 100%)
+      background linear-gradient(to right, #99ffc4 0%,#4dffb6 100%)
+
+    li:nth-child(3) span:before
+      background #fff479
+      background -moz-linear-gradient(left, #fff479 0%, #ffe539 100%)
+      background -webkit-linear-gradient(left, #fff479 0%,#ffe539 100%)
+      background linear-gradient(to right, #fff479 0%,#ffe539 100%)
+
+
+#best-service
+  position relative
+  display block
+  width 100%
+  margin-top 50px
+  padding 40px 0 57px 0
+  background url("../img/bg-vpn.jpg") no-repeat top center
+  background-size cover
+
+  .bg-bl
+    position absolute
+    top 50%
+    left 0px
+    transform translateY(-50%)
+    z-index 10
+
+  .title
+    position relative
+    display block
+    text-align center
+    color #fff
+    font-weight 700
+    font-size 24px
+    line-height 19px
+    margin 0px 20px 0px 0px
+    width 100%
+
+  .subtitle
+    position relative
+    display block
+    text-align center
+    color #fff
+    font-weight 300
+    font-size 14px
+    line-height 14px
+    margin 10px 0px 0px 0px
+    width 100%
+
+  #service-list
+    position relative
+    display block
+    list-style none
+    margin 45px 0px 0px 0px
+    padding 0px
+    z-index 100
+
+    li
+      position relative
+      column(3/12)
+      margin-top 14px
+      margin-bottom 14px
+
+      &:nth-child(4)
+        margin-right 0px
+
+      > img
+        position relative
+        display block
+        float left
+        width 70px
+
+      p
+        position relative
+        display block
+        float right
+        width calc(100% - 70px)
+        padding-left 10px
+        box-sizing border-box
+        color #fff
+        font-size 14px
+
+
+#choose-plan
+  position relative
+  display block
+  width 100%
+  background-color #f4f4f4
+  padding-top 40px
+  padding-bottom 60px
+
+  h2
+    position relative
+    display block
+    width 100%
+    font-size 24px
+    text-transform uppercase
+    margin 0px 0px 24px 0px
+    font-weight 700
+    text-align center
+
+  #plan-list
+    position relative
+    display block
+    width 100%
+    list-style none
+
+    > li
+      position relative
+      column(1/3)
+      border-radius 5px
+      background #fff
+      padding 30px 26px 27px 26px
+      box-sizing border-box
+      height 375px
+      -webkit-box-shadow:inset 0px 0px 0px 1px #e3e3e3;
+      -moz-box-shadow:inset 0px 0px 0px 1px #e3e3e3;
+      box-shadow:inset 0px 0px 0px 1px #e3e3e3;
+
+      &:last-child
+        padding: 20px 26px 20px 26px;
+
+      &.most-pop
+        -webkit-box-shadow:inset 0px 0px 0px 3px green;
+        -moz-box-shadow:inset 0px 0px 0px 3px green;
+        box-shadow:inset 0px 0px 0px 3px green;
+
+      .title
+        position relative
+        display block
+        width 100%
+        font-size 16px
+        line-height 16px
+        text-transform uppercase
+        margin 0px 0px 28px 0px
+        font-weight 700
+        text-align center
+
+        span
+          display: block;
+          font-size: 13px;
+          text-transform: none;
+          color: #999999;
+          font-weight: 400;
+
+      .price
+        position relative
+        display block
+        width 100%
+        text-align center
+        line-height 31px
+        color #999999
+        height 40px
+
+        .currency
+          font-size 14px
+          font-weight 700
+
+        .coin
+          font-size 48px
+          font-weight 700
+          margin-right -3px
+
+        .cents
+          font-size 24px
+          font-weight 700
+
+      &:nth-child(2) .price,
+      &:nth-child(3) .price
+        color orange
+
+        .currency
+          color #999999 !important
+
+      .plan-type
+        position relative
+        display block
+        width 100%
+        font-size 14px
+        line-height 14px
+        margin 0px 0px 28px 0px
+        font-weight 400
+        text-align center
+        color #999999
+
+      .select
+        position relative
+        display block
+        width 100%
+        max-width 230px
+
+      .feature-list
+        position relative
+        display table
+        margin 0 auto 21px auto
+        list-style none
+
+        li
+          padding-left 22px
+          font-size 14px
+          line-height 14px
+          margin-bottom 6px
+          background url("../img/check.png") no-repeat center left
+
+      .trial
+        position relative
+        display block
+        width 100%
+        max-width 230px
+        margin 0 auto 17px auto
+        text-align center
+        font-size 14px
+        padding 11px 0px
+        border-radius 5px
+        line-height 20px
+        background #f4f4f4
+
+      .btn-orange,
+      .btn-green
+        width 100%
+        max-width 230px
+        margin 0 auto
+        box-sizing border-box
+
+      .btn-orange > span
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin: -3px 7px 0 0;
+        vertical-align: middle;
+        cursor: pointer;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+        border-radius: 5px;
+        border: 2px solid #fff;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        box-sizing: border-box;
+
+
+
+      .btn-green > span
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin: -3px 7px 0 0;
+        vertical-align: middle;
+        cursor: pointer;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+        border-radius: 5px;
+        border: 2px solid #fff;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        box-sizing: border-box;
+
+      .btn-green:hover > span
+        border-color: green;
+
+      .btn-green.active:hover > span
+        background: url('../img/check-green.png') no-repeat center center !important;
+
+      .btn-orange:hover > span
+        border-color: orange;
+
+      .btn-orange.active:hover > span
+        background: url('../img/check-orange.png') no-repeat center center !important;
+
+
+#country
+  position relative
+  display block
+  width 100%
+  padding-top 44px
+
+  h2
+    position relative
+    display block
+    width 100%
+    font-size 24px
+    text-transform uppercase
+    margin 0 0 20px 0
+    font-weight 700
+    text-align center
+
+  p
+    position relative
+    display block
+    width 100%
+    max-width 565px
+    font-size 14px
+    margin 0 auto 24px auto
+    font-weight 300
+    text-align center
+    line-height 17px
+
+  .title
+    position relative
+    display table
+    font-size 16px
+    text-transform uppercase
+    padding-bottom 11px
+    font-weight 700
+    line-height 16px
+    margin 34px auto 0 auto
+
+    &:before
+      content ''
+      position absolute
+      bottom 0px
+      left 50%
+      transform translateX(-50%)
+      height 2px
+      width 100%
+      max-width 170px
+      background #f4f4f4
+      background -moz-linear-gradient(left, #f4f4f4 0%, #f4f4f4 100%)
+      background -webkit-linear-gradient(left, #f4f4f4 0%,#f4f4f4 100%)
+      background linear-gradient(to right, #f4f4f4 0%,#f4f4f4  100%)
+
+  #country-list
+    list-style none
+    width 100%
+    max-width 970px
+    padding 0
+    margin 10px auto 0 auto
+
+    li
+      position relative
+      display block
+      column(1/10)
+      background-color #f4f4f4
+      border-radius 5px
+      -webkit-box-shadow inset 0px 1px 1px 0px rgba(220,220,220,1)
+      -moz-box-shadow inset 0px 1px 1px 0px rgba(220,220,220,1)
+      box-shadow inset 0px 1px 1px 0px rgba(220,220,220,1)
+      margin-top 13px
+      margin-bottom 13px
+      cursor pointer
+
+      &:nth-child(10),
+      &:nth-child(20),
+      &:nth-child(30)
+        margin-right 0px
+
+      &:last-child
+        text-align left
+        font-size 14px
+        color #999999
+        line-height 24px
+        width 14.6%
+        background none
+        -webkit-box-shadow none
+        -moz-box-shadow none
+        box-shadow none
+        cursor default
+
+      &:hover .cities
+        display block !important
+        opacity 1 !important
+
+      img
+        position relative
+        display block
+        float left
+        border 2px solid transparent
+
+      span
+        position relative
+        display block
+        float right
+        width calc(100% - 32px)
+        text-align center
+        font-size 13px
+        color #999999
+        line-height 24px
+
+      .cities
+        position absolute
+        bottom 115%
+        min-width 170px
+        padding 10px 0
+        border 1px solid #e3e3e3
+        border-radius 5px
+        transition all 0.5s ease
+        opacity 0
+        display none
+
+        p
+          position relative
+          text-align center
+          color #666666
+          margin 0
+          font-size 13px
